@@ -36,6 +36,7 @@ public class PlayerStat : MonoBehaviour
     public bool suddenDeath = false;
     public bool shockDam = false;
     public Dictionary<string, int> damDict = new Dictionary<string, int>(); // Damage Dictionary
+    public Dictionary<string, int> wepLevelDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, float> ammoDict = new Dictionary<string, float>(); // Ammo Dictionary
     public Dictionary<string, int> ammoMaxDict = new Dictionary<string, int>(); // Max Ammo Dictionary
     public Text hpText;
@@ -74,6 +75,12 @@ public class PlayerStat : MonoBehaviour
         ammoMaxDict.Add("shellMax", 16);
         ammoMaxDict.Add("expolsiveMax", 8);
         ammoMaxDict.Add("laserMax", 24);
+        //Setting Weapon Level values 
+        wepLevelDict.Add("bullet", 0);
+        wepLevelDict.Add("shell", 0);
+        wepLevelDict.Add("expolsive", 0);
+        wepLevelDict.Add("laser", 0);
+        wepLevelDict.Add("melee", 0);
     }
 
     // Update is called once per frame
