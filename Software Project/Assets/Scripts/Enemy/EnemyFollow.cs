@@ -126,7 +126,8 @@ public class EnemyFollow : MonoBehaviour
     }
     void heatstroke()
     {
-        if (player.heat){
+        if (player.pAbilDict["heat"])
+        {
             if (heatTimer > 0)
                 heatTimer -= Time.deltaTime;
             else if (heatTimer <= 0)
@@ -137,12 +138,12 @@ public class EnemyFollow : MonoBehaviour
                 hp -= 3;
             }
         }
-        if (!player.heat)
+        if (!player.pAbilDict["heat"])
             heatTimer = 2f;
     }
     void coldZone()
     {
-        if (player.cold)
+        if (player.pAbilDict["cold"])
         {
             speed = coldSpeed;
             if (coldTimer > 0)
@@ -150,7 +151,7 @@ public class EnemyFollow : MonoBehaviour
             else if (coldTimer <= 0)
                 coldTimer = 2f;
         }
-        if (!player.cold)
+        if (!player.pAbilDict["cold"])
         {
             coldTimer = 1f;
             speed = normalSpeed;
@@ -158,7 +159,7 @@ public class EnemyFollow : MonoBehaviour
     }
     void staticShock()
     {
-        if (player.shock && player.shockDam && player.shockCoolDown <= 0){
+        if (player.pAbilDict["shock"] && player.shockDam && player.shockCoolDown <= 0){
             player.shockCoolDown = 0.2f;
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
             hit.GetComponent<ParticleSystem>().Play();

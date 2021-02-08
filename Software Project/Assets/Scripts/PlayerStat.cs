@@ -26,15 +26,12 @@ public class PlayerStat : MonoBehaviour
     public float passiveTimer = 1f;
     public string Active;
     public string Passive;
-    //Passive abilities
-    public bool heat = false;
-    public bool cold = false;
-    public bool shock = false;
     //Room conditions
     public bool wepJam = false;
     public bool powBlock = false;
     public bool suddenDeath = false;
     public bool shockDam = false;
+    public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, int> damDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, int> wepLevelDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, float> ammoDict = new Dictionary<string, float>(); // Ammo Dictionary
@@ -81,6 +78,10 @@ public class PlayerStat : MonoBehaviour
         wepLevelDict.Add("expolsive", 0);
         wepLevelDict.Add("laser", 0);
         wepLevelDict.Add("melee", 0);
+        //Setting Passive Abilites Values
+        pAbilDict.Add("heat", false);
+        pAbilDict.Add("cold", false);
+        pAbilDict.Add("shock", false);
     }
 
     // Update is called once per frame
@@ -97,14 +98,15 @@ public class PlayerStat : MonoBehaviour
         if (pp <= 0)
         {
             pp = 0;
-            heat = false;
-            cold = false;
-            shock = false;
+            pAbilDict["heat"] = false;
+            pAbilDict["cold"] = false;
+            pAbilDict["shock"] = false;
         }
         if (pp > ppMax)
             pp = ppMax;
         //Passive decrease
-        if(heat || cold || shock){
+        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"])
+        {
             passiveCooldown = 1;
             passiveTimer -= Time.deltaTime;
             if(passiveTimer <= 0){
@@ -116,7 +118,7 @@ public class PlayerStat : MonoBehaviour
         if (pp < ppMax && activeCooldown > 0)
             activeCooldown -= Time.deltaTime;
         if (pp < ppMax && passiveCooldown > 0){
-            if(!heat)
+            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"])
                 passiveCooldown -= Time.deltaTime;
         }
         if (pp < ppMax && activeCooldown <= 0 && passiveCooldown <= 0){
@@ -179,7 +181,7 @@ public class PlayerStat : MonoBehaviour
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
             hit.GetComponent<ParticleSystem>().Play();
             Destroy(hit, 1f);
-            if (shock && !shockDam)
+            if (pAbilDict["shock"] && !shockDam)
                 shockDam = true;
             if (!suddenDeath){
                 hp -= dam;
@@ -312,7 +314,7 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("MP"))
         {
             bp += 1;
-            if (!heat || !cold)
+            if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"])
                 pp += 10;
             Destroy(other.gameObject);
         }
@@ -392,34 +394,34 @@ public class PlayerStat : MonoBehaviour
         {
             if(Passive == "Heatstroke"){
                 if (passiveCooldown <= 0 && activeCooldown <=0 && pp > 40){
-                    if (!heat){
+                    if (!pAbilDict["heat"]){
                         pp -= 20;
-                        heat = true;
+                        pAbilDict["heat"] = true;
                     }
                 }
-                else if (heat)
-                    heat = false;
+                else if (pAbilDict["heat"])
+                    pAbilDict["heat"] = false;
             }
             if(Passive == "Cold Zone"){
                 if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40){
-                    if (!cold){
+                    if (!pAbilDict["cold"]){
                         pp -= 20;
-                        cold = true;
+                        pAbilDict["cold"] = true;
                     }
                 }
-                else if (cold)
-                    cold = false;
+                else if (pAbilDict["cold"])
+                    pAbilDict["cold"] = false;
             }
             if (Passive == "Static Shock")
             {
                 if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40){
-                    if (!shock){
+                    if (!pAbilDict["shock"]){
                         pp -= 20;
-                        shock = true;
+                        pAbilDict["shock"] = true;
                     }
                 }
-                else if (shock)
-                    shock = false;
+                else if (pAbilDict["shock"])
+                    pAbilDict["shock"] = false;
             }
         }
     }

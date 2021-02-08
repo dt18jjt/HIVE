@@ -113,11 +113,11 @@ public class RoomTypes : MonoBehaviour
             enemyOn = true;
         else
             enemyOn = false;
-        if (player.heat)
+        if (player.pAbilDict["heat"])
             floor.GetComponent<SpriteRenderer>().color = hotColor;
-        else if(player.cold)
+        else if(player.pAbilDict["cold"])
             floor.GetComponent<SpriteRenderer>().color = coldColor;
-        else if(player.shock && !player.shockDam)
+        else if(player.pAbilDict["shock"] && !player.shockDam)
             floor.GetComponent<SpriteRenderer>().color = shockColor;
         else if (player.shockDam)
             floor.GetComponent<SpriteRenderer>().color = shockDamColor;
