@@ -49,9 +49,12 @@ public class PlayerStat : MonoBehaviour
     public GameObject pulse;
     public GameObject jamImage;
     public GameObject sDeathImage;
+    public GameObject pickupText;
     public GameObject[] glitchItems;
     // Start is called before the first frame update
     void Start(){
+        //Set text at start
+        pickupText.SetActive(false);
         //Setting Damage Values
         damDict.Add("pulseDam", 5);
         damDict.Add("bulletDam", 10);
@@ -63,9 +66,9 @@ public class PlayerStat : MonoBehaviour
         damDict.Add("laserDam", 5);
         damDict.Add("meleeDam", 10);
         //Setting Ammo Values
-        ammoDict.Add("bullet", 32);
-        ammoDict.Add("shell", 16);
-        ammoDict.Add("expolsive", 8);
+        ammoDict.Add("bullet", 24);
+        ammoDict.Add("shell", 10);
+        ammoDict.Add("expolsive", 4);
         ammoDict.Add("laser", 24);
         //Setting Max Ammo Values
         ammoMaxDict.Add("bulletMax", 32);
@@ -86,6 +89,8 @@ public class PlayerStat : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+        Vector2 pickupPos = new Vector2(transform.position.x, transform.position.y + 15);
+        pickupText.transform.position = pickupPos;
         setText();
         //Player Health set to zero and max
         if (hp <= 0){
@@ -330,28 +335,67 @@ public class PlayerStat : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Health"))
-            if (hp < hpMax){
-                if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
+        if (other.CompareTag("Health")){
+            pickupText.GetComponent<TextMesh>().text = "Medkit";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (hp < hpMax)
+                {
                     hp += 25;
                     Destroy(other.gameObject);
+                    pickupText.GetComponent<TextMesh>().text = "HP + 25";
                 }
             }
+        }
+            
         if (other.CompareTag("BAmmo"))
-            if (ammoDict["bullet"] < ammoMaxDict["bulletMax"]){
-                if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
-                    ammoDict["bullet"] += Random.Range(10, 21);
+        {
+            pickupText.GetComponent<TextMesh>().text = "Bullet Ammo";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+                {
+                    float ammo = Random.Range(6, 13);
+                    ammoDict["bullet"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
                     Destroy(other.gameObject);
                 }
             }
+            
+        }
         if (other.CompareTag("ShAmmo"))
-            if (ammoDict["shell"] < ammoMaxDict["shellMax"]){
-                //Debug.Log("Picked up");
-                if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
-                    ammoDict["shell"] += Random.Range(6, 13);
+        {
+            pickupText.GetComponent<TextMesh>().text = "Shell Ammo";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+                {
+                    float ammo = Random.Range(4, 11);
+                    ammoDict["shell"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
+                    Destroy(other.gameObject);
+                }
+                
+            }
+        }
+        if (other.CompareTag("EAmmo"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Expolsive Ammo";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+                {
+                    float ammo = Random.Range(2, 5);
+                    ammoDict["expolsive"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Expolsives + " + ammo.ToString();
                     Destroy(other.gameObject);
                 }
             }
+        }
         if (other.CompareTag("Glitch")){
             if (Input.GetKeyUp(KeyCode.E) && bp >= 50|| Input.GetKeyUp(KeyCode.Joystick1Button0) && bp >= 50)
             {
@@ -360,6 +404,22 @@ public class PlayerStat : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+         if (other.CompareTag("Health"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("BAmmo"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("ShAmmo"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("EAmmo"))
+            StartCoroutine(textOff());
+    }
+    IEnumerator textOff()
+    {
+        yield return new WaitForSeconds(0.4f);
+        pickupText.SetActive(false);
     }
    private void controlInputs()
     {

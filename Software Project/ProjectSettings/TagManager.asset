@@ -35,6 +35,7 @@ TagManager:
   - Bomb
   - Laser
   - Melee
+  - EAmmo
   layers:
   - Default
   - TransparentFX
