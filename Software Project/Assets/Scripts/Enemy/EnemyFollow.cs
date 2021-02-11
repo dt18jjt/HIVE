@@ -214,7 +214,7 @@ public class EnemyFollow : MonoBehaviour
         {
             Damage(player.damDict["pulseDam"]);
         }
-        if (other.CompareTag("Bolt") && playerMove.isDash)
+        if (other.CompareTag("Bolt") )
         {
             Damage(player.damDict["boltDam"]);
         }
