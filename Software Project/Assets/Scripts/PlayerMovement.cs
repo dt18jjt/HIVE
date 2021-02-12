@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject bulletStart;
     public GameObject afterImage;
     public GameObject BoltArea;
+    public GameObject tremorArea;
     public float bulletSpeed = 100.0f;
     public float expolsiveSpeed = 80.0f;
     public float laserSpeed = 60.0f;
@@ -178,6 +179,12 @@ public class PlayerMovement : MonoBehaviour
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
                 }
+                if (stat.Active == "Tremor")
+                {
+                    tremor();
+                    stat.pp -= 30;
+                    stat.activeCooldown = 2;
+                }
             }
         }
     }
@@ -265,6 +272,12 @@ public class PlayerMovement : MonoBehaviour
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
                 }
+                if (stat.Active == "Tremor")
+                {
+                    tremor();
+                    stat.pp -= 30;
+                    stat.activeCooldown = 2;
+                }
             }
 
 
@@ -330,6 +343,11 @@ public class PlayerMovement : MonoBehaviour
         b.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(b, 0.7f);
+    }
+    void tremor()
+    {
+        GameObject t = Instantiate(tremorArea, transform.position, Quaternion.identity) as GameObject;
+        Destroy(t, 0.4f);
     }
     void boltDash()
     {

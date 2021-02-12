@@ -22,6 +22,7 @@ public class EnemyFollow : MonoBehaviour
     public bool suddenDeath = false;
     public bool dead = false;
     public bool bpSpawn = false;
+    public bool knockedBack = false;
     public GameObject projectile;
     public GameObject BP;
     public GameObject Corpse;
@@ -32,16 +33,22 @@ public class EnemyFollow : MonoBehaviour
     public Color deathColor;
     PlayerStat player;
     PlayerMovement playerMove;
+    Rigidbody2D rb;
+    static EnemyFollow instance;
     // Start is called before the first frame update
     void Start()
     {
         target = GameObject.Find("Player").GetComponent<Transform>();
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        rb = GetComponent<Rigidbody2D>();
         //stoppingDistance = Random.Range(25, 31);
         //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
-
+    private void Awake()
+    {
+        instance = this;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -178,6 +185,17 @@ public class EnemyFollow : MonoBehaviour
         else
             hp = 0;
     }
+    IEnumerator tremorKnockback(float knockbackTime, float knockbackPower)
+    {
+        while (knockbackTime > 0)
+        {
+            knockbackTime -= Time.deltaTime;
+            Vector2 direction = (target.transform.position - transform.position).normalized;
+            rb.AddForce(-direction * knockbackPower);
+            yield return null;
+        }
+        //yield return 0;
+    }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
@@ -203,9 +221,6 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Freeze"))
         {
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
             Damage(player.damDict["freezeDam"]);
             frozenCooldown = 1.5f;
             Destroy(other.gameObject);
@@ -218,6 +233,12 @@ public class EnemyFollow : MonoBehaviour
         {
             Damage(player.damDict["boltDam"]);
         }
+        if (other.CompareTag("Tremor"))
+        {
+            Damage(player.damDict["tremorDam"]);
+            StartCoroutine(tremorKnockback(1f, 100f));
+        }
 
     }
+    
 }

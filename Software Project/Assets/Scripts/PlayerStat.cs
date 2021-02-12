@@ -63,6 +63,7 @@ public class PlayerStat : MonoBehaviour
         damDict.Add("fireDam", 10);
         damDict.Add("freezeDam", 10);
         damDict.Add("boltDam", 10);
+        damDict.Add("tremorDam", 5);
         damDict.Add("laserDam", 5);
         damDict.Add("meleeDam", 10);
         //Setting Ammo Values
@@ -430,6 +431,8 @@ public class PlayerStat : MonoBehaviour
             Active = "Freeze Blast";
         if (Input.GetKeyUp(KeyCode.Alpha3))
             Active = "Bolt Dash";
+        if (Input.GetKeyUp(KeyCode.Alpha4))
+            Active = "Tremor";
         if (Input.GetKeyUp(KeyCode.Alpha7))
             Passive = "Heatstroke";
         if (Input.GetKeyUp(KeyCode.Alpha8))
