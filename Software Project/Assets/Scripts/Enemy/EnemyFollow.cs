@@ -45,10 +45,6 @@ public class EnemyFollow : MonoBehaviour
         //stoppingDistance = Random.Range(25, 31);
         //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
-    private void Awake()
-    {
-        instance = this;
-    }
     // Update is called once per frame
     void Update()
     {
@@ -78,6 +74,12 @@ public class EnemyFollow : MonoBehaviour
             frozenCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
         }
+        
+    }
+    private void FixedUpdate()
+    {
+        if(knockedBack)
+            StartCoroutine(tremorKnockback(0.5f, 50f));
     }
     void movement()
     {
@@ -192,9 +194,10 @@ public class EnemyFollow : MonoBehaviour
             knockbackTime -= Time.deltaTime;
             Vector2 direction = (target.transform.position - transform.position).normalized;
             rb.AddForce(-direction * knockbackPower);
-            yield return null;
+            Debug.Log("i");
+            yield return new WaitForFixedUpdate();
         }
-        //yield return 0;
+        knockedBack = false;
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
@@ -236,7 +239,7 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
-            StartCoroutine(tremorKnockback(1f, 100f));
+            knockedBack = true;
         }
 
     }
