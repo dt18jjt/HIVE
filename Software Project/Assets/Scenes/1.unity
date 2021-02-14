@@ -1801,8 +1801,11 @@ MonoBehaviour:
   ammo2: 0
   weapon1: 1
   weapon2: 2
+  wep1Level: 0
+  wep2Level: 0
   damCooldown: 0
   pulseCooldown: 0
+  meleeCooldown: 0
   laserCooldown: 0
   activeCooldown: 0
   passiveCooldown: 0

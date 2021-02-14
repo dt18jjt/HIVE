@@ -17,8 +17,11 @@ public class PlayerStat : MonoBehaviour
     //Weapon display
     public int weapon1;
     public int weapon2;
+    public int wep1Level = 0;
+    public int wep2Level = 0;
     public float damCooldown;
     public float pulseCooldown;
+    public float meleeCooldown;
     public float laserCooldown = 0f;
     public float activeCooldown = 0f;
     public float passiveCooldown = 0f;
@@ -312,8 +315,11 @@ public class PlayerStat : MonoBehaviour
     public void wepSwap(){
         //Weapon Swapping
         int temp = weapon1;
+        int tempLv = wep1Level;
         weapon1 = weapon2;
+        wep1Level = wep2Level;
         weapon2 = temp;
+        wep2Level = tempLv;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -417,6 +423,7 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 1;
+                wep1Level = 0;
                 Destroy(other.gameObject);
             }
         }
@@ -428,6 +435,7 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 2;
+                wep1Level = 0;
                 Destroy(other.gameObject);
             }
         }
@@ -438,6 +446,7 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 3;
+                wep1Level = 0;
                 Destroy(other.gameObject);
             }
         }
@@ -448,6 +457,7 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 4;
+                wep1Level = 0;
                 Destroy(other.gameObject);
             }
         }
@@ -458,6 +468,7 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 5;
+                wep1Level = 0;
                 Destroy(other.gameObject);
             }
         }
