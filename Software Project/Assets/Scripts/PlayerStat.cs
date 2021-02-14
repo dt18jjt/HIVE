@@ -54,6 +54,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject sDeathImage;
     public GameObject pickupText;
     public GameObject[] glitchItems;
+    public GameObject[] wepDrop;
     // Start is called before the first frame update
     void Start(){
         //Set text at start
