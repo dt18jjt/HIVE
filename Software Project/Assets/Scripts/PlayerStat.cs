@@ -336,6 +336,7 @@ public class PlayerStat : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
+        //Heatlh Pickup
         if (other.CompareTag("Health")){
             pickupText.GetComponent<TextMesh>().text = "Medkit";
             pickupText.SetActive(true);
@@ -349,7 +350,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
         }
-            
+        //Bullet Pickup    
         if (other.CompareTag("BAmmo"))
         {
             pickupText.GetComponent<TextMesh>().text = "Bullet Ammo";
@@ -366,6 +367,7 @@ public class PlayerStat : MonoBehaviour
             }
             
         }
+        //Shell Pickup
         if (other.CompareTag("ShAmmo"))
         {
             pickupText.GetComponent<TextMesh>().text = "Shell Ammo";
@@ -382,6 +384,7 @@ public class PlayerStat : MonoBehaviour
                 
             }
         }
+        //Expolsive Pickup
         if (other.CompareTag("EAmmo"))
         {
             pickupText.GetComponent<TextMesh>().text = "Expolsive Ammo";
@@ -397,11 +400,64 @@ public class PlayerStat : MonoBehaviour
                 }
             }
         }
+        //Glitch Pickup
         if (other.CompareTag("Glitch")){
             if (Input.GetKeyUp(KeyCode.E) && bp >= 50|| Input.GetKeyUp(KeyCode.Joystick1Button0) && bp >= 50)
             {
                 bp -= 50;
                 Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], other.transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+            }
+        }
+        //LV0 Bullet Weapon Pickup
+        if (other.CompareTag("BWep0"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Pistol";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                weapon1 = 1;
+                Destroy(other.gameObject);
+            }
+        }
+        //LV0 Shell Weapon Pickup
+        if (other.CompareTag("SWep0"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Sawed Off";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                weapon1 = 2;
+                Destroy(other.gameObject);
+            }
+        }
+        if (other.CompareTag("EWep0"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                weapon1 = 3;
+                Destroy(other.gameObject);
+            }
+        }
+        if (other.CompareTag("LWep0"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                weapon1 = 4;
+                Destroy(other.gameObject);
+            }
+        }
+        if (other.CompareTag("MWep0"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Baton";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                weapon1 = 5;
                 Destroy(other.gameObject);
             }
         }
@@ -415,6 +471,16 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("ShAmmo"))
             StartCoroutine(textOff());
         if (other.CompareTag("EAmmo"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("BWep0"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("SWep0"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("EWep0"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("LWep0"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("MWep0"))
             StartCoroutine(textOff());
     }
     IEnumerator textOff()

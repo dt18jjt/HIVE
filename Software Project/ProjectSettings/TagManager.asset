@@ -37,6 +37,16 @@ TagManager:
   - Melee
   - EAmmo
   - Tremor
+  - BWep0
+  - SWep0
+  - EWep0
+  - LWep0
+  - MWep0
+  - BWep1
+  - SWep1
+  - EWep1
+  - LWep1
+  - MWep1
   layers:
   - Default
   - TransparentFX
@@ -71,9 +81,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3663253533
+    locked: 0
+  - name: Items
+    uniqueID: 3781758897
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
   - name: Map
     uniqueID: 1198513241
+    locked: 0
+  - name: UI
+    uniqueID: 3325834845
     locked: 0
