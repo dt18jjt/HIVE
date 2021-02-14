@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemCreateScript : MonoBehaviour
 {
     public GameObject[] Items;
-    int itemChance;
+    public int itemChance;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +29,38 @@ public class ItemCreateScript : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject, 0.2f);
         }
+        if (other.CompareTag("Shell"))
+        {
+            if (itemChance <= 4)
+                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+            Debug.Log(itemChance);
+            Destroy(other.gameObject);
+            Destroy(gameObject, 0.2f);
+        }
+        if (other.CompareTag("Fire"))
+        {
+            if (itemChance <= 4)
+                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+            Debug.Log(itemChance);
+            Destroy(other.gameObject);
+            Destroy(gameObject, 0.2f);
+        }
+        if (other.CompareTag("Laser"))
+        {
+            if (itemChance <= 4)
+                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+            Debug.Log(itemChance);
+            Destroy(other.gameObject);
+            Destroy(gameObject, 0.2f);
+        }
+        if (other.CompareTag("Melee"))
+        {
+            if (itemChance <= 4)
+                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+            Debug.Log(itemChance);
+            Destroy(other.gameObject);
+            Destroy(gameObject, 0.2f);
+        }
         if (other.CompareTag("Pulse"))
         {
             if (itemChance <= 4)
@@ -45,6 +77,16 @@ public class ItemCreateScript : MonoBehaviour
         if (other.CompareTag("EAmmo"))
             Destroy(gameObject);
         if (other.CompareTag("Health"))
+            Destroy(gameObject);
+        if (other.CompareTag("BWep0"))
+            Destroy(gameObject);
+        if (other.CompareTag("SWep0"))
+            Destroy(gameObject);
+        if (other.CompareTag("EWep0"))
+            Destroy(gameObject);
+        if (other.CompareTag("LWep0"))
+            Destroy(gameObject);
+        if (other.CompareTag("MWep0"))
             Destroy(gameObject);
     }
 }
