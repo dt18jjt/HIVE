@@ -24,7 +24,8 @@ public class EnemyProjectile : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other){
         if(other.name == "Player"){
-            stat.Damage(Random.Range(10,15));
+            if(!stat.pAbilDict["earth"])
+                stat.Damage(Random.Range(10,15));
             Destroy(gameObject);
         }
     }

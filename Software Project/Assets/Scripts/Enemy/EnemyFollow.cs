@@ -121,7 +121,8 @@ public class EnemyFollow : MonoBehaviour
         }
     }
     void enemyCloseAtk(){
-        player.Damage(Random.Range(10, 20));
+        if (!player.pAbilDict["earth"])
+            player.Damage(Random.Range(10, 20));
         attackCooldown = startAtkCooldown;
     }
     void enemyRangeAtk(){

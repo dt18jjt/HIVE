@@ -37,6 +37,7 @@ public class RoomTypes : MonoBehaviour
     public Color hotColor;
     public Color shockColor;
     public Color shockDamColor;
+    public Color earthColor;
     public List<Transform> eSpawnPoints;
     public List<Transform> iSpawnPoints;
     PlayerStat player;
@@ -115,12 +116,14 @@ public class RoomTypes : MonoBehaviour
             enemyOn = false;
         if (player.pAbilDict["heat"])
             floor.GetComponent<SpriteRenderer>().color = hotColor;
-        else if(player.pAbilDict["cold"])
+        else if (player.pAbilDict["cold"])
             floor.GetComponent<SpriteRenderer>().color = coldColor;
-        else if(player.pAbilDict["shock"] && !player.shockDam)
+        else if (player.pAbilDict["shock"] && !player.shockDam)
             floor.GetComponent<SpriteRenderer>().color = shockColor;
         else if (player.shockDam)
             floor.GetComponent<SpriteRenderer>().color = shockDamColor;
+        else if (player.pAbilDict["earth"])
+            floor.GetComponent<SpriteRenderer>().color = earthColor;
         else
             floor.GetComponent<SpriteRenderer>().color = normalColor;
         if (Input.GetKey(KeyCode.F1))

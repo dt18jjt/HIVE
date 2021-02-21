@@ -90,6 +90,7 @@ public class PlayerStat : MonoBehaviour
         pAbilDict.Add("heat", false);
         pAbilDict.Add("cold", false);
         pAbilDict.Add("shock", false);
+        pAbilDict.Add("earth", false);
     }
 
     // Update is called once per frame
@@ -111,11 +112,12 @@ public class PlayerStat : MonoBehaviour
             pAbilDict["heat"] = false;
             pAbilDict["cold"] = false;
             pAbilDict["shock"] = false;
+            pAbilDict["earth"] = false;
         }
         if (pp > ppMax)
             pp = ppMax;
         //Passive decrease
-        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"])
+        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
         {
             passiveCooldown = 1;
             passiveTimer -= Time.deltaTime;
@@ -128,7 +130,7 @@ public class PlayerStat : MonoBehaviour
         if (pp < ppMax && activeCooldown > 0)
             activeCooldown -= Time.deltaTime;
         if (pp < ppMax && passiveCooldown > 0){
-            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"])
+            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
                 passiveCooldown -= Time.deltaTime;
         }
         if (pp < ppMax && activeCooldown <= 0 && passiveCooldown <= 0){
@@ -327,7 +329,7 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("MP"))
         {
             bp += 1;
-            if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"])
+            if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
                 pp += 10;
             Destroy(other.gameObject);
         }
@@ -440,6 +442,7 @@ public class PlayerStat : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+        //LV0 Explosive Weapon Pickup
         if (other.CompareTag("EWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
@@ -451,6 +454,7 @@ public class PlayerStat : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+        //LV0 Laser Weapon Pickup
         if (other.CompareTag("LWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
@@ -462,6 +466,7 @@ public class PlayerStat : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+        //LV0 Melee Weapon Pickup
         if (other.CompareTag("MWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Baton";
@@ -511,12 +516,14 @@ public class PlayerStat : MonoBehaviour
             Active = "Bolt Dash";
         if (Input.GetKeyUp(KeyCode.Alpha4))
             Active = "Tremor";
-        if (Input.GetKeyUp(KeyCode.Alpha7))
+        if (Input.GetKeyUp(KeyCode.Alpha6))
             Passive = "Heatstroke";
-        if (Input.GetKeyUp(KeyCode.Alpha8))
+        if (Input.GetKeyUp(KeyCode.Alpha7))
             Passive = "Cold Zone";
-        if (Input.GetKeyUp(KeyCode.Alpha9))
+        if (Input.GetKeyUp(KeyCode.Alpha8))
             Passive = "Static Shock";
+        if (Input.GetKeyUp(KeyCode.Alpha9))
+            Passive = "Earth Barrier";
         //Ammo cheat
         if (Input.GetKeyUp(KeyCode.F2)){
             hp = hpMax;
@@ -563,6 +570,19 @@ public class PlayerStat : MonoBehaviour
                 }
                 else if (pAbilDict["shock"])
                     pAbilDict["shock"] = false;
+            }
+            if (Passive == "Earth Barrier")
+            {
+                if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40)
+                {
+                    if (!pAbilDict["earth"])
+                    {
+                        pp -= 20;
+                        pAbilDict["earth"] = true;
+                    }
+                }
+                else if (pAbilDict["earth"])
+                    pAbilDict["earth"] = false;
             }
         }
     }
