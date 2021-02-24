@@ -117,7 +117,7 @@ public class PlayerStat : MonoBehaviour
             pAbilDict["shock"] = false;
             pAbilDict["earth"] = false;
             pAbilDict["decoy"] = false;
-            Destroy(GameObject.FindWithTag("Decoy"));
+            decoy.SetActive(false);
         }
         if (pp > ppMax)
             pp = ppMax;
@@ -606,13 +606,14 @@ public class PlayerStat : MonoBehaviour
                     if (!pAbilDict["decoy"])
                     {
                         pp -= 20;
-                        var d = Instantiate(decoy, transform.position, Quaternion.identity);
+                        decoy.SetActive(true);
+                        decoy.transform.position = transform.position;
                         pAbilDict["decoy"] = true;
                     }
                 }
                 else if (pAbilDict["decoy"])
                 {
-                    Destroy(GameObject.FindWithTag("Decoy"));
+                    decoy.SetActive(false);
                     pAbilDict["decoy"] = false;
                 }
                     
