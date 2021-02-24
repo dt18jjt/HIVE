@@ -38,7 +38,7 @@ public class EnemyFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find("Player").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
@@ -74,7 +74,12 @@ public class EnemyFollow : MonoBehaviour
             frozenCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
         }
-        
+        //target change
+        if (player.pAbilDict["decoy"])
+            target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
+        else if (!player.pAbilDict["decoy"])
+            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+
     }
     private void FixedUpdate()
     {
@@ -121,7 +126,7 @@ public class EnemyFollow : MonoBehaviour
         }
     }
     void enemyCloseAtk(){
-        if (!player.pAbilDict["earth"])
+        if (!player.pAbilDict["decoy"])
             player.Damage(Random.Range(10, 20));
         attackCooldown = startAtkCooldown;
     }

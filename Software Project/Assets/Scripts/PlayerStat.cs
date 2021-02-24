@@ -53,6 +53,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject jamImage;
     public GameObject sDeathImage;
     public GameObject pickupText;
+    public GameObject decoy;
     public GameObject[] glitchItems;
     public GameObject[] wepDrop;
     // Start is called before the first frame update
@@ -91,6 +92,8 @@ public class PlayerStat : MonoBehaviour
         pAbilDict.Add("cold", false);
         pAbilDict.Add("shock", false);
         pAbilDict.Add("earth", false);
+        pAbilDict.Add("decoy", false);
+        
     }
 
     // Update is called once per frame
@@ -113,11 +116,13 @@ public class PlayerStat : MonoBehaviour
             pAbilDict["cold"] = false;
             pAbilDict["shock"] = false;
             pAbilDict["earth"] = false;
+            pAbilDict["decoy"] = false;
+            Destroy(GameObject.FindWithTag("Decoy"));
         }
         if (pp > ppMax)
             pp = ppMax;
         //Passive decrease
-        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
+        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
         {
             passiveCooldown = 1;
             passiveTimer -= Time.deltaTime;
@@ -130,7 +135,7 @@ public class PlayerStat : MonoBehaviour
         if (pp < ppMax && activeCooldown > 0)
             activeCooldown -= Time.deltaTime;
         if (pp < ppMax && passiveCooldown > 0){
-            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
+            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
                 passiveCooldown -= Time.deltaTime;
         }
         if (pp < ppMax && activeCooldown <= 0 && passiveCooldown <= 0){
@@ -195,12 +200,11 @@ public class PlayerStat : MonoBehaviour
             Destroy(hit, 1f);
             if (pAbilDict["shock"] && !shockDam)
                 shockDam = true;
-            if (!suddenDeath){
+            if (!pAbilDict["earth"])
+            {
                 hp -= dam;
                 damCooldown = 1.5f;
             }
-            else
-                hp = 0;
         }
         
     }
@@ -329,7 +333,7 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("MP"))
         {
             bp += 1;
-            if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"])
+            if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
                 pp += 10;
             Destroy(other.gameObject);
         }
@@ -505,6 +509,11 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         pickupText.SetActive(false);
     }
+    void decoySpawn()
+    {
+        //GameObject d = Instantiate(decoy) as GameObject;
+        //Destroy(d);
+    }
    private void controlInputs()
     {
         //Active switch cheat
@@ -516,6 +525,8 @@ public class PlayerStat : MonoBehaviour
             Active = "Bolt Dash";
         if (Input.GetKeyUp(KeyCode.Alpha4))
             Active = "Tremor";
+        if (Input.GetKeyUp(KeyCode.Alpha5))
+            Active = "Confusion";
         if (Input.GetKeyUp(KeyCode.Alpha6))
             Passive = "Heatstroke";
         if (Input.GetKeyUp(KeyCode.Alpha7))
@@ -524,6 +535,8 @@ public class PlayerStat : MonoBehaviour
             Passive = "Static Shock";
         if (Input.GetKeyUp(KeyCode.Alpha9))
             Passive = "Earth Barrier";
+        if (Input.GetKeyUp(KeyCode.Alpha0))
+            Passive = "Issuion Decoy";
         //Ammo cheat
         if (Input.GetKeyUp(KeyCode.F2)){
             hp = hpMax;
@@ -537,10 +550,10 @@ public class PlayerStat : MonoBehaviour
         //Psychic pulse
         if (Input.GetKeyUp(KeyCode.F) && pulseCooldown <= 0 || Input.GetKeyUp(KeyCode.Joystick1Button9) && pulseCooldown <= 0)
             StartCoroutine(pulseAction());
-        //Passive heat
-        if (Input.GetKeyUp(KeyCode.C) || Input.GetKeyUp(KeyCode.Joystick1Button8))
-        {
-            if(Passive == "Heatstroke"){
+        //Set passive on
+        if (Input.GetKeyUp(KeyCode.C) || Input.GetKeyUp(KeyCode.Joystick1Button8)){
+            //Passive heat
+            if (Passive == "Heatstroke"){
                 if (passiveCooldown <= 0 && activeCooldown <=0 && pp > 40){
                     if (!pAbilDict["heat"]){
                         pp -= 20;
@@ -550,7 +563,8 @@ public class PlayerStat : MonoBehaviour
                 else if (pAbilDict["heat"])
                     pAbilDict["heat"] = false;
             }
-            if(Passive == "Cold Zone"){
+            //Passive cold
+            if (Passive == "Cold Zone"){
                 if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40){
                     if (!pAbilDict["cold"]){
                         pp -= 20;
@@ -560,6 +574,7 @@ public class PlayerStat : MonoBehaviour
                 else if (pAbilDict["cold"])
                     pAbilDict["cold"] = false;
             }
+            //Passive shock
             if (Passive == "Static Shock")
             {
                 if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40){
@@ -571,8 +586,8 @@ public class PlayerStat : MonoBehaviour
                 else if (pAbilDict["shock"])
                     pAbilDict["shock"] = false;
             }
-            if (Passive == "Earth Barrier")
-            {
+            //Passive earth
+            if (Passive == "Earth Barrier"){
                 if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40)
                 {
                     if (!pAbilDict["earth"])
@@ -583,6 +598,25 @@ public class PlayerStat : MonoBehaviour
                 }
                 else if (pAbilDict["earth"])
                     pAbilDict["earth"] = false;
+            }
+            //Passive decoy
+            if (Passive == "Issuion Decoy"){
+                if (passiveCooldown <= 0 && activeCooldown <= 0 && pp > 40)
+                {
+                    if (!pAbilDict["decoy"])
+                    {
+                        pp -= 20;
+                        var d = Instantiate(decoy, transform.position, Quaternion.identity);
+                        pAbilDict["decoy"] = true;
+                    }
+                }
+                else if (pAbilDict["decoy"])
+                {
+                    Destroy(GameObject.FindWithTag("Decoy"));
+                    pAbilDict["decoy"] = false;
+                }
+                    
+
             }
         }
     }

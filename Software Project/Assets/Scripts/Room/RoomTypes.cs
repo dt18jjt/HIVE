@@ -38,6 +38,7 @@ public class RoomTypes : MonoBehaviour
     public Color shockColor;
     public Color shockDamColor;
     public Color earthColor;
+    public Color decoyColor;
     public List<Transform> eSpawnPoints;
     public List<Transform> iSpawnPoints;
     PlayerStat player;
@@ -124,6 +125,8 @@ public class RoomTypes : MonoBehaviour
             floor.GetComponent<SpriteRenderer>().color = shockDamColor;
         else if (player.pAbilDict["earth"])
             floor.GetComponent<SpriteRenderer>().color = earthColor;
+        else if (player.pAbilDict["decoy"])
+            floor.GetComponent<SpriteRenderer>().color = decoyColor;
         else
             floor.GetComponent<SpriteRenderer>().color = normalColor;
         if (Input.GetKey(KeyCode.F1))

@@ -100,7 +100,7 @@ MonoBehaviour:
   speed: 30
   normalSpeed: 30
   coldSpeed: 15
-  stoppingDistance: 25
+  stoppingDistance: 20
   retreatDistance: 15
   attackCooldown: 0.5
   startAtkCooldown: 0.5
@@ -109,8 +109,10 @@ MonoBehaviour:
   frozenCooldown: 0
   ranged: 0
   frozen: 0
+  suddenDeath: 0
   dead: 0
   bpSpawn: 0
+  knockedBack: 0
   projectile: {fileID: 5623935904502013361, guid: e7522e7d835ba644189d905993984db6,
     type: 3}
   BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}

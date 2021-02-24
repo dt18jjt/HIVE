@@ -47,6 +47,7 @@ TagManager:
   - EWep1
   - LWep1
   - MWep1
+  - Decoy
   layers:
   - Default
   - TransparentFX
