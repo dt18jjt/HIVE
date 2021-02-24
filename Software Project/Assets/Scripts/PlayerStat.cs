@@ -17,8 +17,13 @@ public class PlayerStat : MonoBehaviour
     //Weapon display
     public int weapon1;
     public int weapon2;
+    //Weapon levels
     public int wep1Level = 0;
     public int wep2Level = 0;
+    //Ammo stacking
+    public int ammoStack1 = 0;
+    public int ammoStack2 = 0;
+    //cooldowns
     public float damCooldown;
     public float pulseCooldown;
     public float meleeCooldown;
@@ -323,10 +328,13 @@ public class PlayerStat : MonoBehaviour
         //Weapon Swapping
         int temp = weapon1;
         int tempLv = wep1Level;
+        int tempStack = ammoStack1;
         weapon1 = weapon2;
         wep1Level = wep2Level;
+        ammoStack1 = ammoStack2;
         weapon2 = temp;
         wep2Level = tempLv;
+        ammoStack2 = tempStack;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -370,23 +378,20 @@ public class PlayerStat : MonoBehaviour
             pickupText.SetActive(true);
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
-                if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
-                {
+                if (ammoDict["bullet"] < ammoMaxDict["bulletMax"]){
                     float ammo = Random.Range(6, 13);
                     ammoDict["bullet"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
                     Destroy(other.gameObject);
                 }
             }
-            
         }
         //Shell Pickup
         if (other.CompareTag("ShAmmo"))
         {
             pickupText.GetComponent<TextMesh>().text = "Shell Ammo";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
-            {
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
                 if (ammoDict["shell"] < ammoMaxDict["shellMax"])
                 {
                     float ammo = Random.Range(4, 11);
@@ -394,7 +399,6 @@ public class PlayerStat : MonoBehaviour
                     pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     Destroy(other.gameObject);
                 }
-                
             }
         }
         //Expolsive Pickup
@@ -427,11 +431,22 @@ public class PlayerStat : MonoBehaviour
         {
             pickupText.GetComponent<TextMesh>().text = "Pistol";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
-            {
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
                 weapon1 = 1;
-                wep1Level = 0;
                 Destroy(other.gameObject);
+                if(weapon1 == 1)
+                {
+                    if (ammoDict["bullet"] >= ammoMaxDict["bulletMax"])
+                    {
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                        Destroy(other.gameObject);
+                    }
+                    else if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+                        wep1Level = 0;
+                }
+                else
+                    wep1Level = 0;
             }
         }
         //LV0 Shell Weapon Pickup
@@ -442,9 +457,22 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 2;
-                wep1Level = 0;
                 Destroy(other.gameObject);
+                if(weapon1 == 2)
+                {
+                    if (ammoDict["shell"] >= ammoMaxDict["shellMax"])
+                    {
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                        Destroy(other.gameObject);
+                    }
+                    else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+                        wep1Level = 0;
+                }
+                else
+                    wep1Level = 0;
             }
+            
         }
         //LV0 Explosive Weapon Pickup
         if (other.CompareTag("EWep0"))
@@ -454,9 +482,22 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 3;
-                wep1Level = 0;
                 Destroy(other.gameObject);
+                if (weapon1 == 3)
+                {
+                    if (ammoDict["expolsive"] >= ammoMaxDict["expolsiveMax"])
+                    {
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                        Destroy(other.gameObject);
+                    }
+                    else if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+                        wep1Level = 0;
+                }
+                else
+                    wep1Level = 0;
             }
+            
         }
         //LV0 Laser Weapon Pickup
         if (other.CompareTag("LWep0"))
@@ -466,9 +507,22 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 4;
-                wep1Level = 0;
                 Destroy(other.gameObject);
+                if(weapon1 == 4)
+                {
+                    if (ammoDict["laser"] >= ammoMaxDict["laserMax"])
+                    {
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                        Destroy(other.gameObject);
+                    }
+                    else if (ammoDict["laser"] < ammoMaxDict["laserMax"])
+                        wep1Level = 0;
+                }
+                else
+                    wep1Level = 0;
             }
+            
         }
         //LV0 Melee Weapon Pickup
         if (other.CompareTag("MWep0"))
@@ -478,8 +532,15 @@ public class PlayerStat : MonoBehaviour
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
                 weapon1 = 5;
-                wep1Level = 0;
                 Destroy(other.gameObject);
+                if (weapon1 == 1)
+                {
+                    ammoStack1 += 1;
+                    pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                    Destroy(other.gameObject);
+                }
+                else
+                    wep1Level = 0;
             }
         }
     }
