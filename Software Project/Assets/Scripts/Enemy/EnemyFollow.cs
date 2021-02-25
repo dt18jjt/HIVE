@@ -17,20 +17,22 @@ public class EnemyFollow : MonoBehaviour
     public float frozenCooldown;
     float heatTimer = 1f;
     float coldTimer = 1f;
+    public float confuseCooldown = 0f;
     public bool ranged;
     public bool frozen = false;
     public bool suddenDeath = false;
-    public bool dead = false;
     public bool bpSpawn = false;
     public bool knockedBack = false;
     public GameObject projectile;
+    public GameObject confusionProjectile;
     public GameObject BP;
     public GameObject Corpse;
+    public Transform cEnemy;
     private Transform target;
     public GameObject hitEffect;
     public Color normalColor;
     public Color frozenColor;
-    public Color deathColor;
+    public Color confuseColor;
     PlayerStat player;
     PlayerMovement playerMove;
     Rigidbody2D rb;
@@ -38,7 +40,7 @@ public class EnemyFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
@@ -63,23 +65,38 @@ public class EnemyFollow : MonoBehaviour
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
         }
+        if (confuseCooldown <= 0)
+            gameObject.tag = "Enemy";
         if (moveCooldown > 0)
             moveCooldown -= Time.deltaTime;
-        if (frozenCooldown <= 0)
+        if (frozenCooldown <= 0 && confuseCooldown <= 0)
         {
             gameObject.GetComponent<SpriteRenderer>().color = normalColor;
         }
-        else if (frozenCooldown > 0 && !dead)
+        else if (frozenCooldown > 0)
         {
             frozenCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
         }
+        else if (confuseCooldown > 0)
+        {
+            confuseCooldown -= Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
+        }
         //target change
-        if (player.pAbilDict["decoy"])
+        if (player.pAbilDict["decoy"] && confuseCooldown <= 0)
             target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
-        else if (!player.pAbilDict["decoy"])
+        else if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
+        else if(confuseCooldown > 0)
+        {
+            transform.gameObject.tag = "Player";
+            cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
+            if (!cEnemy && transform.gameObject.tag == "Player")
+                transform.gameObject.tag = "Enemy";
+            else
+                target = cEnemy;
+        }
     }
     private void FixedUpdate()
     {
@@ -132,7 +149,10 @@ public class EnemyFollow : MonoBehaviour
     }
     void enemyRangeAtk(){
         if (attackCooldown <= 0 && moveCooldown <= 0){
-            Instantiate(projectile, transform.position, Quaternion.identity);
+            if(confuseCooldown <= 0)
+                Instantiate(projectile, transform.position, Quaternion.identity);
+            else
+                Instantiate(confusionProjectile, transform.position, Quaternion.identity);
             attackCooldown = startAtkCooldown;
             moveCooldown = startMvCooldown;
         }
@@ -247,7 +267,16 @@ public class EnemyFollow : MonoBehaviour
             Damage(player.damDict["tremorDam"]);
             knockedBack = true;
         }
-
+        if (other.CompareTag("Confuse"))
+        {
+            confuseCooldown = 5f;
+            Destroy(other.gameObject);
+        }
+        if (other.CompareTag("CBullet") && confuseCooldown <= 0)
+        {
+            Damage(player.damDict["confuseDam"]);
+            Destroy(other.gameObject);
+        }
     }
     
 }

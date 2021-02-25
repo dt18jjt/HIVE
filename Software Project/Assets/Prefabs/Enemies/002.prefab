@@ -109,17 +109,22 @@ MonoBehaviour:
   frozenCooldown: 0
   ranged: 1
   frozen: 0
+  suddenDeath: 0
   dead: 0
   bpSpawn: 0
+  knockedBack: 0
   projectile: {fileID: 5623935904502013361, guid: e7522e7d835ba644189d905993984db6,
+    type: 3}
+  confusionProjectile: {fileID: 5623935904502013361, guid: b896112eea8a24943989402cdcf84be9,
     type: 3}
   BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}
   Corpse: {fileID: 6774491008760995051, guid: 2d378d1e6d70d1340a3ac27355315078, type: 3}
+  cEnemy: {fileID: 0}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
   normalColor: {r: 0, g: 0.5568628, b: 1, a: 1}
   frozenColor: {r: 0.6650944, g: 0.8515909, b: 1, a: 1}
-  deathColor: {r: 0.5188679, g: 0.5164204, b: 0.5164204, a: 1}
+  confuseColor: {r: 0.018378438, g: 0.31809613, b: 0.5566038, a: 1}
 --- !u!50 &4865663397156743028
 Rigidbody2D:
   serializedVersion: 4

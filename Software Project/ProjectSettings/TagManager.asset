@@ -48,6 +48,8 @@ TagManager:
   - LWep1
   - MWep1
   - Decoy
+  - Confuse
+  - CBullet
   layers:
   - Default
   - TransparentFX

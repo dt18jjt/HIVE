@@ -78,6 +78,7 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("fireDam", 10);
             damDict.Add("freezeDam", 10);
             damDict.Add("boltDam", 10);
+            damDict.Add("confuseDam", 5);
             damDict.Add("tremorDam", 5);
             damDict.Add("laserDam", 5);
             damDict.Add("meleeDam", 10);
@@ -384,7 +385,7 @@ public class PlayerStat : MonoBehaviour
     }
     void wepPickup()
     {
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
         {
             tempWep = weapon1;
             if (wepPickupDict["b0"])

@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject[] ammoPrefabs;
     public GameObject firePrefab;
     public GameObject freezePrefab;
+    public GameObject confusePrefab;
     public GameObject bulletStart;
     public GameObject afterImage;
     public GameObject BoltArea;
@@ -185,6 +186,12 @@ public class PlayerMovement : MonoBehaviour
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
                 }
+                if (stat.Active == "Confusion")
+                {
+                    confusion(direction, rotationZ);
+                    stat.pp -= 30;
+                    stat.activeCooldown = 2;
+                }
             }
         }
     }
@@ -278,6 +285,12 @@ public class PlayerMovement : MonoBehaviour
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
                 }
+                if (stat.Active == "Confusion")
+                {
+                    confusion(direction, body.rotation);
+                    stat.pp -= 30;
+                    stat.activeCooldown = 2;
+                }
             }
 
 
@@ -343,6 +356,14 @@ public class PlayerMovement : MonoBehaviour
         b.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(b, 0.7f);
+    }
+    void confusion(Vector2 direction, float rotationZ)
+    {
+        GameObject c = Instantiate(confusePrefab) as GameObject;
+        c.transform.position = bulletStart.transform.position;
+        c.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+        c.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        Destroy(c, 0.7f);
     }
     void tremor()
     {
