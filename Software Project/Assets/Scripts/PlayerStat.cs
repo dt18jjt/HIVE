@@ -39,7 +39,11 @@ public class PlayerStat : MonoBehaviour
     public bool powBlock = false;
     public bool suddenDeath = false;
     public bool shockDam = false;
+    public bool pickedUp = false;
+    public bool stackWep = false;
+    public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
+    public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, int> damDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, int> wepLevelDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, float> ammoDict = new Dictionary<string, float>(); // Ammo Dictionary
@@ -66,38 +70,72 @@ public class PlayerStat : MonoBehaviour
         //Set text at start
         pickupText.SetActive(false);
         //Setting Damage Values
-        damDict.Add("pulseDam", 5);
-        damDict.Add("bulletDam", 10);
-        damDict.Add("shellDam", 10);
-        damDict.Add("expolsiveDam", 20);
-        damDict.Add("fireDam", 10);
-        damDict.Add("freezeDam", 10);
-        damDict.Add("boltDam", 10);
-        damDict.Add("tremorDam", 5);
-        damDict.Add("laserDam", 5);
-        damDict.Add("meleeDam", 10);
+        {
+            damDict.Add("pulseDam", 5);
+            damDict.Add("bulletDam", 10);
+            damDict.Add("shellDam", 10);
+            damDict.Add("expolsiveDam", 20);
+            damDict.Add("fireDam", 10);
+            damDict.Add("freezeDam", 10);
+            damDict.Add("boltDam", 10);
+            damDict.Add("tremorDam", 5);
+            damDict.Add("laserDam", 5);
+            damDict.Add("meleeDam", 10);
+        }
         //Setting Ammo Values
-        ammoDict.Add("bullet", 24);
-        ammoDict.Add("shell", 10);
-        ammoDict.Add("expolsive", 4);
-        ammoDict.Add("laser", 24);
+        {
+            ammoDict.Add("bullet", 24);
+            ammoDict.Add("shell", 10);
+            ammoDict.Add("expolsive", 4);
+            ammoDict.Add("laser", 24);
+        }
         //Setting Max Ammo Values
-        ammoMaxDict.Add("bulletMax", 32);
-        ammoMaxDict.Add("shellMax", 16);
-        ammoMaxDict.Add("expolsiveMax", 8);
-        ammoMaxDict.Add("laserMax", 24);
+        {
+            ammoMaxDict.Add("bulletMax", 32);
+            ammoMaxDict.Add("shellMax", 16);
+            ammoMaxDict.Add("expolsiveMax", 8);
+            ammoMaxDict.Add("laserMax", 24);
+        }
         //Setting Weapon Level values 
-        wepLevelDict.Add("bullet", 0);
-        wepLevelDict.Add("shell", 0);
-        wepLevelDict.Add("expolsive", 0);
-        wepLevelDict.Add("laser", 0);
-        wepLevelDict.Add("melee", 0);
+        {
+            wepLevelDict.Add("bullet", 0);
+            wepLevelDict.Add("shell", 0);
+            wepLevelDict.Add("expolsive", 0);
+            wepLevelDict.Add("laser", 0);
+            wepLevelDict.Add("melee", 0);
+        }
         //Setting Passive Abilites Values
-        pAbilDict.Add("heat", false);
-        pAbilDict.Add("cold", false);
-        pAbilDict.Add("shock", false);
-        pAbilDict.Add("earth", false);
-        pAbilDict.Add("decoy", false);
+        {
+            pAbilDict.Add("heat", false);
+            pAbilDict.Add("cold", false);
+            pAbilDict.Add("shock", false);
+            pAbilDict.Add("earth", false);
+            pAbilDict.Add("decoy", false);
+        }
+        //Setting pickup values
+        {
+            wepPickupDict.Add("b0", false);
+            wepPickupDict.Add("s0", false);
+            wepPickupDict.Add("e0", false);
+            wepPickupDict.Add("l0", false);
+            wepPickupDict.Add("m0", false);
+            wepPickupDict.Add("b1", false);
+            wepPickupDict.Add("s1", false);
+            wepPickupDict.Add("e1", false);
+            wepPickupDict.Add("l1", false);
+            wepPickupDict.Add("m1", false);
+            wepPickupDict.Add("b2", false);
+            wepPickupDict.Add("s2", false);
+            wepPickupDict.Add("e2", false);
+            wepPickupDict.Add("l2", false);
+            wepPickupDict.Add("m2", false);
+            wepPickupDict.Add("b3", false);
+            wepPickupDict.Add("s3", false);
+            wepPickupDict.Add("e3", false);
+            wepPickupDict.Add("l3", false);
+            wepPickupDict.Add("m3", false);
+        }
+        decoy.SetActive(false);
         
     }
 
@@ -178,6 +216,14 @@ public class PlayerStat : MonoBehaviour
             shockCoolDown -= Time.deltaTime;
         if (shockCoolDown <= 0)
             shockDam = false;
+        //Weapon level up
+        if(wep1Level == 0 && ammoStack1 >= 2)
+        {
+            pickupText.GetComponent<TextMesh>().text = "Weapon Level Up!";
+            wep1Level++;
+            ammoStack1 = 0;
+        }
+        wepPickup();
     }
     private void setText()
     {
@@ -213,7 +259,7 @@ public class PlayerStat : MonoBehaviour
         }
         
     }
-    public void equippedAmmo()
+    void equippedAmmo()
     {
         //Primary weapon
         if (weapon1 == 1)
@@ -324,7 +370,7 @@ public class PlayerStat : MonoBehaviour
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
             ammoDict["laser"] += Time.deltaTime;
     }
-    public void wepSwap(){
+    void wepSwap(){
         //Weapon Swapping
         int temp = weapon1;
         int tempLv = wep1Level;
@@ -335,6 +381,146 @@ public class PlayerStat : MonoBehaviour
         weapon2 = temp;
         wep2Level = tempLv;
         ammoStack2 = tempStack;
+    }
+    void wepPickup()
+    {
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Joystick1Button0))
+        {
+            tempWep = weapon1;
+            if (wepPickupDict["b0"])
+        {
+                pickedUp = true;
+                if (weapon1 == 1 && wep1Level == 0)
+                {
+                    stackWep = true;
+                    if (ammoDict["bullet"] >= ammoMaxDict["bulletMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                    }
+                    else if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        float ammo = Random.Range(6, 13);
+                        ammoDict["bullet"] += ammo;
+                        pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
+                        wep1Level = 0;
+                    }
+                }
+                else
+                {
+                    stackWep = false;
+                    StartCoroutine(pickedOff());
+                    weapon1 = 1;
+                    wep1Level = 0;
+                }
+            }
+            if (wepPickupDict["s0"])
+            {
+                pickedUp = true;
+                if (weapon1 == 2 && wep1Level == 0)
+                {
+                    stackWep = true;
+                    if (ammoDict["shell"] >= ammoMaxDict["shellMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                    }
+                    else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        float ammo = Random.Range(4, 11);
+                        ammoDict["shell"] += ammo;
+                        pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
+                    }
+                }
+                else if (weapon1 != 2)
+                {
+                    stackWep = false;
+                    StartCoroutine(pickedOff());
+                    weapon1 = 2;
+                    wep1Level = 0;
+                }
+            }
+            if (wepPickupDict["e0"])
+            {
+                pickedUp = true;
+                if (weapon1 == 3 && wep1Level == 0)
+                {
+                    stackWep = true;
+                    if (ammoDict["expolsive"] >= ammoMaxDict["expolsiveMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        ammoStack1 += 1;
+                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                    }
+                    else if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+                    {
+                        StartCoroutine(pickedOff());
+                        float ammo = Random.Range(2, 5);
+                        ammoDict["expolsive"] += ammo;
+                        pickupText.GetComponent<TextMesh>().text = "Expolsives + " + ammo.ToString();
+                    }
+                }
+                else if (weapon1 != 3)
+                {
+                    stackWep = false;
+                    StartCoroutine(pickedOff());
+                    weapon1 = 3;
+                    wep1Level = 0;
+                }
+            }
+            if (wepPickupDict["l0"])
+            {
+
+                pickedUp = true;
+                if (weapon1 == 4 && wep1Level == 0)
+                {
+                    stackWep = true;
+                    StartCoroutine(pickedOff());
+                    ammoStack1 += 1;
+                    pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                }
+                else if (weapon1 != 4)
+                {
+                    stackWep = false;
+                    StartCoroutine(pickedOff());
+                    weapon1 = 4;
+                    wep1Level = 0;
+                }
+            }
+            if (wepPickupDict["m0"])
+            {
+
+                pickedUp = true;
+                if (weapon1 == 5 && wep1Level == 0)
+                {
+                    stackWep = true;
+                    StartCoroutine(pickedOff());
+                    ammoStack1 += 1;
+                    pickupText.GetComponent<TextMesh>().text = "Stack +1";
+                }
+                else if (weapon1 != 5)
+                {
+                    stackWep = false;
+                    StartCoroutine(pickedOff());
+                    weapon1 = 5;
+                    wep1Level = 0;
+                }
+
+            }
+        }
+    }
+    public IEnumerator pickedOff()
+    {
+        
+        yield return new WaitForSeconds(0.1f);
+        pickedUp = false;
+        if (!stackWep)
+            Instantiate(wepDrop[tempWep - 1], transform.position, Quaternion.identity);
+       
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -431,116 +617,57 @@ public class PlayerStat : MonoBehaviour
         {
             pickupText.GetComponent<TextMesh>().text = "Pistol";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
-                weapon1 = 1;
+            wepPickupDict["b0"] = true;
+            if (pickedUp)
+            {
                 Destroy(other.gameObject);
-                if(weapon1 == 1)
-                {
-                    if (ammoDict["bullet"] >= ammoMaxDict["bulletMax"])
-                    {
-                        ammoStack1 += 1;
-                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
-                        Destroy(other.gameObject);
-                    }
-                    else if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
-                        wep1Level = 0;
-                }
-                else
-                    wep1Level = 0;
             }
+            
         }
         //LV0 Shell Weapon Pickup
         if (other.CompareTag("SWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Sawed Off";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["s0"] = true;
+            if (pickedUp)
             {
-                weapon1 = 2;
                 Destroy(other.gameObject);
-                if(weapon1 == 2)
-                {
-                    if (ammoDict["shell"] >= ammoMaxDict["shellMax"])
-                    {
-                        ammoStack1 += 1;
-                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
-                        Destroy(other.gameObject);
-                    }
-                    else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
-                        wep1Level = 0;
-                }
-                else
-                    wep1Level = 0;
             }
-            
+
         }
         //LV0 Explosive Weapon Pickup
         if (other.CompareTag("EWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["e0"] = true;
+            if (pickedUp)
             {
-                weapon1 = 3;
                 Destroy(other.gameObject);
-                if (weapon1 == 3)
-                {
-                    if (ammoDict["expolsive"] >= ammoMaxDict["expolsiveMax"])
-                    {
-                        ammoStack1 += 1;
-                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
-                        Destroy(other.gameObject);
-                    }
-                    else if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
-                        wep1Level = 0;
-                }
-                else
-                    wep1Level = 0;
             }
-            
+           
         }
         //LV0 Laser Weapon Pickup
         if (other.CompareTag("LWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["l0"] = true;
+            if (pickedUp)
             {
-                weapon1 = 4;
                 Destroy(other.gameObject);
-                if(weapon1 == 4)
-                {
-                    if (ammoDict["laser"] >= ammoMaxDict["laserMax"])
-                    {
-                        ammoStack1 += 1;
-                        pickupText.GetComponent<TextMesh>().text = "Stack +1";
-                        Destroy(other.gameObject);
-                    }
-                    else if (ammoDict["laser"] < ammoMaxDict["laserMax"])
-                        wep1Level = 0;
-                }
-                else
-                    wep1Level = 0;
             }
-            
         }
         //LV0 Melee Weapon Pickup
         if (other.CompareTag("MWep0"))
         {
             pickupText.GetComponent<TextMesh>().text = "Baton";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["m0"] = true;
+            if (pickedUp)
             {
-                weapon1 = 5;
                 Destroy(other.gameObject);
-                if (weapon1 == 1)
-                {
-                    ammoStack1 += 1;
-                    pickupText.GetComponent<TextMesh>().text = "Stack +1";
-                    Destroy(other.gameObject);
-                }
-                else
-                    wep1Level = 0;
             }
         }
     }
@@ -555,25 +682,35 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("EAmmo"))
             StartCoroutine(textOff());
         if (other.CompareTag("BWep0"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["b0"] = false;
+        }
         if (other.CompareTag("SWep0"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["s0"] = false;
+        }
         if (other.CompareTag("EWep0"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["e0"] = false;
+        }
         if (other.CompareTag("LWep0"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["l0"] = false;
+        }
         if (other.CompareTag("MWep0"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["m0"] = false;
+        }
     }
     IEnumerator textOff()
     {
         yield return new WaitForSeconds(0.4f);
         pickupText.SetActive(false);
-    }
-    void decoySpawn()
-    {
-        //GameObject d = Instantiate(decoy) as GameObject;
-        //Destroy(d);
     }
    private void controlInputs()
     {
