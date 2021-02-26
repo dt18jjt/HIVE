@@ -37,6 +37,7 @@ public class EnemyFollow : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     static EnemyFollow instance;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +45,7 @@ public class EnemyFollow : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
+        player.cEmenies.Add(gameObject.transform);
         //stoppingDistance = Random.Range(25, 31);
         //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
@@ -64,6 +66,7 @@ public class EnemyFollow : MonoBehaviour
             Instantiate(Corpse, transform.position, Quaternion.identity);
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
+            player.cEmenies.Remove(gameObject.transform);
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
@@ -78,11 +81,6 @@ public class EnemyFollow : MonoBehaviour
             frozenCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
         }
-        else if (confuseCooldown > 0)
-        {
-            confuseCooldown -= Time.deltaTime;
-            gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
-        }
         //target change
         if (player.pAbilDict["decoy"] && confuseCooldown <= 0)
             target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
@@ -90,13 +88,25 @@ public class EnemyFollow : MonoBehaviour
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
-            transform.gameObject.tag = "Player";
-            cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
-            if (!cEnemy && transform.gameObject.tag == "Player")
+            confuseCooldown -= Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
+            if (player.cEmenies.Count <= 1)
+            {
                 transform.gameObject.tag = "Enemy";
+                target = gameObject.transform;
+                //confuseCooldown = 0;
+            }
             else
+            {
+               
+                transform.gameObject.tag = "Player";
+                cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
                 target = cEnemy;
+            }
+            
+
         }
+        
     }
     private void FixedUpdate()
     {
@@ -270,9 +280,10 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Confuse"))
         {
             confuseCooldown = 5f;
+            //cEmenies.Add(cEnemy);
             Destroy(other.gameObject);
         }
-        if (other.CompareTag("CBullet") && confuseCooldown <= 0)
+        if (other.CompareTag("CBullet") && gameObject.CompareTag("Enemy"))
         {
             Damage(player.damDict["confuseDam"]);
             Destroy(other.gameObject);

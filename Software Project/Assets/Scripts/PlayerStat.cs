@@ -65,6 +65,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject decoy;
     public GameObject[] glitchItems;
     public GameObject[] wepDrop;
+    public List<Transform> cEmenies;
     // Start is called before the first frame update
     void Start(){
         //Set text at start

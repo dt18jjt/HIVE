@@ -58,6 +58,7 @@ public class RoomTypes : MonoBehaviour
         powBlockSpawn();
         glitchSpawn();
         //sDeathSpawn();
+        
     }
 
     // Update is called once per frame
