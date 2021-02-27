@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour
     bool mapOn = false;
     bool pressed = false;
     public bool controller = false;
-    public bool inStore = false;
     public GameObject miniMap;
     public GameObject Map;
     public GameObject crosshair;
@@ -54,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         if (stat.hp > 0){
             lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector3 velocity = lStickInput.normalized * runSpeed;
-            if (templates.waitTime <= 0 && !inStore)
+            if (templates.waitTime <= 0 && !stat.inStore)
                 transform.position += velocity * Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Joystick1Button6))
@@ -71,13 +70,13 @@ public class PlayerMovement : MonoBehaviour
         }
         //Detect input method
         controllerDetection();
-        if (!controller && !inStore)
+        if (!controller && !stat.inStore && stat.storeCoolDown <= 0)
         {
             mouseAim();
             crosshair.SetActive(true);
             crosshair2.GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (controller && !inStore)
+        if (controller && !stat.inStore && stat.storeCoolDown <= 0)
         {
             stickAim();
             crosshair.SetActive(false);
@@ -86,16 +85,16 @@ public class PlayerMovement : MonoBehaviour
         //Direction of player
         moveDirection();
         //shop
-        if (Input.GetKeyUp(KeyCode.P) && !inStore)
+        if (Input.GetKeyUp(KeyCode.P) && !stat.inStore)
         {
            store();
-           inStore = true;
+           stat.inStore = true;
             Cursor.visible = true;
         }
             
-        else if (Input.GetKeyUp(KeyCode.P) && inStore)
+        else if (Input.GetKeyUp(KeyCode.P) && stat.inStore)
         {
-            inStore = false;
+            stat.inStore = false;
             SceneManager.UnloadSceneAsync("shop");
             Cursor.visible = false;
         }

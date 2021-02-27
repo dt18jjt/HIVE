@@ -312,7 +312,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 201988076}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 201988078}
+        m_MethodName: buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &201988076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,8 +375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyText: {fileID: 876592491}
   priceText: {fileID: 1236134178}
-  bioText: {fileID: 0}
   price: 0
+  bought: 0
 --- !u!1 &243884499
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +618,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 257646315}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 257646317}
+        m_MethodName: buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &257646315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,8 +681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyText: {fileID: 852299345}
   priceText: {fileID: 1214238030}
-  bioText: {fileID: 0}
   price: 0
+  bought: 0
 --- !u!1 &311431651
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722c303e7f188df4c90ce16e4ecd843b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bioText: {fileID: 1409076785}
   buttons:
   - {fileID: 257646312}
   - {fileID: 782930606}
@@ -1019,7 +1042,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 782930609}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 782930611}
+        m_MethodName: buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &782930609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1071,8 +1105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyText: {fileID: 1700899051}
   priceText: {fileID: 612490440}
-  bioText: {fileID: 0}
   price: 0
+  bought: 0
 --- !u!1 &783467878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1276,7 @@ GameObject:
   - component: {fileID: 856619137}
   - component: {fileID: 856619136}
   m_Layer: 0
-  m_Name: Button (4)
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1310,7 +1344,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 856619137}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 763327597}
+        m_MethodName: exit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &856619137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2196,7 +2241,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1944173861}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1944173863}
+        m_MethodName: buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1944173861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2248,8 +2304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyText: {fileID: 1624433280}
   priceText: {fileID: 1088187405}
-  bioText: {fileID: 0}
   price: 0
+  bought: 0
 --- !u!1 &1986817880
 GameObject:
   m_ObjectHideFlags: 0

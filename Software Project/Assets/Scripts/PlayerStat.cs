@@ -32,6 +32,7 @@ public class PlayerStat : MonoBehaviour
     public float passiveCooldown = 0f;
     public float shockCoolDown = 0f;
     public float passiveTimer = 1f;
+    public float storeCoolDown = 0f; // when exiting a store
     public string Active;
     public string Passive;
     //Room conditions
@@ -41,6 +42,7 @@ public class PlayerStat : MonoBehaviour
     public bool shockDam = false;
     public bool pickedUp = false;
     public bool stackWep = false;
+    public bool inStore = false;
     public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -223,8 +225,11 @@ public class PlayerStat : MonoBehaviour
             shockCoolDown -= Time.deltaTime;
         if (shockCoolDown <= 0)
             shockDam = false;
+        //storeCooldown
+        if (storeCoolDown > 0)
+            storeCoolDown -= Time.deltaTime;
         //Weapon level up
-        if(wep1Level == 0 && ammoStack1 >= 2)
+        if (wep1Level == 0 && ammoStack1 >= 2)
         {
             pickupText.GetComponent<TextMesh>().text = "Weapon Level Up!";
             wep1Level++;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class shopScript : MonoBehaviour
 {
@@ -16,15 +17,15 @@ public class shopScript : MonoBehaviour
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         //Adding prices
         {
-            priceDict.Add("Medkit", 25);
-            priceDict.Add("BAmmo+8", 15);
-            priceDict.Add("BAmmo+16", 30);
-            priceDict.Add("SAmmo+4", 15);
-            priceDict.Add("SAmmo+8", 30);
-            priceDict.Add("EAmmo+2", 15);
-            priceDict.Add("EAmmo+4", 30);
-            priceDict.Add("HPMax+10", 50);
-            priceDict.Add("PPMax+10", 50);
+            priceDict.Add("Medkit + 20HP", 25);
+            priceDict.Add("Bullet Ammo + 8", 15);
+            priceDict.Add("Bullet Ammo + 16", 30);
+            priceDict.Add("Shell Ammo + 4", 15);
+            priceDict.Add("Shell Ammo + 8", 30);
+            priceDict.Add("Expolsive Ammo + 2", 15);
+            priceDict.Add("Expolsive Ammo + 4", 30);
+            priceDict.Add("HP Max +10", 50); 
+            priceDict.Add("PP Max + 10", 50);
         }
     }
 
@@ -39,9 +40,15 @@ public class shopScript : MonoBehaviour
             buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
             buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
             buttons[i].gameObject.GetComponent<buyScript>().priceText.text = 
-                buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
+            buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
             priceDict.Remove(random);
 
         }
+    }
+    public void exit()
+    {
+        SceneManager.UnloadSceneAsync("shop");
+        stat.inStore = false;
+        stat.storeCoolDown = 0.1f;
     }
 }
