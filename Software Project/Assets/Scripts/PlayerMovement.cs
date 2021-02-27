@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool mapOn = false;
     bool pressed = false;
     public bool controller = false;
+    public bool inStore = false;
     public GameObject miniMap;
     public GameObject Map;
     public GameObject crosshair;
@@ -52,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (stat.hp > 0){
             lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector3 velocity = lStickInput.normalized * runSpeed;
-            if (templates.waitTime <= 0)
+            if (templates.waitTime <= 0 && !inStore)
                 transform.position += velocity * Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Joystick1Button6))
@@ -69,13 +71,13 @@ public class PlayerMovement : MonoBehaviour
         }
         //Detect input method
         controllerDetection();
-        if (!controller)
+        if (!controller && !inStore)
         {
             mouseAim();
             crosshair.SetActive(true);
             crosshair2.GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (controller)
+        if (controller && !inStore)
         {
             stickAim();
             crosshair.SetActive(false);
@@ -83,7 +85,25 @@ public class PlayerMovement : MonoBehaviour
         }
         //Direction of player
         moveDirection();
-        
+        //shop
+        if (Input.GetKeyUp(KeyCode.P) && !inStore)
+        {
+           store();
+           inStore = true;
+            Cursor.visible = true;
+        }
+            
+        else if (Input.GetKeyUp(KeyCode.P) && inStore)
+        {
+            inStore = false;
+            SceneManager.UnloadSceneAsync("shop");
+            Cursor.visible = false;
+        }
+
+    }
+    void store()
+    {
+        SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
     }
     private void FixedUpdate()
     {
@@ -118,7 +138,8 @@ public class PlayerMovement : MonoBehaviour
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
 
-        if (Input.GetMouseButtonUp(0)){
+        if (Input.GetMouseButtonUp(0))
+        {
             if(stat.ammo1 > 0 && !stat.wepJam){
                 float distance = difference.magnitude;
                 float shDistance = shDifference.magnitude;
@@ -210,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
             crosshair2.SetActive(false);
         target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(rStickInput.x, rStickInput.y, 10));
         //Right trigger (Weapon)
-        if (Input.GetAxis("Fire1") == 1 && !pressed)
+        if (Input.GetAxis("Fire1") == 1 && !pressed )
         {
             pressed = true;
             if (stat.ammo1 > 0 && !stat.wepJam)

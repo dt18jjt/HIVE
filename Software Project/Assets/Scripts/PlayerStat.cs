@@ -145,6 +145,11 @@ public class PlayerStat : MonoBehaviour
     void Update(){
         Vector2 pickupPos = new Vector2(transform.position.x, transform.position.y + 15);
         pickupText.transform.position = pickupPos;
+        //keeping value player preferences
+        PlayerPrefs.SetInt("BP", bp);
+        PlayerPrefs.SetInt("HP", hp);
+        PlayerPrefs.SetInt("HPMax", hpMax);
+        PlayerPrefs.SetInt("PPMax", ppMax);
         setText();
         //Player Health set to zero and max
         if (hp <= 0){
@@ -716,34 +721,6 @@ public class PlayerStat : MonoBehaviour
     }
    private void controlInputs()
     {
-        //Active switch cheat
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-            Active = "Firebomb";
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-            Active = "Freeze Blast";
-        if (Input.GetKeyUp(KeyCode.Alpha3))
-            Active = "Bolt Dash";
-        if (Input.GetKeyUp(KeyCode.Alpha4))
-            Active = "Tremor";
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-            Active = "Confusion";
-        if (Input.GetKeyUp(KeyCode.Alpha6))
-            Passive = "Heatstroke";
-        if (Input.GetKeyUp(KeyCode.Alpha7))
-            Passive = "Cold Zone";
-        if (Input.GetKeyUp(KeyCode.Alpha8))
-            Passive = "Static Shock";
-        if (Input.GetKeyUp(KeyCode.Alpha9))
-            Passive = "Earth Barrier";
-        if (Input.GetKeyUp(KeyCode.Alpha0))
-            Passive = "Issuion Decoy";
-        //Ammo cheat
-        if (Input.GetKeyUp(KeyCode.F2)){
-            hp = hpMax;
-            ammoDict["bullet"] = ammoMaxDict["bulletMax"];
-            ammoDict["shell"] = ammoMaxDict["shellMax"];
-            ammoDict["expolsive"] = ammoDict["expolsiveMax"];
-        }
         //Weapon Swapping
         if (Input.GetKeyUp(KeyCode.Q) && ammo2 > 0 || Input.GetKeyUp(KeyCode.Joystick1Button3) && ammo2 > 0)
             wepSwap();
