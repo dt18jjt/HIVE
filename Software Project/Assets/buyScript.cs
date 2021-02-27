@@ -8,6 +8,7 @@ public class buyScript : MonoBehaviour
     public Text buyText;
     public Text priceText;
     public int price;
+    public int effect;
     public bool bought;
     PlayerStat stat;
     // Start is called before the first frame update
@@ -28,6 +29,7 @@ public class buyScript : MonoBehaviour
             //PlayerPrefs.SetInt("BP", PlayerPrefs.GetInt("BP")-price);
             //Debug.Log(PlayerPrefs.GetInt("BP"));
             stat.bp -= price;
+            createBuyList();
             bought = true;
             priceText.text = "0";
             priceText.color = Color.red;
@@ -41,5 +43,61 @@ public class buyScript : MonoBehaviour
         priceText.text = "INVAILD";
         yield return new WaitForSeconds(0.5f);
         priceText.text = price.ToString();
+    }
+    delegate void buyitemMethod();
+    void createBuyList()
+    {
+        List<buyitemMethod> buyItem = new List<buyitemMethod>();
+        //Add all item functions
+        buyItem.Add(medkit);
+        buyItem.Add(bAmmo8);
+        buyItem.Add(bAmmo16);
+        buyItem.Add(sAmmo4);
+        buyItem.Add(sAmmo8);
+        buyItem.Add(eAmmo2);
+        buyItem.Add(eAmmo4);
+        buyItem.Add(HPMax);
+        buyItem.Add(PPMax);
+        //call a method
+        buyItem[effect]();
+    }
+    void medkit()
+    {
+        stat.hp += 20;
+    }
+    void bAmmo8()
+    {
+        stat.ammoDict["bullet"] += 8;
+    }
+    void bAmmo16()
+    {
+        stat.ammoDict["bullet"] += 8;
+    }
+    void sAmmo4()
+    {
+        stat.ammoDict["shell"] += 4;
+    }
+    void sAmmo8()
+    {
+        stat.ammoDict["shell"] += 8;
+    }
+    void eAmmo2()
+    {
+        stat.ammoDict["expolsive"] += 2;
+
+    }
+    void eAmmo4()
+    {
+        stat.ammoDict["expolsive"] += 4;
+    }
+    void HPMax()
+    {
+        stat.hpMax += 10;
+        //stat.hp += 10;
+    }
+    void PPMax()
+    {
+        stat.ppMax += 10;
+        //stat.pp += 10;
     }
 }

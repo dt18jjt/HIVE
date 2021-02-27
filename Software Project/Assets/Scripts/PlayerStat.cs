@@ -239,8 +239,8 @@ public class PlayerStat : MonoBehaviour
     }
     private void setText()
     {
-        hpText.text = "HP:" + hp.ToString() + "/100";
-        ppText.text = "PP:" + pp.ToString("F0") + "/100";
+        hpText.text = "HP:" + hp.ToString() + "/" + hpMax.ToString();
+        ppText.text = "PP:" + pp.ToString("F0") + "/"+ ppMax.ToString();
         mpText.text = bp.ToString();
         a1Text.text = ammo1.ToString("F0");
         a2Text.text = ammo2.ToString("F0");

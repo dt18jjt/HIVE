@@ -10,6 +10,7 @@ public class shopScript : MonoBehaviour
     public Text bioText;
     public List<GameObject> buttons;
     Dictionary<string, int> priceDict = new Dictionary<string, int>(); // price Dictionary
+    Dictionary<string, int> effectDict = new Dictionary<string, int>(); //effects dictionary
     PlayerStat stat;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,29 @@ public class shopScript : MonoBehaviour
             priceDict.Add("HP Max +10", 50); 
             priceDict.Add("PP Max + 10", 50);
         }
+        //Adding effects
+        {
+            effectDict.Add("Medkit + 20HP", 0);
+            effectDict.Add("Bullet Ammo + 8", 1);
+            effectDict.Add("Bullet Ammo + 16", 2);
+            effectDict.Add("Shell Ammo + 4", 3);
+            effectDict.Add("Shell Ammo + 8", 4);
+            effectDict.Add("Expolsive Ammo + 2", 5);
+            effectDict.Add("Expolsive Ammo + 4", 6);
+            effectDict.Add("HP Max +10", 7);
+            effectDict.Add("PP Max + 10", 8);
+        }
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            var random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count - 1));
+            buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
+            buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
+            buttons[i].gameObject.GetComponent<buyScript>().priceText.text =
+            buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
+            buttons[i].gameObject.GetComponent<buyScript>().effect = effectDict[random];
+            priceDict.Remove(random);
+
+        }
     }
 
     // Update is called once per frame
@@ -34,16 +58,7 @@ public class shopScript : MonoBehaviour
     {
         //bioText.text = PlayerPrefs.GetInt("BP").ToString();
         bioText.text = stat.bp.ToString();
-        for (int i = 0; i < buttons.Count; i++)
-        {
-            var random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count - 1));
-            buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
-            buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
-            buttons[i].gameObject.GetComponent<buyScript>().priceText.text = 
-            buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
-            priceDict.Remove(random);
-
-        }
+        
     }
     public void exit()
     {
