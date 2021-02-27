@@ -1692,7 +1692,6 @@ MonoBehaviour:
   runSpeed: 50
   isDash: 0
   controller: 0
-  inStore: 0
   miniMap: {fileID: 1324596070}
   Map: {fileID: 15493613}
   crosshair: {fileID: 1450093299}
@@ -1816,6 +1815,7 @@ MonoBehaviour:
   passiveCooldown: 0
   shockCoolDown: 0
   passiveTimer: 2
+  storeCoolDown: 0
   Active: Confusion
   Passive: Heatstroke
   wepJam: 0
@@ -1824,6 +1824,7 @@ MonoBehaviour:
   shockDam: 0
   pickedUp: 0
   stackWep: 0
+  inStore: 0
   tempWep: 0
   hpText: {fileID: 887834006}
   ppText: {fileID: 2029249686}
