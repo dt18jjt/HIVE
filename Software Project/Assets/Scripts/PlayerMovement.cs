@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
     public float bulletSpeed = 100.0f;
     public float expolsiveSpeed = 80.0f;
     public float laserSpeed = 60.0f;
+    public float slowCoolDown;
     private Vector3 target;
     private Vector2 lStickInput;
     private Vector2 rStickInput;
@@ -70,34 +71,28 @@ public class PlayerMovement : MonoBehaviour
         }
         //Detect input method
         controllerDetection();
-        if (!controller && !stat.inStore && stat.storeCoolDown <= 0)
-        {
-            mouseAim();
-            crosshair.SetActive(true);
-            crosshair2.GetComponent<SpriteRenderer>().enabled = false;
-        }
-        if (controller && !stat.inStore && stat.storeCoolDown <= 0)
-        {
-            stickAim();
-            crosshair.SetActive(false);
-            crosshair2.GetComponent<SpriteRenderer>().enabled = true;
-        }
         //Direction of player
         moveDirection();
-        //shop
+        //shop cheat
         if (Input.GetKeyUp(KeyCode.P) && !stat.inStore)
         {
            store();
            stat.inStore = true;
             Cursor.visible = true;
-        }
-            
+        }            
         else if (Input.GetKeyUp(KeyCode.P) && stat.inStore)
         {
             stat.inStore = false;
             SceneManager.UnloadSceneAsync("shop");
             Cursor.visible = false;
         }
+        if (slowCoolDown > 0)
+        {
+            runSpeed = 25;
+            slowCoolDown -= Time.deltaTime;
+        }
+        else
+            runSpeed = 30;
 
     }
     void store()
@@ -415,6 +410,16 @@ public class PlayerMovement : MonoBehaviour
     }
     void controllerDetection()
     {
+        if (!controller && !stat.inStore && stat.storeCoolDown <= 0){
+            mouseAim();
+            crosshair.SetActive(true);
+            crosshair2.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        if (controller && !stat.inStore && stat.storeCoolDown <= 0){
+            stickAim();
+            crosshair.SetActive(false);
+            crosshair2.GetComponent<SpriteRenderer>().enabled = true;
+        }
         //mouse detection
         if (Input.GetAxisRaw("Mouse X") != 0.0f || Input.GetAxisRaw("Mouse Y") != 0.0f)
             controller = false;

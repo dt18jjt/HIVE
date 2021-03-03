@@ -23,7 +23,12 @@ public class EnemyFollow : MonoBehaviour
     public bool frozen = false;
     public bool suddenDeath = false;
     public bool bpSpawn = false;
-    public bool tremor = false;
+    //Enemy Types
+    public bool Pyro;
+    public bool Cryo;
+    public bool Geo;
+    public bool Electro;
+    public bool Hypno;
     public GameObject projectile;
     public GameObject confusionProjectile;
     public GameObject BP;
@@ -159,6 +164,8 @@ public class EnemyFollow : MonoBehaviour
             player.Damage(Random.Range(10, 20));
         else if (confuseCooldown > 0)
             target.GetComponent<EnemyFollow>().Damage(10);
+        if (Cryo && playerMove.slowCoolDown <= 0)
+            playerMove.slowCoolDown = 1f;
         attackCooldown = startAtkCooldown;
     }
     void enemyRangeAtk(){
@@ -236,18 +243,6 @@ public class EnemyFollow : MonoBehaviour
         }
             
     }
-    IEnumerator tremorKnockback(float knockbackTime, float knockbackPower)
-    {
-        while (knockbackTime > 0)
-        {
-            knockbackTime -= Time.deltaTime;
-            Vector2 direction = (target.transform.position - transform.position).normalized;
-            rb.AddForce(-direction * knockbackPower);
-            Debug.Log("i");
-            yield return new WaitForFixedUpdate();
-        }
-        tremor = false;
-    }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
@@ -263,13 +258,20 @@ public class EnemyFollow : MonoBehaviour
             Damage(player.damDict["laserDam"]);
             Destroy(other.gameObject);
         }
-        if (other.CompareTag("Fire"))
+        if (other.CompareTag("Bomb"))
         {
-            Damage(player.damDict["fireDam"]);
+            Damage(player.damDict["expolsiveDam"]);
         }
         if (other.CompareTag("Melee"))
         {
             Damage(player.damDict["meleeDam"]);
+        }
+        if (other.CompareTag("Fire"))
+        {
+            if(Cryo)
+                Damage(player.damDict["fireDam"]/2);
+            else
+                Damage(player.damDict["fireDam"]);
         }
         if (other.CompareTag("Freeze"))
         {
