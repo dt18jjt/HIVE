@@ -153,8 +153,10 @@ public class EnemyFollow : MonoBehaviour
         }
     }
     void enemyCloseAtk(){
-        if (!player.pAbilDict["decoy"])
+        if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
             player.Damage(Random.Range(10, 20));
+        else if (confuseCooldown > 0)
+            target.GetComponent<EnemyFollow>().Damage(10);
         attackCooldown = startAtkCooldown;
     }
     void enemyRangeAtk(){
