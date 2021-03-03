@@ -15,6 +15,7 @@ public class EnemyFollow : MonoBehaviour
     public float moveCooldown;
     public float startMvCooldown;
     public float frozenCooldown;
+    public float tremorCooldown = 0f;
     float heatTimer = 1f;
     float coldTimer = 1f;
     public float confuseCooldown = 0f;
@@ -22,7 +23,7 @@ public class EnemyFollow : MonoBehaviour
     public bool frozen = false;
     public bool suddenDeath = false;
     public bool bpSpawn = false;
-    public bool knockedBack = false;
+    public bool tremor = false;
     public GameObject projectile;
     public GameObject confusionProjectile;
     public GameObject BP;
@@ -61,6 +62,7 @@ public class EnemyFollow : MonoBehaviour
         heatstroke();
         coldZone();
         staticShock();
+        tremorKnockback();
         //Death
         if (hp <= 0){
             Instantiate(Corpse, transform.position, Quaternion.identity);
@@ -110,13 +112,13 @@ public class EnemyFollow : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(knockedBack)
-            StartCoroutine(tremorKnockback(0.5f, 50f));
+        //if(knockedBack)
+        //    StartCoroutine(tremorKnockback(0.5f, 50f));
     }
     void movement()
     {
         //Close Range 
-        if (!ranged && frozenCooldown <= 0)
+        if (!ranged && frozenCooldown <= 0 && tremorCooldown <= 0)
         {
             if (Vector2.Distance(transform.position, target.position) > stoppingDistance && moveCooldown <= 0)
             {
@@ -135,7 +137,7 @@ public class EnemyFollow : MonoBehaviour
             }
         }
         //Long Range
-        if (ranged && frozenCooldown <= 0)
+        if (ranged && frozenCooldown <= 0 && tremorCooldown <= 0)
         {
             if (Vector2.Distance(transform.position, target.position) > stoppingDistance && moveCooldown <= 0)
             {
@@ -225,6 +227,15 @@ public class EnemyFollow : MonoBehaviour
         else
             hp = 0;
     }
+    void tremorKnockback()
+    {
+        if(tremorCooldown > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, -target.position, 200 * Time.deltaTime);
+            tremorCooldown -= Time.deltaTime;
+        }
+            
+    }
     IEnumerator tremorKnockback(float knockbackTime, float knockbackPower)
     {
         while (knockbackTime > 0)
@@ -235,7 +246,7 @@ public class EnemyFollow : MonoBehaviour
             Debug.Log("i");
             yield return new WaitForFixedUpdate();
         }
-        knockedBack = false;
+        tremor = false;
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
@@ -277,7 +288,7 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
-            knockedBack = true;
+            tremorCooldown = 0.5f;
         }
         if (other.CompareTag("Confuse"))
         {
