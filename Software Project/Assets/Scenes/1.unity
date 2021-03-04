@@ -884,6 +884,51 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5623935904502013361, guid: 5e33141e375247e4b959cfc5db46d637,
         type: 3}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: normalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: normalColor.g
+      value: 0.5176471
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: normalColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: frozenColor.r
+      value: 0.9811321
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: frozenColor.g
+      value: 0.7735263
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: frozenColor.b
+      value: 0.5507298
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: confuseColor.r
+      value: 0.5283019
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: confuseColor.g
+      value: 0.27347395
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865663397156743027, guid: 21a8cc33bfa960e4e88f870144114a44,
+        type: 3}
+      propertyPath: confuseColor.b
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4865663397156743030, guid: 21a8cc33bfa960e4e88f870144114a44,
         type: 3}
       propertyPath: m_Color.r
