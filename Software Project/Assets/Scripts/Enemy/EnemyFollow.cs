@@ -31,6 +31,7 @@ public class EnemyFollow : MonoBehaviour
     public bool Hypno;
     public GameObject projectile;
     public GameObject confusionProjectile;
+    public GameObject burnProjectile;
     public GameObject BP;
     public GameObject Corpse;
     public Transform cEnemy;
@@ -172,6 +173,8 @@ public class EnemyFollow : MonoBehaviour
         if (attackCooldown <= 0 && moveCooldown <= 0){
             if(confuseCooldown <= 0)
                 Instantiate(projectile, transform.position, Quaternion.identity);
+            if(Pyro)
+                Instantiate(burnProjectile, transform.position, Quaternion.identity);
             else
                 Instantiate(confusionProjectile, transform.position, Quaternion.identity);
             attackCooldown = startAtkCooldown;
@@ -276,7 +279,10 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Freeze"))
         {
             Damage(player.damDict["freezeDam"]);
-            frozenCooldown = 1.5f;
+            if(Pyro)
+                frozenCooldown = 0.5f;
+            else
+                frozenCooldown = 1.5f;
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Pulse"))

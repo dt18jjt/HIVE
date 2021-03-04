@@ -32,6 +32,7 @@ public class PlayerStat : MonoBehaviour
     public float passiveCooldown = 0f;
     public float shockCoolDown = 0f;
     public float passiveTimer = 1f;
+    public float burnCoolDown;
     public float storeCoolDown = 0f; // when exiting a store
     public string Active;
     public string Passive;
@@ -236,6 +237,11 @@ public class PlayerStat : MonoBehaviour
             ammoStack1 = 0;
         }
         wepPickup();
+        if (burnCoolDown > 0)
+        {
+            burnCoolDown -= Time.deltaTime;
+            StartCoroutine(burnDam());
+        }
     }
     private void setText()
     {
@@ -271,7 +277,7 @@ public class PlayerStat : MonoBehaviour
         }
         
     }
-    void equippedAmmo()
+    private void equippedAmmo()
     {
         //Primary weapon
         if (weapon1 == 1)
@@ -382,7 +388,7 @@ public class PlayerStat : MonoBehaviour
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
             ammoDict["laser"] += Time.deltaTime;
     }
-    void wepSwap(){
+    private void wepSwap(){
         //Weapon Swapping
         int temp = weapon1;
         int tempLv = wep1Level;
@@ -394,7 +400,7 @@ public class PlayerStat : MonoBehaviour
         wep2Level = tempLv;
         ammoStack2 = tempStack;
     }
-    void wepPickup()
+    private void wepPickup()
     {
         if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
         {
@@ -525,7 +531,7 @@ public class PlayerStat : MonoBehaviour
             }
         }
     }
-    public IEnumerator pickedOff()
+    IEnumerator pickedOff()
     {
         
         yield return new WaitForSeconds(0.1f);
@@ -533,6 +539,11 @@ public class PlayerStat : MonoBehaviour
         if (!stackWep)
             Instantiate(wepDrop[tempWep - 1], transform.position, Quaternion.identity);
        
+    }
+    IEnumerator burnDam()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Damage(Random.Range(4, 8));
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -545,8 +556,10 @@ public class PlayerStat : MonoBehaviour
         }
         if (other.CompareTag("Exit"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        if (other.CompareTag("Burn"))
+            burnCoolDown = Random.Range(1f, 1.6f);
     }
-    IEnumerator pulseAction()
+    private IEnumerator pulseAction()
     {
         pulse.SetActive(true);
         yield return new WaitForSeconds(0.3f);

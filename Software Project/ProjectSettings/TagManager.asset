@@ -50,6 +50,7 @@ TagManager:
   - Decoy
   - Confuse
   - CBullet
+  - Burn
   layers:
   - Default
   - TransparentFX

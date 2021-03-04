@@ -93,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             runSpeed = 30;
+       
 
     }
     void store()
@@ -408,6 +409,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         BoltArea.SetActive(false);
     }
+
     void controllerDetection()
     {
         if (!controller && !stat.inStore && stat.storeCoolDown <= 0){

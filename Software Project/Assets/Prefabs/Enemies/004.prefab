@@ -122,7 +122,7 @@ MonoBehaviour:
     type: 3}
   confusionProjectile: {fileID: 0}
   BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}
-  Corpse: {fileID: 6774491008760995051, guid: 2d378d1e6d70d1340a3ac27355315078, type: 3}
+  Corpse: {fileID: 6774491008760995051, guid: 4e5355dcc1ed96e45ba0755b4a4d045c, type: 3}
   cEnemy: {fileID: 0}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
