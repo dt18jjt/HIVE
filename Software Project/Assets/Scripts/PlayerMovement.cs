@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (stat.hp > 0){
             lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             Vector3 velocity = lStickInput.normalized * runSpeed;
-            if (templates.waitTime <= 0 && !stat.inStore)
+            if (templates.waitTime <= 0 && !stat.inStore && stat.tangleCooldown <= 0)
                 transform.position += velocity * Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Joystick1Button6))
@@ -201,6 +201,7 @@ public class PlayerMovement : MonoBehaviour
                     tremor();
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
+                    stat.tangleCooldown = 0;
                 }
                 if (stat.Active == "Confusion")
                 {
@@ -300,6 +301,7 @@ public class PlayerMovement : MonoBehaviour
                     tremor();
                     stat.pp -= 30;
                     stat.activeCooldown = 2;
+                    stat.tangleCooldown = 0f;
                 }
                 if (stat.Active == "Confusion")
                 {

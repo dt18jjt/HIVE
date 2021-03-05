@@ -120,7 +120,12 @@ MonoBehaviour:
   Hypno: 0
   projectile: {fileID: 5623935904502013361, guid: e7522e7d835ba644189d905993984db6,
     type: 3}
-  confusionProjectile: {fileID: 0}
+  confusionProjectile: {fileID: 5623935904502013361, guid: b896112eea8a24943989402cdcf84be9,
+    type: 3}
+  burnProjectile: {fileID: 5623935904502013361, guid: 5e33141e375247e4b959cfc5db46d637,
+    type: 3}
+  sporeProjectile: {fileID: 5623935904502013361, guid: 9107a5f90ebb8bf43a66aa816cd30528,
+    type: 3}
   BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}
   Corpse: {fileID: 6774491008760995051, guid: 4e5355dcc1ed96e45ba0755b4a4d045c, type: 3}
   cEnemy: {fileID: 0}

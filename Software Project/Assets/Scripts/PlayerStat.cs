@@ -33,6 +33,7 @@ public class PlayerStat : MonoBehaviour
     public float shockCoolDown = 0f;
     public float passiveTimer = 1f;
     public float burnCoolDown;
+    public float tangleCooldown;
     public float storeCoolDown = 0f; // when exiting a store
     public string Active;
     public string Passive;
@@ -242,6 +243,8 @@ public class PlayerStat : MonoBehaviour
             burnCoolDown -= Time.deltaTime;
             StartCoroutine(burnDam());
         }
+        if (tangleCooldown > 0)
+            tangleCooldown -= Time.deltaTime;
     }
     private void setText()
     {
@@ -558,6 +561,16 @@ public class PlayerStat : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         if (other.CompareTag("Burn"))
             burnCoolDown = Random.Range(1f, 1.6f);
+        if (other.CompareTag("Spore"))
+        {
+            int chance = Random.Range(0, 4);
+            if (chance >= 3)
+            {
+                tangleCooldown = 1f;
+                Debug.Log("tangled");
+            }
+                
+        }
     }
     private IEnumerator pulseAction()
     {
