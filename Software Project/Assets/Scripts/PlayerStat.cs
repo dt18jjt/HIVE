@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0;
+    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0, buffNum;
     public float pp = 100;
     //Ammo display
     public float ammo1 , ammo2;
@@ -199,6 +199,7 @@ public class PlayerStat : MonoBehaviour
         }
         if (tangleCooldown > 0)
             tangleCooldown -= Time.deltaTime;
+        enemyBuff = buffNum > 0;
     }
     private void setText()
     {

@@ -28,6 +28,8 @@ public class EnemyFollow : MonoBehaviour
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
         player.cEmenies.Add(gameObject.transform);
+        if (Hypno)
+            player.buffNum++;
         //stoppingDistance = Random.Range(25, 31);
         //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
@@ -50,6 +52,8 @@ public class EnemyFollow : MonoBehaviour
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
+            if (Hypno)
+                player.buffNum--;
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
@@ -77,11 +81,7 @@ public class EnemyFollow : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
             transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
-           
         }
-        player.enemyBuff = Hypno;
-        if (Hypno)
-            Debug.Log("h");
 
     }
     private void FixedUpdate()
