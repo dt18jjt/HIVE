@@ -193,7 +193,7 @@ public class EnemyFollow : MonoBehaviour
             player.shockCoolDown = 0.2f;
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
             hit.GetComponent<ParticleSystem>().Play();
-            hp -= 10;
+            hp -= (Electro) ? 5 : 10;
         }
         
        
@@ -204,6 +204,8 @@ public class EnemyFollow : MonoBehaviour
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
         hp -= dam;
+        if (Electro)
+            speed += 5;
     }
     void tremorKnockback()
     {
@@ -257,7 +259,7 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Bolt") )
         {
-            Damage(player.damDict["boltDam"]);
+            Damage((Electro) ? player.damDict["boltDam"]/2 : player.damDict["boltDam"]);
         }
         if (other.CompareTag("Tremor"))
         {
