@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class buyScript : MonoBehaviour
 {
-    public Text buyText;
-    public Text priceText;
-    public int price;
-    public int effect;
+    public Text buyText, priceText;
+    public int price, effect;
     public bool bought;
     PlayerStat stat;
     // Start is called before the first frame update

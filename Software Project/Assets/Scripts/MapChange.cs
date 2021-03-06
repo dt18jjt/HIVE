@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class MapChange : MonoBehaviour
 {
-    bool Nearby = false;
-    bool Traced = false;
-    bool playerOn = false;
-    bool bRoom;
-    bool sRoom;
+    bool Nearby = false, Traced = false, playerOn = false, bRoom, sRoom;
     public Color offColor;
     [SerializeField]
     public GameObject trackBox;

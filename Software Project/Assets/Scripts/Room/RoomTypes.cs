@@ -5,40 +5,16 @@ using UnityEngine;
 public class RoomTypes : MonoBehaviour
 {
     int roomChance;
-    public bool enemyOn = false;
-    public bool start = false;
-    public bool boss = false;
-    public bool shop = false;
-    public bool time = false;
-    public bool wJam = false;
-    public bool pBlocked = false;
-    public bool glitch = false;
-    public bool sDeath = false;
-    public bool entered = false;
-    public bool noEnemy = false;
+    public bool enemyOn = false, start = false, boss = false, shop = false, time = false, wJam = false, pBlocked = false,
+        glitch = false, entered = false, noEnemy = false,  enemyBuff = false;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
-    public GameObject sIcon;
-    public GameObject gIcon;
-    public GameObject eBox;
-    public GameObject IBox;
+    public GameObject sIcon, gIcon, eBox, IBox, box, eArea, exit, floor;
     public GameObject[] enemies;
     public GameObject[] items;
-    public GameObject box;
-    public GameObject eArea;
-    public GameObject exit;
-    public GameObject floor;
-    public int enemySpawnCount;
-    public int enemyCount;
-    public int itemCount;
-    public Color normalColor;
-    public Color coldColor;
-    public Color hotColor;
-    public Color shockColor;
-    public Color shockDamColor;
-    public Color earthColor;
-    public Color decoyColor;
+    public int enemySpawnCount, enemyCount, itemCount;
+    public Color normalColor, coldColor, hotColor, shockColor, shockDamColor, earthColor, decoyColor;
     public List<Transform> eSpawnPoints;
     public List<Transform> iSpawnPoints;
     PlayerStat player;
@@ -150,8 +126,6 @@ public class RoomTypes : MonoBehaviour
                 player.wepJam = true;
             if (pBlocked && !entered)
                 player.powBlock = true;
-            if (sDeath && !entered)
-                player.suddenDeath = true;
             if (boss)
                 Instantiate(exit, transform.position, Quaternion.identity);
             if (glitch)
@@ -172,13 +146,13 @@ public class RoomTypes : MonoBehaviour
         }
         if (other.CompareTag("Health"))
             other.transform.parent = gameObject.transform;
-        if (other.CompareTag("Enemy")){
-            if (sDeath)
-            {
-                EnemyFollow enemy = other.gameObject.GetComponent<EnemyFollow>();
-                enemy.suddenDeath = true;
-            }
-        }
+        //if (other.CompareTag("Enemy")){
+        //    if (sDeath)
+        //    {
+        //        EnemyFollow enemy = other.gameObject.GetComponent<EnemyFollow>();
+        //        enemy.suddenDeath = true;
+        //    }
+        //}
     }
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -272,16 +246,16 @@ public class RoomTypes : MonoBehaviour
     }
     void sDeathSpawn()
     {
-        if (count.sDeathCount > 0)
-        {
-            //random chance of time room
-            if (roomChance == 6 && !start)
-            {
-                sDeath = true;
-                count.sDeathCount--;
-                Debug.Log("Sudden Death");
-            }
-        }
+        //if (count.sDeathCount > 0)
+        //{
+        //    //random chance of time room
+        //    if (roomChance == 6 && !start)
+        //    {
+        //        sDeath = true;
+        //        count.sDeathCount--;
+        //        Debug.Log("Sudden Death");
+        //    }
+        //}
     }
     void timeRoom()
     {

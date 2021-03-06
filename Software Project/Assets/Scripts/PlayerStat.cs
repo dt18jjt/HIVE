@@ -6,45 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int hp = 100;
-    public int hpMax = 100;
+    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0;
     public float pp = 100;
-    public int ppMax = 100;
-    public int bp = 0;
     //Ammo display
-    public float ammo1;
-    public float ammo2;
-    //Weapon display
-    public int weapon1;
-    public int weapon2;
-    //Weapon levels
-    public int wep1Level = 0;
-    public int wep2Level = 0;
-    //Ammo stacking
-    public int ammoStack1 = 0;
-    public int ammoStack2 = 0;
+    public float ammo1 , ammo2;
+    //Weapon values
+    public int weapon1, weapon2, wep1Level = 0, wep2Level = 0 , ammoStack1 = 0, ammoStack2 = 0;
     //cooldowns
-    public float damCooldown;
-    public float pulseCooldown;
-    public float meleeCooldown;
-    public float laserCooldown = 0f;
-    public float activeCooldown = 0f;
-    public float passiveCooldown = 0f;
-    public float shockCoolDown = 0f;
-    public float passiveTimer = 1f;
-    public float burnCoolDown;
-    public float tangleCooldown;
-    public float storeCoolDown = 0f; // when exiting a store
-    public string Active;
-    public string Passive;
+    public float damCooldown, pulseCooldown, meleeCooldown, laserCooldown = 0f, activeCooldown = 0f, passiveCooldown = 0f,
+        shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f;
+    public string Active, Passive;
     //Room conditions
-    public bool wepJam = false;
-    public bool powBlock = false;
-    public bool suddenDeath = false;
-    public bool shockDam = false;
-    public bool pickedUp = false;
-    public bool stackWep = false;
-    public bool inStore = false;
+    public bool wepJam = false, powBlock = false, suddenDeath = false, shockDam = false, pickedUp = false, stackWep = false,
+        inStore = false;
     public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -52,21 +26,13 @@ public class PlayerStat : MonoBehaviour
     public Dictionary<string, int> wepLevelDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, float> ammoDict = new Dictionary<string, float>(); // Ammo Dictionary
     public Dictionary<string, int> ammoMaxDict = new Dictionary<string, int>(); // Max Ammo Dictionary
-    public Text hpText;
-    public Text ppText;
-    public Text mpText;
-    public Text a1Text;
-    public Text a2Text;
+    public Text hpText, ppText, mpText, a1Text, a2Text;
     public Text activeText;
     public Text passiveText;
     public Color activeColor;
     public Color passiveColor;
     public GameObject hitEffect; //hit particle
-    public GameObject pulse;
-    public GameObject jamImage;
-    public GameObject sDeathImage;
-    public GameObject pickupText;
-    public GameObject decoy;
+    public GameObject pulse, jamImage, pickupText, decoy;
     public GameObject[] glitchItems;
     public GameObject[] wepDrop;
     public List<Transform> cEmenies;
@@ -217,11 +183,6 @@ public class PlayerStat : MonoBehaviour
             jamImage.SetActive(true);
         else
             jamImage.SetActive(false);
-        //Sudden Death
-        if (suddenDeath)
-            sDeathImage.SetActive(true);
-        else
-            sDeathImage.SetActive(false);
         //shockCooldown
         if (shockCoolDown > 0)
             shockCoolDown -= Time.deltaTime;
@@ -255,14 +216,9 @@ public class PlayerStat : MonoBehaviour
         a2Text.text = ammo2.ToString("F0");
         activeText.text = Active;
         passiveText.text = Passive;
-        if (powBlock){
-            activeText.color = Color.gray;
-            passiveText.color = Color.gray;
-        }
-        else{
-            activeText.color = activeColor;
-            passiveText.color = passiveColor;
-        }
+        activeText.color = (powBlock) ? Color.gray : activeColor;
+        passiveText.color= (powBlock) ? Color.gray : activeColor;
+
     }
     public void Damage(int dam){
         //Player Damage

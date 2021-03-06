@@ -5,42 +5,16 @@ using UnityEngine;
 public class EnemyFollow : MonoBehaviour
 {
     public int hp = 20;
-    public float speed;
-    public float normalSpeed;
-    public float coldSpeed;
-    public float stoppingDistance;
-    public float retreatDistance;
-    public float attackCooldown;
-    public float startAtkCooldown;
-    public float moveCooldown;
-    public float startMvCooldown;
-    public float frozenCooldown;
-    public float tremorCooldown = 0f;
-    float heatTimer = 1f;
-    float coldTimer = 1f;
-    public float confuseCooldown = 0f;
-    public bool ranged;
-    public bool frozen = false;
-    public bool suddenDeath = false;
-    public bool bpSpawn = false;
+    public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f;
+    float heatTimer = 1f, coldTimer = 1f;
+    public bool ranged, frozen = false, bpSpawn = false;
     //Enemy Types
-    public bool Pyro;
-    public bool Cryo;
-    public bool Geo;
-    public bool Electro;
-    public bool Hypno;
-    public GameObject projectile;
-    public GameObject confusionProjectile;
-    public GameObject burnProjectile;
-    public GameObject sporeProjectile;
-    public GameObject BP;
-    public GameObject Corpse;
+    public bool Pyro, Cryo, Geo, Electro, Hypno;
+    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, BP, Corpse, hitEffect;
     public Transform cEnemy;
     private Transform target;
-    public GameObject hitEffect;
-    public Color normalColor;
-    public Color frozenColor;
-    public Color confuseColor;
+    public Color normalColor, frozenColor, confuseColor;
     PlayerStat player;
     PlayerMovement playerMove;
     Rigidbody2D rb;
@@ -235,10 +209,7 @@ public class EnemyFollow : MonoBehaviour
         GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
-        if (!suddenDeath)
-            hp -= dam;
-        else
-            hp = 0;
+        hp -= dam;
     }
     void tremorKnockback()
     {
