@@ -144,4 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 80
-  damage: 10
+  minDam: 10
+  maxDam: 15
+  confused: 0
+  weak: 0

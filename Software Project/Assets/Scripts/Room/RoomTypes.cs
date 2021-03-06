@@ -88,10 +88,7 @@ public class RoomTypes : MonoBehaviour
             enemyCount = 0;
             Destroy(IBox);
         }
-        if (enemyCount > 0)
-            enemyOn = true;
-        else
-            enemyOn = false;
+        enemyOn = (enemyCount > 0) ? true : false;
         if (player.pAbilDict["heat"])
             floor.GetComponent<SpriteRenderer>().color = hotColor;
         else if (player.pAbilDict["cold"])

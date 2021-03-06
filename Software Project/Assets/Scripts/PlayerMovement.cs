@@ -45,14 +45,8 @@ public class PlayerMovement : MonoBehaviour
         {
             mapOn = !mapOn;
         }
-        if (mapOn){
-            miniMap.SetActive(false);
-            Map.SetActive(true);
-        }
-        if (!mapOn){
-            miniMap.SetActive(true);
-            Map.SetActive(false);
-        }
+        miniMap.SetActive((mapOn) ? false : true);
+        Map.SetActive((mapOn) ? true : false);
         //Detect input method
         controllerDetection();
         //Direction of player
@@ -70,15 +64,9 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.UnloadSceneAsync("shop");
             Cursor.visible = false;
         }
+        runSpeed = (slowCoolDown > 0) ? 25 : 30;
         if (slowCoolDown > 0)
-        {
-            runSpeed = 25;
             slowCoolDown -= Time.deltaTime;
-        }
-        else
-            runSpeed = 30;
-       
-
     }
     void store()
     {
@@ -395,7 +383,6 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         BoltArea.SetActive(false);
     }
-
     void controllerDetection()
     {
         if (!controller && !stat.inStore && stat.storeCoolDown <= 0){

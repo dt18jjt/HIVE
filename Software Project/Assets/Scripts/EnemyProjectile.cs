@@ -5,8 +5,9 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     public float speed;
-    public int damage;
-    public bool confused;
+    public int minDam, maxDam, minDamFinal, maxDamFinal;
+    int minBuff, maxBuff;
+    public bool confused, weak;
     private Transform player;
     private Transform enemy;
     private Vector2 target;
@@ -19,19 +20,22 @@ public class EnemyProjectile : MonoBehaviour
         enemy = GameObject.FindWithTag("Enemy").transform;
         //target = new Vector2(player.position.x, player.position.y);
         rb2D = GetComponent<Rigidbody2D>();
-        if(!confused)
-            target = (player.transform.position - transform.position).normalized * speed;
-        if (confused)
-            target = (enemy.transform.position - transform.position).normalized * speed;
+        target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : 
+            (player.transform.position - transform.position).normalized * speed;
         rb2D.velocity = new Vector2(target.x, target.y);
         Destroy(gameObject, 1f);
-
+        minBuff = minDam + (minDam/2);
+        maxBuff = maxDam + (maxDam / 2);
     }
-    
+    private void Update()
+    {
+        minDamFinal = (!weak) ? ((!stat.enemyBuff) ? minDam : minBuff) : minDam;
+        maxDamFinal = (!weak) ? (!stat.enemyBuff) ? maxDam : maxBuff : maxDam;
+    }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.name == "Player"){
             if(!stat.pAbilDict["earth"] && !confused)
-                stat.Damage(Random.Range(10,15));
+                stat.Damage(Random.Range(minDamFinal, maxDamFinal));
             Destroy(gameObject);
         }
     }

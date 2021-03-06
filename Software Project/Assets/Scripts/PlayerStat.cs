@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, suddenDeath = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false;
+        inStore = false, enemyBuff = false;
     public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -166,23 +166,16 @@ public class PlayerStat : MonoBehaviour
         }
         //set ammo to weapon equipped
         equippedAmmo();
-        controlInputs();   
+        controlInputs();
         //Damage CoolDown
+        GetComponent<SpriteRenderer>().color = (damCooldown > 0) ? Color.yellow : Color.white;
         if (damCooldown > 0)
-        {
             damCooldown -= Time.deltaTime;
-            GetComponent<SpriteRenderer>().color = Color.yellow;
-        }
-        else
-            GetComponent<SpriteRenderer>().color = Color.white;
         //Pulse CoolDown
         if (pulseCooldown > 0)
             pulseCooldown -= Time.deltaTime;
         //Weapon Jam
-        if (wepJam)
-            jamImage.SetActive(true);
-        else
-            jamImage.SetActive(false);
+        jamImage.SetActive((wepJam) ? true : false);
         //shockCooldown
         if (shockCoolDown > 0)
             shockCoolDown -= Time.deltaTime;
@@ -217,7 +210,7 @@ public class PlayerStat : MonoBehaviour
         activeText.text = Active;
         passiveText.text = Passive;
         activeText.color = (powBlock) ? Color.gray : activeColor;
-        passiveText.color= (powBlock) ? Color.gray : activeColor;
+        passiveText.color= (powBlock) ? Color.gray : passiveColor;
 
     }
     public void Damage(int dam){

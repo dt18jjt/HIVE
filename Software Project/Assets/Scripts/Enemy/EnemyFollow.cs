@@ -11,7 +11,7 @@ public class EnemyFollow : MonoBehaviour
     public bool ranged, frozen = false, bpSpawn = false;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno;
-    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, BP, Corpse, hitEffect;
+    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, BP, Corpse, hitEffect;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -71,25 +71,18 @@ public class EnemyFollow : MonoBehaviour
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
+            if (player.cEmenies.Count > 1)
+                cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
             confuseCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
-            if (player.cEmenies.Count <= 1)
-            {
-                transform.gameObject.tag = "Enemy";
-                target = gameObject.transform;
-                //confuseCooldown = 0;
-            }
-            else
-            {
-               
-                transform.gameObject.tag = "Player";
-                cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
-                target = cEnemy;
-            }
-            
-
+            transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
+            target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
+           
         }
-        
+        player.enemyBuff = Hypno;
+        if (Hypno)
+            Debug.Log("h");
+
     }
     private void FixedUpdate()
     {
@@ -111,10 +104,7 @@ public class EnemyFollow : MonoBehaviour
                 attackCooldown -= Time.deltaTime;
                 moveCooldown = startMvCooldown;
                 if (attackCooldown <= 0 && player.hp > 0 && Vector2.Distance(transform.position, target.position) <= stoppingDistance)
-                {
                     enemyCloseAtk();
-
-                }
             }
         }
         //Long Range
@@ -128,7 +118,7 @@ public class EnemyFollow : MonoBehaviour
             {
                 transform.position = this.transform.position;
             }
-            if (Vector2.Distance(transform.position, target.position) < retreatDistance && moveCooldown <= 0)
+            else if (Vector2.Distance(transform.position, target.position) < retreatDistance && moveCooldown <= 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
             }
@@ -137,7 +127,9 @@ public class EnemyFollow : MonoBehaviour
     }
     void enemyCloseAtk(){
         if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
-            player.Damage(Random.Range(10, 20));
+        {
+            player.Damage((player.enemyBuff) ?Random.Range(15, 30) : Random.Range(10, 20));
+        }
         else if (confuseCooldown > 0)
             target.GetComponent<EnemyFollow>().Damage(10);
         if (Cryo && playerMove.slowCoolDown <= 0)
@@ -152,6 +144,8 @@ public class EnemyFollow : MonoBehaviour
                 Instantiate(burnProjectile, transform.position, Quaternion.identity);
             else if (Geo)
                 Instantiate(sporeProjectile, transform.position, Quaternion.identity);
+            else if (Hypno)
+                Instantiate(weakProjectile, transform.position, Quaternion.identity);
             else
                 Instantiate(projectile, transform.position, Quaternion.identity);
             attackCooldown = startAtkCooldown;
@@ -215,13 +209,10 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            if(Geo)
-                transform.position = Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime);
-            else
-                transform.position = Vector2.MoveTowards(transform.position, -target.position, 200 * Time.deltaTime);
+            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime) :
+                Vector2.MoveTowards(transform.position, -target.position, 200 * Time.deltaTime);
             tremorCooldown -= Time.deltaTime;
         }
-            
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
@@ -248,18 +239,16 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Fire"))
         {
-            if(Cryo)
-                Damage(player.damDict["fireDam"]/2);
-            else
-                Damage(player.damDict["fireDam"]);
+            Damage((Cryo) ? player.damDict["fireDam"] / 2 : player.damDict["fireDam"]);
+            //if (Cryo)
+            //    Damage(player.damDict["fireDam"]/2);
+            //else
+            //    Damage(player.damDict["fireDam"]);
         }
         if (other.CompareTag("Freeze"))
         {
             Damage(player.damDict["freezeDam"]);
-            if(Pyro)
-                frozenCooldown = 0.5f;
-            else
-                frozenCooldown = 1.5f;
+            frozenCooldown = (Pyro) ? 0.5f : 1.5f;
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Pulse"))
@@ -277,8 +266,8 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Confuse"))
         {
-            confuseCooldown = 5f;
-            //cEmenies.Add(cEnemy);
+            if(!Hypno)
+                confuseCooldown = 5f;
             Destroy(other.gameObject);
         }
         if (other.CompareTag("CBullet") && gameObject.CompareTag("Enemy"))

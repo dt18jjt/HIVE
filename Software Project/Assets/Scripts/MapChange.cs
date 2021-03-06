@@ -18,10 +18,7 @@ public class MapChange : MonoBehaviour
     void Update()
     {
         //Show nearby rooms
-        if (Nearby)
-            GetComponent<SpriteRenderer>().enabled = true;
-        else
-            GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = (Nearby) ? true : false;
         if (!Traced && !bRoom)
             offColor = Color.blue;
         else if(bRoom)
@@ -31,61 +28,35 @@ public class MapChange : MonoBehaviour
         else
             offColor = Color.gray;
         //When the player is in a room
-        if (playerOn)
-        {
-            GetComponent<SpriteRenderer>().color = Color.green;
-            trackBox.SetActive(true);
-        }
-        if(!playerOn)
-        {
-            GetComponent<SpriteRenderer>().color = offColor;
-            trackBox.SetActive(false);
-        }
-
+        GetComponent<SpriteRenderer>().color = (playerOn) ? Color.green : offColor;
+        trackBox.SetActive((playerOn) ? true : false);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Icon")
-        {
             Nearby = true;
-        }
         if (other.tag == "Boss" && !Traced)
         {
             bRoom = true;
             Destroy(other.gameObject);
-
         }
         if (other.tag == "Shop")
         {
             sRoom = true;
             //Destroy(other.gameObject);
+        }
 
-        }
-        if (other.tag == "Room")
-        {
-            
-        }
         if (other.name == "Player")
-        {
             Traced = true;
-
-        }
-
     }
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.name == "Player")
-        {
             playerOn = true;
-        }
-        
     }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.name == "Player")
-        {
             playerOn = false;
-        }
-
     }
 }
