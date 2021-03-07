@@ -205,7 +205,11 @@ public class EnemyFollow : MonoBehaviour
         Destroy(hit, 1f);
         hp -= dam;
         if (Electro)
-            speed += 5;
+        {
+            normalSpeed += 10;
+            coldSpeed += 10;
+        }
+            
     }
     void tremorKnockback()
     {
