@@ -175,25 +175,12 @@ public class RoomTypes : MonoBehaviour
             itemCount--;
 
     }
-    void timeSpawn()
-    {
-        if (count.timeCount > 0)
-        {
-            //random chance of time room
-            if (roomChance == 1 && !start)
-            {
-                time = true;
-                count.timeCount--;
-                Debug.Log("time");
-            }
-        }
-    }
     void shopSpawn()
     {
         if (count.shopCount > 0)
         {
             //random chance of time room
-            if (roomChance == 2 && !start)
+            if (templates.rooms.Count >= 9)
             {
                 shop = true;
                 Instantiate(sIcon, transform.position, Quaternion.identity);
@@ -202,6 +189,19 @@ public class RoomTypes : MonoBehaviour
             }
         }
     }
+    void timeSpawn()
+    {
+        if (count.timeCount > 0)
+        {
+            //random chance of time room
+            if (roomChance == 3 && !start)
+            {
+                time = true;
+                count.timeCount--;
+                Debug.Log("time");
+            }
+        }
+    }    
     void wepJamSpawn()
     {
         if (count.wepJamCount > 0)

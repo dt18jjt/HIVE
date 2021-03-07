@@ -47,7 +47,8 @@ public class buyScript : MonoBehaviour
     {
         List<buyitemMethod> buyItem = new List<buyitemMethod>();
         //Add all item functions
-        buyItem.Add(medkit);
+        buyItem.Add(sMedkit);
+        buyItem.Add(lMedkit);
         buyItem.Add(bAmmo8);
         buyItem.Add(bAmmo16);
         buyItem.Add(sAmmo4);
@@ -59,9 +60,13 @@ public class buyScript : MonoBehaviour
         //call a method
         buyItem[effect]();
     }
-    void medkit()
+    void sMedkit()
     {
         stat.hp += 20;
+    }
+    void lMedkit()
+    {
+        stat.hp += 40;
     }
     void bAmmo8()
     {

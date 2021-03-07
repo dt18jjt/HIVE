@@ -17,7 +17,7 @@ public class RoomCount : MonoBehaviour
         timeCount = Random.Range(0, 3);
         wepJamCount = Random.Range(0, 3);
         powBlockCount = Random.Range(0, 3);
-        glitchCount = Random.Range(0, 3);
+        glitchCount = Random.Range(0, 2);
         sDeathCount = Random.Range(0, 2);
         shopCount = 1;
 

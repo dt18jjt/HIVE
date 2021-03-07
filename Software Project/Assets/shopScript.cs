@@ -19,6 +19,7 @@ public class shopScript : MonoBehaviour
         //Adding prices
         {
             priceDict.Add("Medkit + 20HP", 25);
+            priceDict.Add("Medkit + 40HP", 40);
             priceDict.Add("Bullet Ammo + 8", 15);
             priceDict.Add("Bullet Ammo + 16", 30);
             priceDict.Add("Shell Ammo + 4", 15);
@@ -31,14 +32,15 @@ public class shopScript : MonoBehaviour
         //Adding effects
         {
             effectDict.Add("Medkit + 20HP", 0);
-            effectDict.Add("Bullet Ammo + 8", 1);
-            effectDict.Add("Bullet Ammo + 16", 2);
-            effectDict.Add("Shell Ammo + 4", 3);
-            effectDict.Add("Shell Ammo + 8", 4);
-            effectDict.Add("Expolsive Ammo + 2", 5);
-            effectDict.Add("Expolsive Ammo + 4", 6);
-            effectDict.Add("HP Max +10", 7);
-            effectDict.Add("PP Max + 10", 8);
+            effectDict.Add("Medkit + 40HP", 1);
+            effectDict.Add("Bullet Ammo + 8", 2);
+            effectDict.Add("Bullet Ammo + 16", 3);
+            effectDict.Add("Shell Ammo + 4", 4);
+            effectDict.Add("Shell Ammo + 8", 5);
+            effectDict.Add("Expolsive Ammo + 2", 6);
+            effectDict.Add("Expolsive Ammo + 4", 7);
+            effectDict.Add("HP Max +10", 8);
+            effectDict.Add("PP Max + 10", 9);
         }
         for (int i = 0; i < buttons.Count; i++)
         {
