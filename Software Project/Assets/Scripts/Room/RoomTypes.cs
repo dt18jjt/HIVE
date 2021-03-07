@@ -180,7 +180,7 @@ public class RoomTypes : MonoBehaviour
         if (count.shopCount > 0)
         {
             //random chance of time room
-            if (templates.rooms.Count >= 9)
+            if (templates.rooms.Count >= Random.Range(8, 11))
             {
                 shop = true;
                 Instantiate(sIcon, transform.position, Quaternion.identity);
@@ -194,7 +194,7 @@ public class RoomTypes : MonoBehaviour
         if (count.timeCount > 0)
         {
             //random chance of time room
-            if (roomChance == 3 && !start)
+            if (roomChance <= 2 && !start)
             {
                 time = true;
                 count.timeCount--;
@@ -240,19 +240,6 @@ public class RoomTypes : MonoBehaviour
                 Debug.Log("glitch");
             }
         }
-    }
-    void sDeathSpawn()
-    {
-        //if (count.sDeathCount > 0)
-        //{
-        //    //random chance of time room
-        //    if (roomChance == 6 && !start)
-        //    {
-        //        sDeath = true;
-        //        count.sDeathCount--;
-        //        Debug.Log("Sudden Death");
-        //    }
-        //}
     }
     void timeRoom()
     {

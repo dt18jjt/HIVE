@@ -376,6 +376,7 @@ MonoBehaviour:
   buyText: {fileID: 876592491}
   priceText: {fileID: 1236134178}
   price: 0
+  effect: 0
   bought: 0
 --- !u!1 &243884499
 GameObject:
@@ -682,6 +683,7 @@ MonoBehaviour:
   buyText: {fileID: 852299345}
   priceText: {fileID: 1214238030}
   price: 0
+  effect: 0
   bought: 0
 --- !u!1 &311431651
 GameObject:
@@ -1106,6 +1108,7 @@ MonoBehaviour:
   buyText: {fileID: 1700899051}
   priceText: {fileID: 612490440}
   price: 0
+  effect: 0
   bought: 0
 --- !u!1 &783467878
 GameObject:
@@ -1534,13 +1537,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 200
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: STORE ROOM
+  m_Text: LAB  ROOM
 --- !u!222 &964956239
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2305,6 +2308,7 @@ MonoBehaviour:
   buyText: {fileID: 1624433280}
   priceText: {fileID: 1088187405}
   price: 0
+  effect: 0
   bought: 0
 --- !u!1 &1986817880
 GameObject:

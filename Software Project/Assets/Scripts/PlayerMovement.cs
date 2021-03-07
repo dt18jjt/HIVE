@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.UnloadSceneAsync("shop");
             Cursor.visible = false;
         }
-        runSpeed = (slowCoolDown > 0) ? 25 : 30;
+        runSpeed = (slowCoolDown > 0) ? 30 : 50;
         if (slowCoolDown > 0)
             slowCoolDown -= Time.deltaTime;
     }
