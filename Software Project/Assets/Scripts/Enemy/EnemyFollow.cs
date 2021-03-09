@@ -72,10 +72,6 @@ public class EnemyFollow : MonoBehaviour
         if (confuseCooldown <= 0)
             target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        //if (player.pAbilDict["decoy"] && confuseCooldown <= 0)
-        //    target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
-        //else if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
-        //    target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
             while (player.cEmenies.Count > 1)

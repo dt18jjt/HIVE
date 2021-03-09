@@ -537,13 +537,17 @@ MonoBehaviour:
   wJam: 0
   pBlocked: 0
   glitch: 0
-  sDeath: 0
   entered: 0
   noEnemy: 0
+  enemyBuff: 0
   sIcon: {fileID: 1898445321837384, guid: 3fcd6c733494dcf49b02ac0aa65f9cab, type: 3}
   gIcon: {fileID: 4372344665755389307, guid: 55af69fb408605a49a0b6a969b06b708, type: 3}
   eBox: {fileID: 8867960758351954947}
   IBox: {fileID: 7885742353751453255}
+  box: {fileID: 0}
+  eArea: {fileID: 4398299625377698726, guid: 83f0a002a425f9741ae562bf595eabfb, type: 3}
+  exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
+  floor: {fileID: 2851991892024659968}
   enemies:
   - {fileID: 8236186557077567600, guid: 53be14a927527e84f9589fc29c3cbbd4, type: 3}
   - {fileID: 4865663397156743026, guid: 21a8cc33bfa960e4e88f870144114a44, type: 3}
@@ -558,20 +562,16 @@ MonoBehaviour:
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
-  box: {fileID: 0}
-  eArea: {fileID: 4398299625377698726, guid: 83f0a002a425f9741ae562bf595eabfb, type: 3}
-  exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
-  floor: {fileID: 2851991892024659968}
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
   normalColor: {r: 0.47058827, g: 0.47058827, b: 0.47058827, a: 1}
-  coldColor: {r: 0.32983267, g: 0.5560869, b: 0.6415094, a: 1}
-  hotColor: {r: 0.6415094, g: 0.37952256, b: 0.32378072, a: 1}
-  shockColor: {r: 0.5471698, g: 0.5471698, b: 0.28648984, a: 1}
+  coldColor: {r: 0.41442683, g: 0.5722222, b: 0.6320754, a: 1}
+  hotColor: {r: 0.6132076, g: 0.43376616, b: 0.39627093, a: 1}
+  shockColor: {r: 0.5754717, g: 0.5754717, b: 0.4316038, a: 1}
   shockDamColor: {r: 0.9742948, g: 0.990566, b: 0.4719206, a: 1}
   earthColor: {r: 0.4034401, g: 0.5283019, b: 0.4012104, a: 1}
-  decoyColor: {r: 0.54901963, g: 0.28627452, b: 0.5339772, a: 1}
+  decoyColor: {r: 0.5849056, g: 0.40557137, b: 0.5741991, a: 1}
   eSpawnPoints: []
   iSpawnPoints: []
 --- !u!1 &1014524093945383692
