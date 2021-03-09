@@ -233,99 +233,59 @@ public class PlayerStat : MonoBehaviour
     private void equippedAmmo()
     {
         //Primary weapon
-        if (weapon1 == 1)
+        switch (weapon1)
         {
-            a1Text.enabled = true;
-            ammo1 = ammoDict["bullet"];
-            if (ammoDict["bullet"] == ammoMaxDict["bulletMax"])
-                a1Text.color = Color.green;
-            if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
-                a1Text.color = Color.yellow;
-            if (ammoDict["bullet"] <= ammoMaxDict["bulletMax"] / 4)
-                a1Text.color = Color.red;
+            case 1:
+                a1Text.enabled = true;
+                ammo1 = ammoDict["bullet"];
+                ammo1Color1();
+                    break;
+            case 2:
+                a1Text.enabled = true;
+                ammo1 = ammoDict["shell"];
+                ammo1Color2();
+                break;
+            case 3:
+                a1Text.enabled = true;
+                ammo1 = ammoDict["expolsive"];
+                ammo1Color3();
+                break;
+            case 4:
+                a1Text.enabled = true;
+                ammo1 = ammoDict["laser"];
+                ammo1Color4();
+                break;
+            case 5:
+                a1Text.enabled = false;
+                break;
         }
-        if (weapon1 == 2)
-        {
-            a1Text.enabled = true;
-            ammo1 = ammoDict["shell"];
-            if (ammoDict["shell"] == ammoMaxDict["shellMax"])
-                a1Text.color = Color.green;
-            if (ammoDict["shell"] < ammoMaxDict["shellMax"])
-                a1Text.color = Color.yellow;
-            if (ammoDict["shell"] <= ammoMaxDict["shellMax"] / 4)
-                a1Text.color = Color.red;
-        }
-        if (weapon1 == 3)
-        {
-            a1Text.enabled = true;
-            ammo1 = ammoDict["expolsive"];
-            if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
-                a1Text.color = Color.green;
-            if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
-                a1Text.color = Color.yellow;
-            if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
-                a1Text.color = Color.red;
-        }
-        if (weapon1 == 4)
-        {
-            a1Text.enabled = true;
-            ammo1 = ammoDict["laser"];
-            if (ammoDict["laser"] == ammoMaxDict["laserMax"])
-                a1Text.color = Color.green;
-            if (ammoDict["laser"] < ammoMaxDict["laserMax"])
-                a1Text.color = Color.yellow;
-            if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
-                a1Text.color = Color.red;
-        }
-        if (weapon1 == 5)
-            a1Text.enabled = false;
         //Secondary weapon
-        if (weapon2 == 1)
+        switch (weapon2)
         {
-            a2Text.enabled = true;
-            ammo2 = ammoDict["bullet"];
-            if (ammoDict["bullet"] == ammoMaxDict["bulletMax"])
-                a2Text.color = Color.green;
-            if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
-                a2Text.color = Color.yellow;
-            if (ammoDict["bullet"] <= ammoMaxDict["bulletMax"] / 4)
-                a2Text.color = Color.red;
+            case 1:
+                a2Text.enabled = true;
+                ammo2 = ammoDict["bullet"];
+                ammo2Color1();
+                break;
+            case 2:
+                a2Text.enabled = true;
+                ammo2 = ammoDict["shell"];
+                ammo2Color2();
+                break;
+            case 3:
+                a2Text.enabled = true;
+                ammo2 = ammoDict["expolsive"];
+                ammo2Color3();
+                break;
+            case 4:
+                a1Text.enabled = true;
+                ammo1 = ammoDict["laser"];
+                ammo2Color4();
+                break;
+            case 5:
+                a1Text.enabled = false;
+                break;
         }
-        if (weapon2 == 2)
-        {
-            a2Text.enabled = true;
-            ammo2 = ammoDict["shell"];
-            if (ammoDict["shell"] == ammoMaxDict["shellMax"])
-                a2Text.color = Color.green;
-            if (ammoDict["shell"] < ammoMaxDict["shellMax"])
-                a2Text.color = Color.yellow;
-            if (ammoDict["shell"] <= ammoMaxDict["shellMax"] / 4)
-                a2Text.color = Color.red;
-        }
-        if (weapon2 == 3)
-        {
-            a2Text.enabled = true;
-            ammo2 = ammoDict["expolsive"];
-            if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
-                a2Text.color = Color.green;
-            if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
-                a2Text.color = Color.yellow;
-            if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
-                a2Text.color = Color.red;
-        }
-        if (weapon2 == 4)
-        {
-            a2Text.enabled = true;
-            ammo2 = ammoDict["laser"];
-            if (ammoDict["laser"] == ammoMaxDict["laserMax"])
-                a2Text.color = Color.green;
-            if (ammoDict["laser"] < ammoMaxDict["laserMax"])
-                a2Text.color = Color.yellow;
-            if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
-                a2Text.color = Color.red;
-        }
-        if (weapon2 == 5)
-            a2Text.enabled = false;
         //Ammo more than Max
         if (ammoDict["bullet"] > ammoMaxDict["bulletMax"])
             ammoDict["bullet"] = ammoMaxDict["bulletMax"];
@@ -341,6 +301,79 @@ public class PlayerStat : MonoBehaviour
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
             ammoDict["laser"] += Time.deltaTime;
     }
+    private void ammo1Color1()
+    {
+        if (ammoDict["bullet"] == ammoMaxDict["bulletMax"])
+            a1Text.color = Color.green;
+        if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+            a1Text.color = Color.yellow;
+        if (ammoDict["bullet"] <= ammoMaxDict["bulletMax"] / 4)
+            a1Text.color = Color.red;
+    }
+    private void ammo1Color2()
+    {
+        if (ammoDict["shell"] == ammoMaxDict["shellMax"])
+            a1Text.color = Color.green;
+        if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+            a1Text.color = Color.yellow;
+        if (ammoDict["shell"] <= ammoMaxDict["shellMax"] / 4)
+            a1Text.color = Color.red;
+    }
+    private void ammo1Color3()
+    {
+        if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
+            a1Text.color = Color.green;
+        if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+            a1Text.color = Color.yellow;
+        if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
+            a1Text.color = Color.red;
+    }
+    private void ammo1Color4()
+    {
+        if (ammoDict["laser"] == ammoMaxDict["laserMax"])
+            a1Text.color = Color.green;
+        if (ammoDict["laser"] < ammoMaxDict["laserMax"])
+            a1Text.color = Color.yellow;
+        if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
+            a1Text.color = Color.red;
+    }
+    private void ammo2Color1()
+    {
+        if (ammoDict["bullet"] == ammoMaxDict["bulletMax"])
+            a2Text.color = Color.green;
+        if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+            a2Text.color = Color.yellow;
+        if (ammoDict["bullet"] <= ammoMaxDict["bulletMax"] / 4)
+            a2Text.color = Color.red;
+    }
+    private void ammo2Color2()
+    {
+        if (ammoDict["shell"] == ammoMaxDict["shellMax"])
+            a2Text.color = Color.green;
+        if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+            a2Text.color = Color.yellow;
+        if (ammoDict["shell"] <= ammoMaxDict["shellMax"] / 4)
+            a2Text.color = Color.red;
+    }
+    private void ammo2Color3()
+    {
+        if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
+            a2Text.color = Color.green;
+        if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+            a2Text.color = Color.yellow;
+        if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
+            a2Text.color = Color.red;
+    }
+    private void ammo2Color4()
+    {
+        if (ammoDict["laser"] == ammoMaxDict["laserMax"])
+            a2Text.color = Color.green;
+        if (ammoDict["laser"] < ammoMaxDict["laserMax"])
+            a2Text.color = Color.yellow;
+        if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
+            a2Text.color = Color.red;
+    }
+
     private void wepSwap(){
         //Weapon Swapping
         int temp = weapon1;

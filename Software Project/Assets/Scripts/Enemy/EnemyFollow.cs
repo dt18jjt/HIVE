@@ -69,13 +69,16 @@ public class EnemyFollow : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
         }
         //target change
-        if (player.pAbilDict["decoy"] && confuseCooldown <= 0)
-            target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
-        else if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
-            target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if (confuseCooldown <= 0)
+            target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
+                GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        //if (player.pAbilDict["decoy"] && confuseCooldown <= 0)
+        //    target = GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>();
+        //else if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
+        //    target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
-            if (player.cEmenies.Count > 1)
+            while (player.cEmenies.Count > 1)
                 cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
             confuseCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;

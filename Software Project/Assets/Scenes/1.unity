@@ -1826,7 +1826,7 @@ MonoBehaviour:
   powBlock: 0
   suddenDeath: 0
   shockDam: 0
-  pickedUp: 1
+  pickedUp: 0
   stackWep: 0
   inStore: 0
   enemyBuff: 0
