@@ -45,7 +45,7 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("pulseDam", 5);
             damDict.Add("bulletDam", 10);
             damDict.Add("shellDam", 10);
-            damDict.Add("expolsiveDam", 20);
+            damDict.Add("explosiveDam", 20);
             damDict.Add("fireDam", 10);
             damDict.Add("freezeDam", 10);
             damDict.Add("boltDam", 10);
@@ -58,23 +58,15 @@ public class PlayerStat : MonoBehaviour
         {
             ammoDict.Add("bullet", 24);
             ammoDict.Add("shell", 10);
-            ammoDict.Add("expolsive", 4);
+            ammoDict.Add("explosive", 4);
             ammoDict.Add("laser", 24);
         }
         //Setting Max Ammo Values
         {
             ammoMaxDict.Add("bulletMax", 32);
             ammoMaxDict.Add("shellMax", 16);
-            ammoMaxDict.Add("expolsiveMax", 8);
+            ammoMaxDict.Add("explosiveMax", 8);
             ammoMaxDict.Add("laserMax", 24);
-        }
-        //Setting Weapon Level values 
-        {
-            wepLevelDict.Add("bullet", 0);
-            wepLevelDict.Add("shell", 0);
-            wepLevelDict.Add("expolsive", 0);
-            wepLevelDict.Add("laser", 0);
-            wepLevelDict.Add("melee", 0);
         }
         //Setting Passive Abilites Values
         {
@@ -247,7 +239,7 @@ public class PlayerStat : MonoBehaviour
                 break;
             case 3:
                 a1Text.enabled = true;
-                ammo1 = ammoDict["expolsive"];
+                ammo1 = ammoDict["explosive"];
                 ammo1Color3();
                 break;
             case 4:
@@ -257,6 +249,7 @@ public class PlayerStat : MonoBehaviour
                 break;
             case 5:
                 a1Text.enabled = false;
+                meleeLevelDam();
                 break;
         }
         //Secondary weapon
@@ -274,7 +267,7 @@ public class PlayerStat : MonoBehaviour
                 break;
             case 3:
                 a2Text.enabled = true;
-                ammo2 = ammoDict["expolsive"];
+                ammo2 = ammoDict["explosive"];
                 ammo2Color3();
                 break;
             case 4:
@@ -291,8 +284,8 @@ public class PlayerStat : MonoBehaviour
             ammoDict["bullet"] = ammoMaxDict["bulletMax"];
         if (ammoDict["shell"] > ammoMaxDict["shellMax"])
             ammoDict["shell"] = ammoMaxDict["shellMax"];
-        if (ammoDict["expolsive"] > ammoMaxDict["expolsiveMax"])
-            ammoDict["expolsive"] = ammoMaxDict["expolsiveMax"];
+        if (ammoDict["explosive"] > ammoMaxDict["explosiveMax"])
+            ammoDict["explosive"] = ammoMaxDict["explosiveMax"];
         if (ammoDict["laser"] > ammoMaxDict["laserMax"])
             ammoDict["laser"] = ammoMaxDict["laserMax"];
         //Laser recharge
@@ -301,6 +294,7 @@ public class PlayerStat : MonoBehaviour
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
             ammoDict["laser"] += Time.deltaTime;
     }
+    //setting for the ammo color and weapon damage
     private void ammo1Color1()
     {
         if (ammoDict["bullet"] == ammoMaxDict["bulletMax"])
@@ -309,6 +303,21 @@ public class PlayerStat : MonoBehaviour
             a1Text.color = Color.yellow;
         if (ammoDict["bullet"] <= ammoMaxDict["bulletMax"] / 4)
             a1Text.color = Color.red;
+        switch (wep1Level)
+        {
+            case 0:
+                damDict["bullet"] = 10;
+                break;
+            case 1:
+                damDict["bullet"] = 5;
+                break;
+            case 2:
+                damDict["bullet"] = 10;
+                break;
+            case 3:
+                damDict["bullet"] = 15;
+                break;
+        }
     }
     private void ammo1Color2()
     {
@@ -318,15 +327,45 @@ public class PlayerStat : MonoBehaviour
             a1Text.color = Color.yellow;
         if (ammoDict["shell"] <= ammoMaxDict["shellMax"] / 4)
             a1Text.color = Color.red;
+        switch (wep1Level)
+        {
+            case 0:
+                damDict["shell"] = 5;
+                break;
+            case 1:
+                damDict["shell"] = 10;
+                break;
+            case 2:
+                damDict["shell"] = 10;
+                break;
+            case 3:
+                damDict["shell"] = 10;
+                break;
+        }
     }
     private void ammo1Color3()
     {
-        if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
+        if (ammoDict["explosive"] == ammoMaxDict["explosiveMax"])
             a1Text.color = Color.green;
-        if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+        if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
             a1Text.color = Color.yellow;
-        if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
+        if (ammoDict["explosive"] <= ammoMaxDict["explosiveMax"] / 4)
             a1Text.color = Color.red;
+        switch (wep1Level)
+        {
+            case 0:
+                damDict["explosive"] = 20;
+                break;
+            case 1:
+                damDict["explosive"] = 20;
+                break;
+            case 2:
+                damDict["explosive"] = 20;
+                break;
+            case 3:
+                damDict["explosive"] = 20;
+                break;
+        }
     }
     private void ammo1Color4()
     {
@@ -336,6 +375,21 @@ public class PlayerStat : MonoBehaviour
             a1Text.color = Color.yellow;
         if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
             a1Text.color = Color.red;
+        switch (wep1Level)
+        {
+            case 0:
+                damDict["laser"] = 5;
+                break;
+            case 1:
+                damDict["laser"] = 10;
+                break;
+            case 2:
+                damDict["laser"] = 20;
+                break;
+            case 3:
+                damDict["laser"] = 40;
+                break;
+        }
     }
     private void ammo2Color1()
     {
@@ -357,11 +411,11 @@ public class PlayerStat : MonoBehaviour
     }
     private void ammo2Color3()
     {
-        if (ammoDict["expolsive"] == ammoMaxDict["expolsiveMax"])
+        if (ammoDict["explosive"] == ammoMaxDict["explosiveMax"])
             a2Text.color = Color.green;
-        if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+        if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
             a2Text.color = Color.yellow;
-        if (ammoDict["expolsive"] <= ammoMaxDict["expolsiveMax"] / 4)
+        if (ammoDict["explosive"] <= ammoMaxDict["explosiveMax"] / 4)
             a2Text.color = Color.red;
     }
     private void ammo2Color4()
@@ -373,7 +427,25 @@ public class PlayerStat : MonoBehaviour
         if (ammoDict["laser"] <= ammoMaxDict["laserMax"] / 4)
             a2Text.color = Color.red;
     }
+    private void meleeLevelDam()
+    {
+        switch (wep1Level)
+        {
+            case 0:
+                damDict["laser"] = 10;
+                break;
+            case 1:
+                damDict["laser"] = 5;
+                break;
+            case 2:
+                damDict["laser"] = 20;
+                break;
+            case 3:
+                damDict["laser"] = 15;
+                break;
+        }
 
+    }
     private void wepSwap(){
         //Weapon Swapping
         int temp = weapon1;
@@ -454,18 +526,18 @@ public class PlayerStat : MonoBehaviour
                 if (weapon1 == 3 && wep1Level == 0)
                 {
                     stackWep = true;
-                    if (ammoDict["expolsive"] >= ammoMaxDict["expolsiveMax"])
+                    if (ammoDict["explosive"] >= ammoMaxDict["explosiveMax"])
                     {
                         StartCoroutine(pickedOff());
                         ammoStack1 += 1;
                         pickupText.GetComponent<TextMesh>().text = "Stack +1";
                     }
-                    else if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+                    else if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
                     {
                         StartCoroutine(pickedOff());
                         float ammo = Random.Range(2, 5);
-                        ammoDict["expolsive"] += ammo;
-                        pickupText.GetComponent<TextMesh>().text = "Expolsives + " + ammo.ToString();
+                        ammoDict["explosive"] += ammo;
+                        pickupText.GetComponent<TextMesh>().text = "Explosives + " + ammo.ToString();
                     }
                 }
                 else if (weapon1 != 3)
@@ -608,18 +680,18 @@ public class PlayerStat : MonoBehaviour
                 }
             }
         }
-        //Expolsive Pickup
+        //Explosive Pickup
         if (other.CompareTag("EAmmo"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Expolsive Ammo";
+            pickupText.GetComponent<TextMesh>().text = "Explosive Ammo";
             pickupText.SetActive(true);
             if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
             {
-                if (ammoDict["expolsive"] < ammoMaxDict["expolsiveMax"])
+                if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
                 {
                     float ammo = Random.Range(2, 5);
-                    ammoDict["expolsive"] += ammo;
-                    pickupText.GetComponent<TextMesh>().text = "Expolsives + " + ammo.ToString();
+                    ammoDict["explosive"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Explosives + " + ammo.ToString();
                     Destroy(other.gameObject);
                 }
             }

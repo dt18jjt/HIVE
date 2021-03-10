@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
     public GameObject[] ammoPrefabs;
-    public float bulletSpeed = 100.0f, expolsiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
+    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
     private Vector3 target;
     private Vector2 lStickInput, rStickInput;
     private Vector3 moveDir;
@@ -126,8 +126,8 @@ public class PlayerMovement : MonoBehaviour
                     stat.ammoDict["shell"]--;
                 }
                 if (stat.weapon1 == 3){
-                    expolsiveFire(direction, rotationZ);
-                    stat.ammoDict["expolsive"]--;
+                    explosiveFire(direction, rotationZ);
+                    stat.ammoDict["explosive"]--;
                 }
                 if (stat.weapon1 == 4){
                     laserFire(direction, rotationZ);
@@ -223,8 +223,8 @@ public class PlayerMovement : MonoBehaviour
                     stat.ammoDict["shell"]--;
                 }
                 if (stat.weapon1 == 3){
-                    expolsiveFire(direction, body.rotation);
-                    stat.ammoDict["expolsive"]--;
+                    explosiveFire(direction, body.rotation);
+                    stat.ammoDict["explosive"]--;
                 }
                 if (stat.weapon1 == 4){
                     laserFire(direction, body.rotation);
@@ -306,13 +306,13 @@ public class PlayerMovement : MonoBehaviour
         s.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(s, 0.5f);
     }
-    //Expolsive spawn
-    void expolsiveFire(Vector2 direction, float rotationZ)
+    //Explosive spawn
+    void explosiveFire(Vector2 direction, float rotationZ)
     {
         GameObject e = Instantiate(ammoPrefabs[2]) as GameObject;
         e.transform.position = bulletStart.transform.position;
         e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
-        e.GetComponent<Rigidbody2D>().velocity = direction * expolsiveSpeed;
+        e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
         Destroy(e, 1f);
     }
     //laser spawn

@@ -236,7 +236,7 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Bomb"))
         {
-            Damage(player.damDict["expolsiveDam"]);
+            Damage(player.damDict["explosiveDam"]);
         }
         if (other.CompareTag("Melee"))
         {
