@@ -339,7 +339,7 @@ public class PlayerStat : MonoBehaviour
                 damDict["shell"] = 10;
                 break;
             case 3:
-                damDict["shell"] = 10;
+                damDict["shell"] = 15;
                 break;
         }
     }

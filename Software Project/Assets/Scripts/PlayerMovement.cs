@@ -94,10 +94,10 @@ public class PlayerMovement : MonoBehaviour
     }
     //Aim with mouse
     void mouseAim(){
-        
+        //Setting the crosshair to the mouse
         target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         crosshair.transform.position = new Vector3(target.x, target.y, 10);
-
+        //distance between the crosshair and player
         Vector3 difference = target - gameObject.transform.position;
         Vector3 shDifference = crosshair2.transform.position - gameObject.transform.position;
         Vector3 shDifference2 = shCrosshair.transform.position - gameObject.transform.position;
@@ -111,36 +111,108 @@ public class PlayerMovement : MonoBehaviour
                 float distance = difference.magnitude;
                 float shDistance = shDifference.magnitude;
                 Vector2 direction = difference / distance;
-                Vector2 shDirection = shDifference / shDistance;
+                //Vector2 shDirection = shDifference / shDistance;
                 Vector2 shDirection2 = shDifference2 / shDistance;
                 Vector2 shDirection3 = shDifference3 / shDistance;
                 direction.Normalize();
                 if (stat.weapon1 == 1){
+                    //Projectile
                     bulletFire(direction, rotationZ);
-                    stat.ammoDict["bullet"]--;
+                    //Ammo taken
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["bullet"]--;
+                            break;
+                        case 1:
+                            stat.ammoDict["bullet"] -= 3;
+                            break;
+                        case 2:
+                            stat.ammoDict["bullet"]--;
+                            break;
+                        case 3:
+                            stat.ammoDict["bullet"] -= 2;
+                            break;
+                    }
                 }
                 if (stat.weapon1 == 2){
-                    //ShellFire(shDirection, rotationZ);
-                    shellFire(shDirection2, rotationZ);
-                    shellFire(shDirection3, rotationZ);
-                    stat.ammoDict["shell"]--;
+                    //Ammo taken and Projectiles
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["shell"] -= 2;
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
+                            break;
+                        case 1:
+                            stat.ammoDict["shell"] -= 2;
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
+                            break;
+                        case 2:
+                            stat.ammoDict["shell"] -= 4;
+                            shellFire(direction, body.rotation);
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
+                            break;
+                        case 3:
+                            stat.ammoDict["shell"] -= 4;
+                            shellFire(direction, body.rotation);
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDifference3, body.rotation);
+                            break;
+                    }
                 }
                 if (stat.weapon1 == 3){
+                    //Projectile
                     explosiveFire(direction, rotationZ);
+                    //Ammo Taken
                     stat.ammoDict["explosive"]--;
                 }
                 if (stat.weapon1 == 4){
+                    //Projectile
                     laserFire(direction, rotationZ);
-                    stat.ammoDict["laser"]--;
+                    //Ammo taken
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["laser"]--;
+                            break;
+                        case 1:
+                            stat.ammoDict["laser"] -= 2;
+                            break;
+                        case 2:
+                            stat.ammoDict["laser"] -= 6;
+                            break;
+                        case 3:
+                            stat.ammoDict["laser"] -= 12;
+                            break;
+                    }
                     stat.laserCooldown = 2f;
                 }
             }
             //laser overload
             if(stat.ammo1 <= 0 && stat.weapon1 == 4)
                 stat.laserCooldown = 4f;
-            if (stat.weapon1 == 5)
-            {
+            if (stat.weapon1 == 5 && stat.meleeCooldown <= 0){
+                //Projectile
                 meleeFire(rotationZ);
+                //cooldowns
+                switch (stat.wep1Level)
+                {
+                    case 0:
+                        stat.meleeCooldown = 1f;
+                        break;
+                    case 1:
+                        stat.meleeCooldown = 0.5f;
+                        break;
+                    case 2:
+                        stat.meleeCooldown = 2f;
+                        break;
+                    case 3:
+                        stat.meleeCooldown = 1f;
+                        break;
+                }
             }
         }
         if (Input.GetMouseButtonUp(1) && stat.activeCooldown <= 0 && stat.passiveCooldown <= 0)
@@ -204,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
             pressed = true;
             if (stat.ammo1 > 0 && !stat.wepJam)
             {
+                //distance between the crosshair and player
                 Vector3 difference = crosshair2.transform.position - gameObject.transform.position;
                 Vector3 difference2 = shCrosshair.transform.position - gameObject.transform.position;
                 Vector3 difference3 = shCrosshair2.transform.position - gameObject.transform.position;
@@ -213,31 +286,102 @@ public class PlayerMovement : MonoBehaviour
                 Vector2 direction3 = difference3 / distance;
                 direction.Normalize();
                 if (stat.weapon1 == 1){
+                    //Projectile 
                     bulletFire(direction, body.rotation);
-                    stat.ammoDict["bullet"]--;
+                    //Ammo taken
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["bullet"]--;
+                            break;
+                        case 1:
+                            stat.ammoDict["bullet"] -= 3;
+                            break;
+                        case 2:
+                            stat.ammoDict["bullet"] --;
+                            break;
+                        case 3:
+                            stat.ammoDict["bullet"] -= 2;
+                            break;
+                    }
                 }
                 if (stat.weapon1 == 2){
-                    //ShellFire(direction, body.rotation);
-                    shellFire(direction2, body.rotation);
-                    shellFire(direction3, body.rotation);
-                    stat.ammoDict["shell"]--;
+                    //Ammo taken and Projectiles
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["shell"]-= 2;
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
+                            break;
+                        case 1:
+                            stat.ammoDict["shell"] -= 2;
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
+                            break;
+                        case 2:
+                            stat.ammoDict["shell"] -= 4;
+                            shellFire(direction, body.rotation);
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
+                            break;
+                        case 3:
+                            stat.ammoDict["shell"] -= 4;
+                            shellFire(direction, body.rotation);
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
+                            break;
+                    }
                 }
                 if (stat.weapon1 == 3){
+                    //Projectile 
                     explosiveFire(direction, body.rotation);
+                    //Ammo taken
                     stat.ammoDict["explosive"]--;
                 }
                 if (stat.weapon1 == 4){
+                    //Projectile 
                     laserFire(direction, body.rotation);
-                    stat.ammoDict["laser"]--;
+                    //Ammo taken
+                    switch (stat.wep1Level)
+                    {
+                        case 0:
+                            stat.ammoDict["laser"]--;
+                            break;
+                        case 1:
+                            stat.ammoDict["laser"]-=2;
+                            break;
+                        case 2:
+                            stat.ammoDict["laser"] -= 6;
+                            break;
+                        case 3:
+                            stat.ammoDict["laser"] -= 12;
+                            break;
+                    }
                     stat.laserCooldown = 2f;
                 }
                 
             }
             if (stat.ammo1 <= 0 && stat.weapon1 == 4)
                 stat.laserCooldown = 4f;
-            if (stat.weapon1 == 5)
-            {
+            if (stat.weapon1 == 5 && stat.meleeCooldown <= 0){
+                //Projectile 
                 meleeFire(body.rotation);
+                //Cooldowns
+                switch (stat.wep1Level){
+                    case 0:
+                        stat.meleeCooldown = 1f;
+                        break;
+                    case 1:
+                        stat.meleeCooldown = 0.5f;
+                        break;
+                    case 2:
+                        stat.meleeCooldown = 2f;
+                        break;
+                    case 3:
+                        stat.meleeCooldown = 1f;
+                        break;
+                }
             }
         }
         //Left trigger (Ability)
