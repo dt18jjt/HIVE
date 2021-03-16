@@ -203,6 +203,7 @@ public class EnemyFollow : MonoBehaviour
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
         hp -= dam;
+        //player.threatGauge += 5;
         if (Electro)
         {
             normalSpeed += 10;
@@ -222,7 +223,7 @@ public class EnemyFollow : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
-            Destroy(other.gameObject);              
+            Destroy(other.gameObject);
         }
         if (other.CompareTag("Shell"))
         {

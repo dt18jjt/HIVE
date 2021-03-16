@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0, buffNum;
-    public float pp = 100;
+    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0, buffNum, threatLV = 2;
+    public float pp = 100, threatGauge = 50;
     //Ammo display
     public float ammo1 , ammo2;
     //Weapon values
@@ -113,85 +113,113 @@ public class PlayerStat : MonoBehaviour
         PlayerPrefs.SetInt("HPMax", hpMax);
         PlayerPrefs.SetInt("PPMax", ppMax);
         setText();
-        //Player Health set to zero and max
-        if (hp <= 0){
-            hp = 0;
-            //Destroy(gameObject, 1.5f);
-        }    
-        if (hp > hpMax)
-            hp = 100;
-        //Player psyhic set to zero
-        if (pp <= 0)
+        //Player updates
         {
-            pp = 0;
-            pAbilDict["heat"] = false;
-            pAbilDict["cold"] = false;
-            pAbilDict["shock"] = false;
-            pAbilDict["earth"] = false;
-            pAbilDict["decoy"] = false;
-            decoy.SetActive(false);
-        }
-        if (pp > ppMax)
-            pp = ppMax;
-        //Passive decrease
-        if(pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
-        {
-            passiveCooldown = 1;
-            passiveTimer -= Time.deltaTime;
-            if(passiveTimer <= 0){
-                pp -= 20;
-                passiveTimer = 1f;
+            //Player Health set to zero and max
+            if (hp <= 0)
+            {
+                hp = 0;
+                //Destroy(gameObject, 1.5f);
             }
-        }
-        //Psyhic recharge
-        if (pp < ppMax && activeCooldown > 0)
-            activeCooldown -= Time.deltaTime;
-        if (pp < ppMax && passiveCooldown > 0){
-            if(!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
-                passiveCooldown -= Time.deltaTime;
-        }
-        if (pp < ppMax && activeCooldown <= 0 && passiveCooldown <= 0){
-            activeCooldown = 0;
-            passiveCooldown = 0;
-            pp += Time.deltaTime * 10f;
+            if (hp > hpMax)
+                hp = 100;
+            //Player psyhic set to zero
+            if (pp <= 0)
+            {
+                pp = 0;
+                pAbilDict["heat"] = false;
+                pAbilDict["cold"] = false;
+                pAbilDict["shock"] = false;
+                pAbilDict["earth"] = false;
+                pAbilDict["decoy"] = false;
+                decoy.SetActive(false);
+            }
+            if (pp > ppMax)
+                pp = ppMax;
+            //Passive decrease
+            if (pAbilDict["heat"] || pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
+            {
+                passiveCooldown = 1;
+                passiveTimer -= Time.deltaTime;
+                if (passiveTimer <= 0)
+                {
+                    pp -= 20;
+                    passiveTimer = 1f;
+                }
+            }
+            //Psyhic recharge
+            if (pp < ppMax && activeCooldown > 0)
+                activeCooldown -= Time.deltaTime;
+            if (pp < ppMax && passiveCooldown > 0)
+            {
+                if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
+                    passiveCooldown -= Time.deltaTime;
+            }
+            if (pp < ppMax && activeCooldown <= 0 && passiveCooldown <= 0)
+            {
+                activeCooldown = 0;
+                passiveCooldown = 0;
+                pp += Time.deltaTime * 10f;
 
+            }
+            //set ammo to weapon equipped
+            equippedWeapon();
+            controlInputs();
+
+            //Damage CoolDown
+            GetComponent<SpriteRenderer>().color = (damCooldown > 0) ? Color.yellow : Color.white;
+            if (damCooldown > 0)
+                damCooldown -= Time.deltaTime;
         }
-        //set ammo to weapon equipped
-        equippedAmmo();
-        controlInputs();
-        //Damage CoolDown
-        GetComponent<SpriteRenderer>().color = (damCooldown > 0) ? Color.yellow : Color.white;
-        if (damCooldown > 0)
-            damCooldown -= Time.deltaTime;
-        //Pulse CoolDown
-        if (pulseCooldown > 0)
-            pulseCooldown -= Time.deltaTime;
-        //Weapon Jam
-        jamImage.SetActive((wepJam) ? true : false);
-        //shockCooldown
-        if (shockCoolDown > 0)
-            shockCoolDown -= Time.deltaTime;
-        if (shockCoolDown <= 0)
-            shockDam = false;
-        //storeCooldown
-        if (storeCoolDown > 0)
-            storeCoolDown -= Time.deltaTime;
-        //Weapon level up
-        if (wep1Level == 0 && ammoStack1 >= 2)
+        //Cooldowns
         {
-            pickupText.GetComponent<TextMesh>().text = "Weapon Level Up!";
-            wep1Level++;
-            ammoStack1 = 0;
+            //Pulse CoolDown
+            if (pulseCooldown > 0)
+                pulseCooldown -= Time.deltaTime;
+            //Weapon Jam
+            jamImage.SetActive((wepJam) ? true : false);
+            //shockCooldown
+            if (shockCoolDown > 0)
+                shockCoolDown -= Time.deltaTime;
+            if (shockCoolDown <= 0)
+                shockDam = false;
+            //storeCooldown
+            if (storeCoolDown > 0)
+                storeCoolDown -= Time.deltaTime;
+            //Weapon level up
+            if (wep1Level == 0 && ammoStack1 >= 2)
+            {
+                pickupText.GetComponent<TextMesh>().text = "Weapon Level Up!";
+                wep1Level++;
+                ammoStack1 = 0;
+            }
+            wepPickup();
+            //Burn cooldown
+            if (burnCoolDown > 0)
+            {
+                burnCoolDown -= Time.deltaTime;
+                StartCoroutine(burnDam());
+            }
+            //tangle cooldown
+            if (tangleCooldown > 0)
+                tangleCooldown -= Time.deltaTime;
         }
-        wepPickup();
-        if (burnCoolDown > 0)
-        {
-            burnCoolDown -= Time.deltaTime;
-            StartCoroutine(burnDam());
-        }
-        if (tangleCooldown > 0)
-            tangleCooldown -= Time.deltaTime;
+        //Enemy buffing 
         enemyBuff = buffNum > 0;
+        //Threat level
+        if (threatGauge >= 100)
+        {
+            threatLV += (threatLV <= 2) ? 1 : 0;
+            threatGauge = (threatLV <= 2) ? 0 : 100;
+            Debug.Log("Threat level up!");
+        }
+        if (threatGauge <= 0)
+        {
+            threatGauge = (threatLV > 1) ? 50 : 0;
+            threatLV -= (threatLV > 1) ? 1 : 0;
+            Debug.Log("Threat level down!");
+        }
+
     }
     private void setText()
     {
@@ -218,11 +246,12 @@ public class PlayerStat : MonoBehaviour
             {
                 hp -= dam;
                 damCooldown = 1.5f;
+                //threatGauge -= dam;
             }
         }
         
     }
-    private void equippedAmmo()
+    private void equippedWeapon()
     {
         //Primary weapon
         switch (weapon1)

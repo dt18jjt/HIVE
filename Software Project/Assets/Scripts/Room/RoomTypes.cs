@@ -120,7 +120,7 @@ public class RoomTypes : MonoBehaviour
             if (time && !entered)
                 timeRoom();
             if (wJam && !entered)
-                player.wepJam = true;
+                wJamRoom();
             if (pBlocked && !entered)
                 player.powBlock = true;
             if (boss)
@@ -282,6 +282,27 @@ public class RoomTypes : MonoBehaviour
                 itemSpawn();
 
         }
+    }
+    IEnumerator wJamRoom()
+    {
+        while (wJam)
+        {
+            player.wepJam = true;
+            yield return new WaitForSeconds(3.0f);
+            player.wepJam = false;
+        }
+            
+    }
+    IEnumerator powBlockRoom()
+    {
+        while (pBlocked)
+        {
+            player.powBlock = true;
+            yield return new WaitForSeconds(3.0f);
+            player.powBlock = false;
+            yield return new WaitForSeconds(3.0f);
+        }
+
     }
     void itemSpawn()
     {

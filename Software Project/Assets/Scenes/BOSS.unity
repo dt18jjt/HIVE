@@ -318,7 +318,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1535536800}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -393,7 +393,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1535536800}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -416,6 +416,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
   - {fileID: 21300000, guid: 3130671030db47a439a3e3509882d0ba, type: 3}
   primary: 1
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &159551463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8572181130099311098, guid: b6a4bbd756250ba40974b7c95d57a041,
         type: 3}
@@ -893,6 +899,10 @@ MonoBehaviour:
   timeCount: 0
   shopCount: 0
   keyCount: 0
+  wepJamCount: 0
+  powBlockCount: 0
+  glitchCount: 0
+  sDeathCount: 0
 --- !u!4 &671624503
 Transform:
   m_ObjectHideFlags: 0
@@ -1043,7 +1053,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1535536800}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1120,11 +1130,9 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 966201590}
-  - {fileID: 944821342}
+  m_Children: []
   m_Father: {fileID: 1535536800}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1147,6 +1155,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
   - {fileID: 21300000, guid: 3130671030db47a439a3e3509882d0ba, type: 3}
   primary: 0
+  normalColor: {r: 0.54901963, g: 0.53333336, b: 0.53333336, a: 1}
 --- !u!114 &783025852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &887834005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1518,6 +1527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 50
+  isDash: 0
   controller: 0
   miniMap: {fileID: 1192360288}
   Map: {fileID: 15493613}
@@ -1526,14 +1536,23 @@ MonoBehaviour:
   shCrosshair: {fileID: 1188110055}
   shCrosshair2: {fileID: 308084455}
   cam: {fileID: 593133465}
-  bulletPrefab: {fileID: 8186302105546413376, guid: 4c18f8d89ac99264fb42c791a1cdfcab,
-    type: 3}
   firePrefab: {fileID: 4178918633943352443, guid: 32a978cea3c183a4cb573d593b52ab81,
     type: 3}
   freezePrefab: {fileID: 5135584367109300323, guid: 5f071556c5ff9ee498416c4be43a131f,
     type: 3}
+  confusePrefab: {fileID: 0}
   bulletStart: {fileID: 701834201}
+  afterImage: {fileID: 0}
+  BoltArea: {fileID: 0}
+  tremorArea: {fileID: 0}
+  ammoPrefabs: []
   bulletSpeed: 100
+  explosiveSpeed: 80
+  laserSpeed: 60
+  slowCoolDown: 0
+  dashLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!50 &931535232
 Rigidbody2D:
   serializedVersion: 4
@@ -1607,26 +1626,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   hpMax: 100
-  pp: 100
   ppMax: 100
-  mp: 0
+  bp: 0
+  buffNum: 0
+  threatLV: 2
+  pp: 100
+  threatGauge: 50
   ammo1: 0
   ammo2: 0
   weapon1: 1
   weapon2: 2
-  bulletAmmo: 40
-  shellAmmo: 26
-  bulletMax: 40
-  shellMax: 26
+  wep1Level: 0
+  wep2Level: 0
+  ammoStack1: 0
+  ammoStack2: 0
   damCooldown: 1.5
   pulseCooldown: 0
+  meleeCooldown: 0
+  laserCooldown: 0
   activeCooldown: 0
   passiveCooldown: 0
+  shockCoolDown: 0
   passiveTimer: 1
+  burnCoolDown: 0
+  tangleCooldown: 0
+  storeCoolDown: 0
   Active: Freeze Blast
   Passive: 'Cold Zone '
-  heat: 0
-  cold: 0
+  wepJam: 0
+  powBlock: 0
+  suddenDeath: 0
+  shockDam: 0
+  pickedUp: 0
+  stackWep: 0
+  inStore: 0
+  enemyBuff: 0
+  tempWep: 0
   hpText: {fileID: 887834006}
   ppText: {fileID: 2029249686}
   mpText: {fileID: 747964908}
@@ -1634,9 +1669,17 @@ MonoBehaviour:
   a2Text: {fileID: 568052877}
   activeText: {fileID: 944821343}
   passiveText: {fileID: 966201591}
+  activeColor: {r: 0, g: 0, b: 0, a: 0}
+  passiveColor: {r: 0, g: 0, b: 0, a: 0}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
   pulse: {fileID: 1200439515}
+  jamImage: {fileID: 0}
+  pickupText: {fileID: 0}
+  decoy: {fileID: 0}
+  glitchItems: []
+  wepDrop: []
+  cEmenies: []
 --- !u!1 &944821341
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,7 +1697,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &944821342
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1666,12 +1709,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 783025850}
-  m_RootOrder: 1
+  m_Father: {fileID: 1535536800}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1405.6, y: -20}
+  m_AnchoredPosition: {x: 221.85474, y: -24.700012}
   m_SizeDelta: {x: 415.45636, y: 69.33789}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &944821343
@@ -1732,7 +1775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &966201590
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1744,12 +1787,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 783025850}
-  m_RootOrder: 0
+  m_Father: {fileID: 1535536800}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -1480.6, y: -70}
+  m_AnchoredPosition: {x: 146.85474, y: -74.70004}
   m_SizeDelta: {x: 265.42883, y: 50.94124}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966201591
@@ -2356,7 +2399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450093299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 164.09, y: 70.846, z: 4.6544}
+  m_LocalPosition: {x: 174.8, y: 70.846, z: 4.6544}
   m_LocalScale: {x: 8.37836, y: 8.37836, z: 0.55313486}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2540,6 +2583,8 @@ RectTransform:
   - {fileID: 1810317308}
   - {fileID: 922659889}
   - {fileID: 568052876}
+  - {fileID: 966201590}
+  - {fileID: 944821342}
   - {fileID: 159551461}
   - {fileID: 783025850}
   - {fileID: 119227886}
@@ -2647,7 +2692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2029249685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3101,19 +3146,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 717fed733694ff94ab014ed412a3569b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyFound: 1
   enemyOn: 0
   start: 0
   boss: 0
   shop: 0
   time: 0
-  key: 0
+  wJam: 0
+  pBlocked: 0
+  glitch: 0
   entered: 0
   noEnemy: 0
+  enemyBuff: 0
   sIcon: {fileID: 1898445321837384, guid: 3fcd6c733494dcf49b02ac0aa65f9cab, type: 3}
-  kIcon: {fileID: 4372344665755389307, guid: 55af69fb408605a49a0b6a969b06b708, type: 3}
+  gIcon: {fileID: 0}
   eBox: {fileID: 4693968856215516803}
   IBox: {fileID: 1299465095048345058}
+  box: {fileID: 0}
+  eArea: {fileID: 4398299625377698726, guid: 83f0a002a425f9741ae562bf595eabfb, type: 3}
+  exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
+  floor: {fileID: 0}
   enemies:
   - {fileID: 8236186557077567600, guid: 53be14a927527e84f9589fc29c3cbbd4, type: 3}
   - {fileID: 4865663397156743026, guid: 21a8cc33bfa960e4e88f870144114a44, type: 3}
@@ -3128,16 +3179,16 @@ MonoBehaviour:
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
-  box: {fileID: 0}
-  eArea: {fileID: 4398299625377698726, guid: 83f0a002a425f9741ae562bf595eabfb, type: 3}
-  exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
-  floor: {fileID: 0}
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   coldColor: {r: 0, g: 0, b: 0, a: 0}
   hotColor: {r: 0, g: 0, b: 0, a: 0}
+  shockColor: {r: 0, g: 0, b: 0, a: 0}
+  shockDamColor: {r: 0, g: 0, b: 0, a: 0}
+  earthColor: {r: 0, g: 0, b: 0, a: 0}
+  decoyColor: {r: 0, g: 0, b: 0, a: 0}
   eSpawnPoints: []
   iSpawnPoints: []
 --- !u!61 &4609312759605462965
