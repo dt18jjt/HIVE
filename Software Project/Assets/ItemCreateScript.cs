@@ -21,14 +21,6 @@ public class ItemCreateScript : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject, 0.2f);
         }
-        if (other.CompareTag("Bullet"))
-        {
-            if (itemChance <= 4)
-                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
-            Debug.Log(itemChance);
-            Destroy(other.gameObject);
-            Destroy(gameObject, 0.2f);
-        }
         if (other.CompareTag("Shell"))
         {
             if (itemChance <= 4)

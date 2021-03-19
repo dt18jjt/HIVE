@@ -949,6 +949,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866a86add77314c42b60842208f0d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHit: 0
+  shellHit: 0
+  explosiveHit: 0
+  laserHit: 0
+  meleeHit: 0
+  pyroHit: 0
+  cryoHit: 0
+  geoHit: 0
+  electroHit: 0
+  hypnoHit: 0
+  quickKill: 0
+  shopUse: 0
+  stackUse: 0
+  healthUse: 0
+  noDamage: 0
 --- !u!1 &701834201
 GameObject:
   m_ObjectHideFlags: 0
