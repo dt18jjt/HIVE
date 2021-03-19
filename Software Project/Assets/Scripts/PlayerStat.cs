@@ -36,6 +36,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject[] glitchItems;
     public GameObject[] wepDrop;
     public List<Transform> cEmenies;
+    Log log;
     // Start is called before the first frame update
     void Start(){
         //Set text at start
@@ -100,7 +101,7 @@ public class PlayerStat : MonoBehaviour
             wepPickupDict.Add("m3", false);
         }
         decoy.SetActive(false);
-        
+        log = GameObject.Find("Global").GetComponent<Log>();
     }
 
     // Update is called once per frame
@@ -203,6 +204,9 @@ public class PlayerStat : MonoBehaviour
             //tangle cooldown
             if (tangleCooldown > 0)
                 tangleCooldown -= Time.deltaTime;
+            //melee cooldown
+            if (meleeCooldown > 0)
+                meleeCooldown -= Time.deltaTime;
         }
         //Enemy buffing 
         enemyBuff = buffNum > 0;
@@ -486,6 +490,7 @@ public class PlayerStat : MonoBehaviour
         weapon2 = temp;
         wep2Level = tempLv;
         ammoStack2 = tempStack;
+        
     }
     private void wepPickup()
     {
@@ -621,8 +626,7 @@ public class PlayerStat : MonoBehaviour
     IEnumerator pickedOff()
     {
         
-        yield return new WaitForSeconds(0.1f);
-        pickedUp = false;
+        yield return new WaitForSeconds(0.3f);
         if (!stackWep)
             Instantiate(wepDrop[tempWep - 1], transform.position, Quaternion.identity);
        
@@ -676,6 +680,7 @@ public class PlayerStat : MonoBehaviour
                     hp += 25;
                     Destroy(other.gameObject);
                     pickupText.GetComponent<TextMesh>().text = "HP + 25";
+                    log.healthUse++;
                 }
             }
         }
@@ -740,11 +745,12 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Pistol";
             pickupText.SetActive(true);
             wepPickupDict["b0"] = true;
+            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
+                pickedUp = false;
             }
-            
         }
         //LV0 Shell Weapon Pickup
         if (other.CompareTag("SWep0"))
@@ -755,6 +761,7 @@ public class PlayerStat : MonoBehaviour
             if (pickedUp)
             {
                 Destroy(other.gameObject);
+                pickedUp = false;
             }
 
         }
@@ -764,9 +771,11 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
             pickupText.SetActive(true);
             wepPickupDict["e0"] = true;
+            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
+                pickedUp = false;
             }
            
         }
@@ -776,9 +785,11 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
             pickupText.SetActive(true);
             wepPickupDict["l0"] = true;
+            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //LV0 Melee Weapon Pickup
@@ -787,9 +798,11 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Baton";
             pickupText.SetActive(true);
             wepPickupDict["m0"] = true;
+            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
     }

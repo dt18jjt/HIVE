@@ -19,6 +19,7 @@ public class EnemyFollow : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     static EnemyFollow instance;
+    Log log;
     
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class EnemyFollow : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
         rb = GetComponent<Rigidbody2D>();
+        log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
         if (Hypno)
             player.buffNum++;
@@ -224,57 +226,73 @@ public class EnemyFollow : MonoBehaviour
         if(other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
             Destroy(other.gameObject);
+            log.bulletHit++;
+            Debug.Log("Bullet:" + log.bulletHit);
         }
         if (other.CompareTag("Shell"))
         {
             Damage(player.damDict["shellDam"]);
             Destroy(other.gameObject);
+            log.shellHit++;
+            Debug.Log("Shell:" + log.shellHit);
         }
         if (other.CompareTag("Laser"))
         {
             Damage(player.damDict["laserDam"]);
             Destroy(other.gameObject);
+            log.laserHit++;
+            Debug.Log("Laser:" + log.laserHit);
         }
         if (other.CompareTag("Bomb"))
         {
             Damage(player.damDict["explosiveDam"]);
+            log.explosiveHit++;
+            Debug.Log("explosive:" + log.shellHit);
         }
         if (other.CompareTag("Melee"))
         {
             Damage(player.damDict["meleeDam"]);
+            log.meleeHit++;
+            Debug.Log("Melee:" + log.meleeHit);
         }
         if (other.CompareTag("Fire"))
         {
             Damage((Cryo) ? player.damDict["fireDam"] / 2 : player.damDict["fireDam"]);
-            //if (Cryo)
-            //    Damage(player.damDict["fireDam"]/2);
-            //else
-            //    Damage(player.damDict["fireDam"]);
+            log.pyroHit++;
+            Debug.Log("Pyro:" + log.pyroHit);
         }
         if (other.CompareTag("Freeze"))
         {
             Damage(player.damDict["freezeDam"]);
             frozenCooldown = (Pyro) ? 0.5f : 1.5f;
             Destroy(other.gameObject);
+            log.cryoHit++;
+            Debug.Log("Cryo:" + log.cryoHit);
         }
-        if (other.CompareTag("Pulse"))
-        {
-            Damage(player.damDict["pulseDam"]);
-        }
+        //if (other.CompareTag("Pulse"))
+        //{
+        //    Damage(player.damDict["pulseDam"]);
+        //}
         if (other.CompareTag("Bolt") )
         {
             Damage((Electro) ? player.damDict["boltDam"]/2 : player.damDict["boltDam"]);
+            log.electroHit++;
+            Debug.Log("Electro:" + log.electroHit);
         }
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
             tremorCooldown = 0.5f;
+            log.geoHit++;
+            Debug.Log("Geo:" + log.geoHit);
         }
         if (other.CompareTag("Confuse"))
         {
             if(!Hypno)
                 confuseCooldown = 5f;
             Destroy(other.gameObject);
+            log.hypnoHit++;
+            Debug.Log("Shell:" + log.hypnoHit);
         }
         if (other.CompareTag("CBullet") && gameObject.CompareTag("Enemy"))
         {
