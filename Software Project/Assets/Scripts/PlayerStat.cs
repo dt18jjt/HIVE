@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, suddenDeath = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false;
+        inStore = false, enemyBuff = false, onLab = false;
     public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -226,7 +226,8 @@ public class PlayerStat : MonoBehaviour
             threatLV -= (threatLV > 1) ? 1 : 0;
             Debug.Log("Threat level down!");
         }
-
+        //When player is colliding with lab pod
+        shop();
     }
     private void setText()
     {
@@ -639,6 +640,15 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Damage(Random.Range(4, 8));
     }
+    void shop()
+    {
+        if (onLab && !inStore)
+        {
+            if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+                SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
+        }
+        
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("MP"))
@@ -749,8 +759,7 @@ public class PlayerStat : MonoBehaviour
         {
             pickupText.GetComponent<TextMesh>().text = "Lab Room";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Joystick1Button0))
-                SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
+            onLab = true;
         }
         //LV0 Bullet Weapon Pickup
         if (other.CompareTag("BWep0"))
@@ -826,7 +835,10 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("EAmmo"))
             StartCoroutine(textOff());
         if (other.CompareTag("Shop"))
+        {
+            onLab = false;
             StartCoroutine(textOff());
+        }
         if (other.CompareTag("BWep0"))
         {
             StartCoroutine(textOff());
