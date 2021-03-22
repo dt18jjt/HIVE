@@ -14,7 +14,7 @@ public class PlayerStat : MonoBehaviour
     public int weapon1, weapon2, wep1Level = 0, wep2Level = 0 , ammoStack1 = 0, ammoStack2 = 0;
     //cooldowns
     public float damCooldown, pulseCooldown, meleeCooldown, laserCooldown = 0f, activeCooldown = 0f, passiveCooldown = 0f,
-        shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f;
+        shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f, killCoolDown = 0f;
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, suddenDeath = false, shockDam = false, pickedUp = false, stackWep = false,
@@ -207,6 +207,9 @@ public class PlayerStat : MonoBehaviour
             //melee cooldown
             if (meleeCooldown > 0)
                 meleeCooldown -= Time.deltaTime;
+            //kill cooldown
+            if (killCoolDown > 0)
+                killCoolDown -= Time.deltaTime;
         }
         //Enemy buffing 
         enemyBuff = buffNum > 0;
@@ -737,6 +740,7 @@ public class PlayerStat : MonoBehaviour
                 bp -= 50;
                 Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], other.transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
+                log.shopUse++;
             }
         }
         //LV0 Bullet Weapon Pickup
@@ -745,7 +749,6 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Pistol";
             pickupText.SetActive(true);
             wepPickupDict["b0"] = true;
-            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
@@ -771,7 +774,6 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
             pickupText.SetActive(true);
             wepPickupDict["e0"] = true;
-            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
@@ -785,7 +787,6 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
             pickupText.SetActive(true);
             wepPickupDict["l0"] = true;
-            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);
@@ -798,7 +799,6 @@ public class PlayerStat : MonoBehaviour
             pickupText.GetComponent<TextMesh>().text = "Baton";
             pickupText.SetActive(true);
             wepPickupDict["m0"] = true;
-            Debug.Log("t");
             if (pickedUp)
             {
                 Destroy(other.gameObject);

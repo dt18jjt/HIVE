@@ -9,10 +9,12 @@ public class buyScript : MonoBehaviour
     public int price, effect;
     public bool bought;
     PlayerStat stat;
+    Log log;
     // Start is called before the first frame update
     void Start()
     {
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
+        log = GameObject.Find("Global").GetComponent<Log>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,8 @@ public class buyScript : MonoBehaviour
             bought = true;
             priceText.text = "0";
             priceText.color = Color.red;
+            log.shopUse++;
+            Debug.Log("shop: " + log.shopUse);
         }
         else if (stat.bp < price)
             StartCoroutine(invaild());

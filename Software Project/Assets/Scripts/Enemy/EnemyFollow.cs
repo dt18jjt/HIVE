@@ -54,8 +54,15 @@ public class EnemyFollow : MonoBehaviour
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
+            player.killCoolDown = 0.5f;
             if (Hypno)
                 player.buffNum--;
+            if (player.killCoolDown > 0)
+            {
+                log.quickKill++;
+                Debug.Log("Quick Kill: " + log.quickKill);
+            }
+                
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
