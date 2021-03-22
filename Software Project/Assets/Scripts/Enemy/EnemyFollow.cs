@@ -54,7 +54,6 @@ public class EnemyFollow : MonoBehaviour
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
-            player.killCoolDown = 0.5f;
             if (Hypno)
                 player.buffNum--;
             if (player.killCoolDown > 0)
@@ -62,7 +61,7 @@ public class EnemyFollow : MonoBehaviour
                 log.quickKill++;
                 Debug.Log("Quick Kill: " + log.quickKill);
             }
-                
+            player.killCoolDown = 0.5f;
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
@@ -83,11 +82,11 @@ public class EnemyFollow : MonoBehaviour
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
-            while (player.cEmenies.Count > 1)
+            while (player.cEmenies.Count > 1 && cEnemy == null)
                 cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
+            transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
             confuseCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
-            transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
         }
 

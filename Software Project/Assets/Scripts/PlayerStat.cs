@@ -741,6 +741,7 @@ public class PlayerStat : MonoBehaviour
                 Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], other.transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
                 log.shopUse++;
+                Debug.Log("shop: " + log.shopUse);
             }
         }
         //LV0 Bullet Weapon Pickup
