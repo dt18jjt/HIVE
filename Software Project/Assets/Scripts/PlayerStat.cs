@@ -744,6 +744,14 @@ public class PlayerStat : MonoBehaviour
                 Debug.Log("shop: " + log.shopUse);
             }
         }
+        //Lab Room(Shop)
+        if (other.CompareTag("Shop"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "Lab Room";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Joystick1Button0))
+                SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
+        }
         //LV0 Bullet Weapon Pickup
         if (other.CompareTag("BWep0"))
         {
@@ -816,6 +824,8 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("ShAmmo"))
             StartCoroutine(textOff());
         if (other.CompareTag("EAmmo"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("Shop"))
             StartCoroutine(textOff());
         if (other.CompareTag("BWep0"))
         {

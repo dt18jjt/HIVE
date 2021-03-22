@@ -180,7 +180,7 @@ public class RoomTypes : MonoBehaviour
         if (count.shopCount > 0)
         {
             //random chance of time room
-            if (templates.rooms.Count >= Random.Range(8, 11))
+            if (templates.rooms.Count >= Random.Range(8, templates.rooms.Count))
             {
                 shop = true;
                 Instantiate(sIcon, transform.position, Quaternion.identity);
