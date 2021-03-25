@@ -10,7 +10,7 @@ public class EnemyFollow : MonoBehaviour
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false, bpSpawn = false;
     //Enemy Types
-    public bool Pyro, Cryo, Geo, Electro, Hypno;
+    public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive;
     public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, BP, Corpse, hitEffect;
     public Transform cEnemy;
     private Transform target;
@@ -226,6 +226,7 @@ public class EnemyFollow : MonoBehaviour
             transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime) :
                 Vector2.MoveTowards(transform.position, -target.position, 200 * Time.deltaTime);
             tremorCooldown -= Time.deltaTime;
+            moveCooldown = startMvCooldown;
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
@@ -251,9 +252,12 @@ public class EnemyFollow : MonoBehaviour
         }
         if (other.CompareTag("Bomb"))
         {
-            Damage(player.damDict["explosiveDam"]);
-            log.explosiveHit++;
-            Debug.Log("explosive:" + log.shellHit);
+            if (!Explosive)
+            {
+                Damage(player.damDict["explosiveDam"]);
+                log.explosiveHit++;
+                Debug.Log("explosive:" + log.shellHit);
+            }
         }
         if (other.CompareTag("Melee"))
         {
