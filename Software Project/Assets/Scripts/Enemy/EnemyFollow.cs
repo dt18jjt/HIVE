@@ -105,6 +105,7 @@ public class EnemyFollow : MonoBehaviour
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
                 attackCooldown = startAtkCooldown;
+                //StartCoroutine(stopTimer());
             }
             else if (Vector2.Distance(transform.position, target.position) <= stoppingDistance)
             {
@@ -228,6 +229,13 @@ public class EnemyFollow : MonoBehaviour
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
         }
+    }
+    //pause in close range enemy movement
+    public IEnumerator stopTimer()
+    {
+        yield return new WaitForSeconds(Random.Range(2f, 3.1f));
+        moveCooldown = 0.2f;
+
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Bullet")){

@@ -48,8 +48,8 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("shellDam", 10);
             damDict.Add("explosiveDam", 20);
             damDict.Add("fireDam", 10);
-            damDict.Add("freezeDam", 10);
-            damDict.Add("boltDam", 10);
+            damDict.Add("freezeDam", 5);
+            damDict.Add("boltDam", 5);
             damDict.Add("confuseDam", 5);
             damDict.Add("tremorDam", 5);
             damDict.Add("laserDam", 5);

@@ -1837,6 +1837,7 @@ MonoBehaviour:
   burnCoolDown: 0
   tangleCooldown: 0
   storeCoolDown: 0
+  killCoolDown: 0
   Active: Confusion
   Passive: Heatstroke
   wepJam: 0
@@ -1847,6 +1848,7 @@ MonoBehaviour:
   stackWep: 0
   inStore: 0
   enemyBuff: 0
+  onLab: 0
   tempWep: 0
   hpText: {fileID: 887834006}
   ppText: {fileID: 2029249686}
