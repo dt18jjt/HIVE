@@ -7,7 +7,7 @@ public class EnemyProjectile : MonoBehaviour
     public float speed;
     public int minDam, maxDam, minDamFinal, maxDamFinal;
     int minBuff, maxBuff;
-    public bool confused, weak;
+    public bool confused, weak, noPath;
     private Transform player;
     private Transform enemy;
     private Transform decoy;
@@ -24,7 +24,8 @@ public class EnemyProjectile : MonoBehaviour
         target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((!stat.pAbilDict["decoy"]) ?
             (player.transform.position - transform.position).normalized * speed : 
             (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
-        rb2D.velocity = new Vector2(target.x, target.y);
+        if(!noPath)
+            rb2D.velocity = new Vector2(target.x, target.y);
         Destroy(gameObject, 1f);
         minBuff = minDam + (minDam/2);
         maxBuff = maxDam + (maxDam / 2);

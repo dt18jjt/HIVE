@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8236186557077567606}
   - component: {fileID: 69488152461732035}
   m_Layer: 10
-  m_Name: 011
+  m_Name: 010
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.053014517, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.22399688, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -96,16 +96,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc5168fd0188176468dc1d289d2de384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
-  speed: 50
-  normalSpeed: 50
-  coldSpeed: 30
-  stoppingDistance: 20
-  retreatDistance: 15
-  attackCooldown: 0.25
-  startAtkCooldown: 0.25
+  hp: 30
+  speed: 30
+  normalSpeed: 30
+  coldSpeed: 15
+  stoppingDistance: 25
+  retreatDistance: 20
+  attackCooldown: 0.5
+  startAtkCooldown: 0.5
   moveCooldown: 0
-  startMvCooldown: 0.5
+  startMvCooldown: 1
   frozenCooldown: 0
   tremorCooldown: 0
   confuseCooldown: 0
@@ -117,7 +117,11 @@ MonoBehaviour:
   Geo: 0
   Electro: 0
   Hypno: 0
-  Explosive: 1
+  Explosive: 0
+  Laser: 0
+  Bullet: 0
+  Shell: 1
+  Melee: 0
   projectile: {fileID: 5623935904502013361, guid: e7522e7d835ba644189d905993984db6,
     type: 3}
   confusionProjectile: {fileID: 5623935904502013361, guid: b896112eea8a24943989402cdcf84be9,
@@ -127,14 +131,16 @@ MonoBehaviour:
   sporeProjectile: {fileID: 5623935904502013361, guid: 9107a5f90ebb8bf43a66aa816cd30528,
     type: 3}
   weakProjectile: {fileID: 0}
+  splitProjectile: {fileID: 5623935904502013361, guid: a9e8f3f3a2a1c0a41ae58076e8f10829,
+    type: 3}
   BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}
   Corpse: {fileID: 6774491008760995051, guid: 4e5355dcc1ed96e45ba0755b4a4d045c, type: 3}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
   cEnemy: {fileID: 0}
-  normalColor: {r: 0.050980397, g: 0.9607844, b: 0, a: 1}
-  frozenColor: {r: 0.53099734, g: 1, b: 0.504717, a: 1}
-  confuseColor: {r: 0.048178494, g: 0.5471698, b: 0.023228897, a: 1}
+  normalColor: {r: 0, g: 0.21568629, b: 0.9607844, a: 1}
+  frozenColor: {r: 0.504717, g: 0.6159029, b: 1, a: 1}
+  confuseColor: {r: 0, g: 0.12071615, b: 0.5377358, a: 1}
 --- !u!50 &8236186557077567606
 Rigidbody2D:
   serializedVersion: 4

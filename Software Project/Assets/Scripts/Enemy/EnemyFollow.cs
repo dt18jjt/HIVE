@@ -7,11 +7,11 @@ public class EnemyFollow : MonoBehaviour
     public int hp = 20;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
         moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f;
-    float heatTimer = 1f, coldTimer = 1f;
+    float heatTimer = 1f, coldTimer = 1f, radius;
     public bool ranged, frozen = false, bpSpawn = false;
     //Enemy Types
-    public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive;
-    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, BP, Corpse, hitEffect;
+    public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
+    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -32,6 +32,7 @@ public class EnemyFollow : MonoBehaviour
         player.cEmenies.Add(gameObject.transform);
         if (Hypno)
             player.buffNum++;
+        radius = GetComponent<CircleCollider2D>().radius;
         //stoppingDistance = Random.Range(25, 31);
         //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
@@ -89,7 +90,16 @@ public class EnemyFollow : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
         }
-
+        if (Laser && hp < 20 && ranged)
+        {
+            ranged = false;
+            retreatDistance = 25;
+            stoppingDistance = 15;
+            attackCooldown = 0.5f;
+            startAtkCooldown = 0.5f;
+            hp += 20;
+        }
+            
     }
     private void FixedUpdate()
     {
@@ -212,11 +222,15 @@ public class EnemyFollow : MonoBehaviour
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
         hp -= dam;
-        //player.threatGauge += 5;
+        player.threatGauge += 5;
         if (Electro)
         {
             normalSpeed += 10;
             coldSpeed += 10;
+        }
+        if (Shell)
+        {
+
         }
             
     }
@@ -229,6 +243,10 @@ public class EnemyFollow : MonoBehaviour
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
         }
+    }
+    void splitSpawn()
+    {
+
     }
     //pause in close range enemy movement
     public IEnumerator stopTimer()
