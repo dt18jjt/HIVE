@@ -236,7 +236,7 @@ public class EnemyFollow : MonoBehaviour
         }
         if (Shell)
         {
-            splitSpawn(6);
+            splitSpawn(4);
         }
             
     }

@@ -6,11 +6,11 @@ public class RoomTypes : MonoBehaviour
 {
     int roomChance;
     public bool enemyOn = false, start = false, boss = false, shop = false, time = false, wJam = false, pBlocked = false,
-        glitch = false, entered = false, noEnemy = false,  enemyBuff = false;
+        glitch = false, hazard = false, entered = false, noEnemy = false,  enemyBuff = false;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
-    public GameObject sIcon, gIcon, eBox, IBox, box, eArea, exit, floor;
+    public GameObject sIcon, gIcon, eBox, IBox, box, eArea, exit, floor, hArea;
     public GameObject[] enemies;
     public GameObject[] items;
     public int enemySpawnCount, enemyCount, itemCount;
@@ -33,8 +33,7 @@ public class RoomTypes : MonoBehaviour
         wepJamSpawn();
         powBlockSpawn();
         glitchSpawn();
-        //sDeathSpawn();
-        
+        hazardSpawn();
     }
 
     // Update is called once per frame
@@ -46,6 +45,7 @@ public class RoomTypes : MonoBehaviour
             wJam = false;
             pBlocked = false;
             glitch = false;
+            hazard = false;
             noEnemy = true;
             Destroy(eBox);
             Destroy(IBox);
@@ -59,6 +59,7 @@ public class RoomTypes : MonoBehaviour
             wJam = false;
             pBlocked = false;
             glitch = false;
+            hazard = false;
             Destroy(eBox);
             Destroy(IBox);
             enemySpawnCount = 0;
@@ -83,6 +84,7 @@ public class RoomTypes : MonoBehaviour
             wJam = false;
             pBlocked = false;
             shop = false;
+            hazard = false;
             Destroy(eBox);
             enemySpawnCount = 0;
             enemyCount = 0;
@@ -120,9 +122,11 @@ public class RoomTypes : MonoBehaviour
             if (time && !entered)
                 timeRoom();
             if (wJam && !entered)
-                wJamRoom();
+                StartCoroutine(wJamRoom());
             if (pBlocked && !entered)
-                player.powBlock = true;
+                StartCoroutine(powBlockRoom());
+            if (hazard && !entered)
+                StartCoroutine(hazardRoom());
             if (boss)
                 Instantiate(exit, transform.position, Quaternion.identity);
             if (glitch)
@@ -232,12 +236,25 @@ public class RoomTypes : MonoBehaviour
     {
         if (count.glitchCount > 0)
         {
-            //random chance of time room
+            //random chance of glitch room
             if (roomChance == 5 && !start)
             {
                 glitch = true;
                 count.glitchCount--;
                 Debug.Log("glitch");
+            }
+        }
+    }
+    void hazardSpawn()
+    {
+        if (count.hazardCount > 0)
+        {
+            //random chance of hazard room
+            if (roomChance == 6 && !start)
+            {
+                hazard = true;
+                count.hazardCount--;
+                Debug.Log("hazard");
             }
         }
     }
@@ -285,22 +302,32 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator wJamRoom()
     {
-        while (wJam)
+        while (wJam && enemyCount > 0)
         {
             player.wepJam = true;
             yield return new WaitForSeconds(3.0f);
             player.wepJam = false;
+            yield return new WaitForSeconds(3.0f);
         }
             
     }
     IEnumerator powBlockRoom()
     {
-        while (pBlocked)
+        while (pBlocked && enemyCount > 0)
         {
             player.powBlock = true;
             yield return new WaitForSeconds(3.0f);
             player.powBlock = false;
             yield return new WaitForSeconds(3.0f);
+        }
+
+    }
+    IEnumerator hazardRoom()
+    {
+        while (hazard && enemyCount > 0)
+        {
+            yield return new WaitForSeconds(3.0f);
+            Instantiate(hArea, player.transform.position, Quaternion.identity);
         }
 
     }
