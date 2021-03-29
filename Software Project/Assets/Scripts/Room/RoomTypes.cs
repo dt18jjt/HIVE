@@ -28,7 +28,7 @@ public class RoomTypes : MonoBehaviour
         timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         roomChance = Random.Range(1, 11);
-        timeSpawn();
+        //timeSpawn();
         shopSpawn();
         wepJamSpawn();
         powBlockSpawn();
@@ -302,6 +302,7 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator wJamRoom()
     {
+        Debug.Log("J");
         while (wJam && enemyCount > 0)
         {
             player.wepJam = true;
@@ -313,6 +314,7 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator powBlockRoom()
     {
+        Debug.Log("P");
         while (pBlocked && enemyCount > 0)
         {
             player.powBlock = true;
@@ -324,21 +326,25 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator hazardRoom()
     {
-        while (hazard && enemyCount > 0)
+        Debug.Log("H");
+        while (hazard)
         {
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(1.0f);
             Instantiate(hArea, player.transform.position, Quaternion.identity);
+            Debug.Log("spawned");
         }
 
     }
-    void itemSpawn()
+    public void itemSpawn()
     {
         itemCount = Random.Range(2, 7);
         int postionNum = 0;
         Vector3 position = iSpawnPoints[postionNum].position;
         while (itemCount > 0){
-            GameObject b = Instantiate(items[Random.Range(0,items.Length)], position, Quaternion.identity);
+            int rndNum = Random.Range(0, items.Length);
+            GameObject b = Instantiate(items[rndNum], position, Quaternion.identity);
             b.transform.parent = this.transform;
+            
             postionNum++;
             position = iSpawnPoints[postionNum].position;
             itemCount--;

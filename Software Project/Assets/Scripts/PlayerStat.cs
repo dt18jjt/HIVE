@@ -214,13 +214,13 @@ public class PlayerStat : MonoBehaviour
         //Enemy buffing 
         enemyBuff = buffNum > 0;
         //Threat level
-        if (threatGauge >= 100)
+        if (threatGauge >= 100 && threatLV <= 2)
         {
             threatLV += (threatLV <= 2) ? 1 : 0;
             threatGauge = (threatLV <= 2) ? 0 : 100;
             Debug.Log("Threat level up!");
         }
-        if (threatGauge <= 0)
+        if (threatGauge <= 0 && threatLV > 1)
         {
             threatGauge = (threatLV > 1) ? 50 : 0;
             threatLV -= (threatLV > 1) ? 1 : 0;
