@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public int hp = 20;
+    public int hp = 20, moveAngle = 0;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f;
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown;
     float heatTimer = 1f, coldTimer = 1f;
-    public bool ranged, frozen = false, bpSpawn = false;
+    public bool ranged, frozen = false, bpSpawn = false, Avoid;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
     public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
+    Vector2 randDirection, randMovement;
     PlayerStat player;
     PlayerMovement playerMove;
     Rigidbody2D rb;
@@ -98,7 +99,10 @@ public class EnemyFollow : MonoBehaviour
             startAtkCooldown = 0.5f;
             hp += 20;
         }
-            
+        if(avoidCooldown > 0)
+        {
+            avoidCooldown -= Time.deltaTime;
+        }
     }
     private void FixedUpdate()
     {
@@ -133,7 +137,14 @@ public class EnemyFollow : MonoBehaviour
             }
             else if (Vector2.Distance(transform.position, target.position) < stoppingDistance && Vector2.Distance(transform.position, target.position) > retreatDistance)
             {
-                transform.position = this.transform.position;
+                // transform.position = this.transform.position;
+                if(avoidCooldown <= 0)
+                {
+                    randDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+                    avoidCooldown = 2f;
+                }
+                randMovement = randDirection * speed;
+                transform.position = new Vector2 (transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
             }
             else if (Vector2.Distance(transform.position, target.position) < retreatDistance && moveCooldown <= 0)
             {
