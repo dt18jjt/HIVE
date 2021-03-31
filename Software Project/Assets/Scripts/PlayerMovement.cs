@@ -559,10 +559,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Wall"))
-        {
-            //stopMovement = true;
             velocity = Vector3.zero;
-            Debug.Log("C");
-        }
     }
 }

@@ -6,13 +6,13 @@ public class EnemyFollow : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown;
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false, bpSpawn = false, Avoid;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
     public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect;
-    public Transform cEnemy;
+    public Transform cEnemy, distancePos;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
     Vector2 randDirection, randMovement;
@@ -149,6 +149,10 @@ public class EnemyFollow : MonoBehaviour
             else if (Vector2.Distance(transform.position, target.position) < retreatDistance && moveCooldown <= 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
+                if (Melee && attackCooldown > 0)
+                {
+                    StartCoroutine(Disappear());
+                }
             }
             enemyRangeAtk();
         }
@@ -294,6 +298,11 @@ public class EnemyFollow : MonoBehaviour
         moveCooldown = 0.2f;
 
     }
+    public IEnumerator Disappear()
+    {
+        yield return new WaitForSeconds(0.2f);
+        transform.position = distancePos.position;
+    }
     private void OnTriggerEnter2D(Collider2D other){
         //Hit by bullet object
         if(other.CompareTag("Bullet")){
@@ -390,7 +399,8 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector3.zero;
+            transform.position = this.transform.position;
         }
     }
 
