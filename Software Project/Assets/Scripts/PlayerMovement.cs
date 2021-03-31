@@ -8,17 +8,14 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D body;
     public float runSpeed = 100.0f;
     private float dashSpeed = 30f;
-    public bool isDash;
-    bool mapOn = false;
-    bool pressed = false;
-    public bool controller = false;
+    public bool isDash, controller = false;
+    bool mapOn = false, pressed = false, stopMovement;
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
     public GameObject[] ammoPrefabs;
     public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
-    private Vector3 target;
+    private Vector3 target, moveDir, velocity;
     private Vector2 lStickInput, rStickInput;
-    private Vector3 moveDir;
     PlayerStat stat;
     RoomTemplates templates;
     [SerializeField] LayerMask dashLayerMask;
@@ -35,16 +32,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (stat.hp > 0){
-            lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            Vector3 velocity = lStickInput.normalized * runSpeed;
-            if (templates.waitTime <= 0 && !stat.inStore && stat.tangleCooldown <= 0)
-                transform.position += velocity * Time.deltaTime;
-        }
         if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Joystick1Button6))
-        {
             mapOn = !mapOn;
-        }
         miniMap.SetActive((mapOn) ? false : true);
         Map.SetActive((mapOn) ? true : false);
         //Detect input method
@@ -74,6 +63,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (stat.hp > 0)
+        {
+            lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            velocity = lStickInput.normalized * runSpeed;
+            if (templates.waitTime <= 0 && !stat.inStore && stat.tangleCooldown <= 0)
+                transform.position += velocity * Time.deltaTime;
+        }
         if (stat.Active == "Bolt Dash")
             boltDash();
     }
@@ -560,5 +556,13 @@ public class PlayerMovement : MonoBehaviour
             Input.GetKey(KeyCode.Joystick1Button10))
             controller = true;
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            //stopMovement = true;
+            velocity = Vector3.zero;
+            Debug.Log("C");
+        }
+    }
 }

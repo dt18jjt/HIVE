@@ -140,7 +140,7 @@ public class EnemyFollow : MonoBehaviour
                 // transform.position = this.transform.position;
                 if(avoidCooldown <= 0)
                 {
-                    randDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+                    randDirection = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)).normalized;
                     avoidCooldown = 2f;
                 }
                 randMovement = randDirection * speed;
@@ -386,5 +386,12 @@ public class EnemyFollow : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Wall"))
+        {
+            rb.velocity = Vector2.zero;
+        }
+    }
+
 }
