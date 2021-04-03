@@ -52,6 +52,16 @@ TagManager:
   - CBullet
   - Burn
   - Spore
+  - BWep2
+  - SWep2
+  - EWep2
+  - LWep2
+  - MWep2
+  - BWep3
+  - SWep3
+  - EWep3
+  - LWep3
+  - MWep3
   layers:
   - Default
   - TransparentFX
