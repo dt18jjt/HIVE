@@ -521,7 +521,7 @@ public class PlayerStat : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
         {
-            tempWep = weapon1;
+            tempWep = wepDropNum;
             //LV0 Bullet Weapon Pickup
             if (wepPickupDict["b0"])
         {
@@ -1041,7 +1041,7 @@ public class PlayerStat : MonoBehaviour
         
         yield return new WaitForSeconds(0.3f);
         if (!stackWep)
-            Instantiate(wepDrop[wepDropNum], transform.position, Quaternion.identity);
+            Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
        
     }
     IEnumerator burnDam()
