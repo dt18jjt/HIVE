@@ -7,7 +7,7 @@ public class EnemyProjectile : MonoBehaviour
     public float speed;
     public int minDam, maxDam, minDamFinal, maxDamFinal;
     int minBuff, maxBuff;
-    public bool confused, weak, noPath;
+    public bool confused, weak, noPath, bomb;
     private Transform player;
     private Transform enemy;
     private Transform decoy;
@@ -36,7 +36,7 @@ public class EnemyProjectile : MonoBehaviour
         maxDamFinal = (!weak) ? ((!stat.enemyBuff) ? maxDam : maxBuff) : maxDam;
     }
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.name == "Player"){
+        if(other.name == "Player" && !bomb){
             if(!stat.pAbilDict["earth"] && !confused)
                 stat.Damage(Random.Range(minDamFinal, maxDamFinal));
             Destroy(gameObject);

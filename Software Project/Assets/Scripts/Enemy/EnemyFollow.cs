@@ -6,12 +6,13 @@ public class EnemyFollow : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f;
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false, bpSpawn = false, Avoid;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
-    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect;
+    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect, adsorbEffect,
+        bombProjectile;
     public Transform cEnemy, distancePos;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -19,7 +20,6 @@ public class EnemyFollow : MonoBehaviour
     PlayerStat player;
     PlayerMovement playerMove;
     Rigidbody2D rb;
-    static EnemyFollow instance;
     Log log;
     
     // Start is called before the first frame update
@@ -33,8 +33,6 @@ public class EnemyFollow : MonoBehaviour
         player.cEmenies.Add(gameObject.transform);
         if (Hypno)
             player.buffNum++;
-        //stoppingDistance = Random.Range(25, 31);
-        //Physics2D.IgnoreLayerCollision(10, 10, true); 
     }
     // Update is called once per frame
     void Update()
@@ -66,6 +64,7 @@ public class EnemyFollow : MonoBehaviour
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
+        // Movement stoppage cooldown
         if (moveCooldown > 0)
             moveCooldown -= Time.deltaTime;
         if (frozenCooldown <= 0 && confuseCooldown <= 0)
@@ -90,6 +89,7 @@ public class EnemyFollow : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
         }
+        //Laser Behaviour change
         if (Laser && hp < 20 && ranged)
         {
             ranged = false;
@@ -99,10 +99,15 @@ public class EnemyFollow : MonoBehaviour
             startAtkCooldown = 0.5f;
             hp += 20;
         }
+        //Avoid movement cooldown
         if(avoidCooldown > 0)
-        {
             avoidCooldown -= Time.deltaTime;
-        }
+        // Adsorb bullets cooldown
+        if (adsorbCooldown > 0)
+            adsorbCooldown -= Time.deltaTime;
+        //adsord effect active
+        adsorbEffect.SetActive((adsorbCooldown >  0) ? true : false);
+
     }
     private void FixedUpdate()
     {
@@ -154,7 +159,11 @@ public class EnemyFollow : MonoBehaviour
                     StartCoroutine(Disappear());
                 }
             }
-            enemyRangeAtk();
+            if(adsorbCooldown <= 0)
+            {
+                enemyRangeAtk();
+                StartCoroutine(adsorb());
+            }
         }
     }
     void enemyCloseAtk(){
@@ -242,18 +251,20 @@ public class EnemyFollow : MonoBehaviour
         GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
-        hp -= dam;
+        if(adsorbCooldown <= 0)
+            hp -= dam;
         player.threatGauge += 5;
-        if (Electro)
-        {
+        if (Electro){
             normalSpeed += 10;
             coldSpeed += 10;
         }
         if (Shell)
-        {
             splitSpawn(4);
+        if (adsorbCooldown > 0)
+        {
+            Instantiate(bombProjectile, transform.position, Quaternion.identity);
         }
-            
+
     }
     void tremorKnockback()
     {
@@ -302,6 +313,12 @@ public class EnemyFollow : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         transform.position = distancePos.position;
+    }
+    public IEnumerator adsorb()
+    {
+        yield return new WaitForSeconds(3f);
+        adsorbCooldown = 1.0f;
+        Debug.Log("a");
     }
     private void OnTriggerEnter2D(Collider2D other){
         //Hit by bullet object

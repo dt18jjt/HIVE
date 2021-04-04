@@ -1083,8 +1083,9 @@ public class PlayerStat : MonoBehaviour
                 tangleCooldown = 1f;
                 Debug.Log("tangled");
             }
-                
         }
+        if (other.CompareTag("E.Bomb"))
+            Damage(Random.Range(20, 25));
     }
     private IEnumerator pulseAction()
     {

@@ -453,7 +453,7 @@ public class PlayerMovement : MonoBehaviour
         e.transform.position = bulletStart.transform.position;
         e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
-        Destroy(e, 1f);
+        //Destroy(e, 1f);
     }
     //laser spawn
     void laserFire(Vector2 direction, float rotationZ)

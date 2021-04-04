@@ -62,6 +62,7 @@ TagManager:
   - EWep3
   - LWep3
   - MWep3
+  - E.Bomb
   layers:
   - Default
   - TransparentFX
