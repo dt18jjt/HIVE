@@ -113,6 +113,7 @@ public class PlayerStat : MonoBehaviour
         PlayerPrefs.SetInt("HP", hp);
         PlayerPrefs.SetInt("HPMax", hpMax);
         PlayerPrefs.SetInt("PPMax", ppMax);
+        PlayerPrefs.SetInt("Threat Level", threatLV);
         setText();
         //Player updates
         {

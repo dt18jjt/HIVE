@@ -6,14 +6,16 @@ public class EnemyCorpse : MonoBehaviour
 {
     public int hp;
     public int itemChance;
-    public GameObject[] Items;
+    public GameObject BP;
     public GameObject hitEffect;
+    PlayerStat player;
     // Start is called before the first frame update
     void Start()
     {
-        hp = Random.Range(2, 5);
-        Destroy(gameObject, 3f);
-        itemChance = Random.Range(0, 6);
+        hp = Random.Range(2, 5); //hit needed to destroy
+        Destroy(gameObject, 3f); //destroyd after seconds
+        itemChance = Random.Range(0, 10); //chance of bp spawning
+        player = GameObject.Find("Player").GetComponent<PlayerStat>();
     }
 
     // Update is called once per frame
@@ -21,42 +23,83 @@ public class EnemyCorpse : MonoBehaviour
     {
         if(hp <= 0)
         {
-            if (itemChance <= 3)
-                Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+            //Spawn a bio point
+            if (itemChance <= 5 && player.threatLV == 1)
+                Instantiate(BP, transform.position, Quaternion.identity);
+            else if (itemChance <= 3 && player.threatLV == 2)
+                Instantiate(BP, transform.position, Quaternion.identity);
+            else if (itemChance <= 1 && player.threatLV == 3)
+                Instantiate(BP, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
+    void dam()
+    {
+        GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
+        hit.GetComponent<ParticleSystem>().Play();
+        Destroy(hit, 1f);
+        hp -= 1;
+        
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Hit by bullet
         if (other.CompareTag("Bullet"))
         {
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
-            hp -= 1;
+            dam();
             Destroy(other.gameObject);
         }
+        //Hit by shell
+        if (other.CompareTag("Shell"))
+        {
+            dam();
+            Destroy(other.gameObject);
+        }
+        //Hit by melee
+        if (other.CompareTag("Melee"))
+        {
+            dam();
+            Destroy(other.gameObject);
+        }
+        //Hit by laser
+        if (other.CompareTag("Laser"))
+        {
+            dam();
+            Destroy(other.gameObject);
+        }
+        //Hit by explosive
+        if (other.CompareTag("Bomb"))
+        {
+            dam();
+        }
+        //Hit by pyro
         if (other.CompareTag("Fire"))
         {
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
-            hp -= 1;
+            dam();
+            Destroy(other.gameObject);
         }
+        //Hit by cryo
         if (other.CompareTag("Freeze"))
         {
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
-            hp -= 1;
+            dam();
+            Destroy(other.gameObject);
+        }
+        //Hit by electro
+        if (other.CompareTag("Bolt"))
+        {
+            dam();
+            Destroy(other.gameObject);
+        }
+        //Hit by geo
+        if (other.CompareTag("Tremor"))
+        {
+            dam();
             Destroy(other.gameObject);
         }
         if (other.name == "Pulse")
         {
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
-            hp -= 1;
+            dam();
+            Destroy(other.gameObject);
         }
     }
 }

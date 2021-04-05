@@ -30,6 +30,7 @@ public class RoomTypes : MonoBehaviour
         roomChance = Random.Range(1, 11);
         //timeSpawn();
         shopSpawn();
+        if(PlayerPrefs.GetInt("Threat Level") >= 2)
         wepJamSpawn();
         powBlockSpawn();
         glitchSpawn();
