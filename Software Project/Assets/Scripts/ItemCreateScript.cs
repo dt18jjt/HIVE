@@ -15,11 +15,11 @@ public class ItemCreateScript : MonoBehaviour
     }
     void itemDrop()
     {
-        if (itemChance <= 4 && player.threatLV == 1)
+        if (itemChance <= 4 && PlayerPrefs.GetInt("Threat Level") == 1)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
-        else if (itemChance <= 2 && player.threatLV == 2)
+        else if (itemChance <= 2 && PlayerPrefs.GetInt("Threat Level") == 2)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
-        else if (itemChance <= 1 && player.threatLV == 3)
+        else if (itemChance <= 1 && PlayerPrefs.GetInt("Threat Level") == 3)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
     }
     private void OnTriggerEnter2D(Collider2D other)

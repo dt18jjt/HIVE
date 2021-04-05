@@ -24,11 +24,11 @@ public class EnemyCorpse : MonoBehaviour
         if(hp <= 0)
         {
             //Spawn a bio point
-            if (itemChance <= 5 && player.threatLV == 1)
+            if (itemChance <= 5 && PlayerPrefs.GetInt("Threat Level") == 1)
                 Instantiate(BP, transform.position, Quaternion.identity);
-            else if (itemChance <= 3 && player.threatLV == 2)
+            else if (itemChance <= 3 && PlayerPrefs.GetInt("Threat Level") == 2)
                 Instantiate(BP, transform.position, Quaternion.identity);
-            else if (itemChance <= 1 && player.threatLV == 3)
+            else if (itemChance <= 1 && PlayerPrefs.GetInt("Threat Level") == 3)
                 Instantiate(BP, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

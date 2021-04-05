@@ -31,10 +31,13 @@ public class RoomTypes : MonoBehaviour
         //timeSpawn();
         shopSpawn();
         if(PlayerPrefs.GetInt("Threat Level") >= 2)
-        wepJamSpawn();
-        powBlockSpawn();
-        glitchSpawn();
-        hazardSpawn();
+        {
+            wepJamSpawn();
+            powBlockSpawn();
+            glitchSpawn();
+            hazardSpawn();
+        }
+        
     }
 
     // Update is called once per frame
