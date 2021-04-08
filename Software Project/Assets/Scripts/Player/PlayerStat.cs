@@ -271,6 +271,8 @@ public class PlayerStat : MonoBehaviour
                 damCooldown = 1.5f;
                 //threatGauge -= dam;
             }
+            if (log.noDamage)
+                log.noDamage = false;
         }
         
     }
