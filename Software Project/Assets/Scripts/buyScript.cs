@@ -61,6 +61,7 @@ public class buyScript : MonoBehaviour
         buyItem.Add(eAmmoL);
         buyItem.Add(HPMax);
         buyItem.Add(PPMax);
+        buyItem.Add(aStack);
         buyItem.Add(Lv1B);
         buyItem.Add(Lv1S);
         buyItem.Add(Lv1E);
@@ -121,6 +122,11 @@ public class buyScript : MonoBehaviour
     void PPMax()
     {
         stat.ppMax += 10;
+    }
+    void aStack()
+    {
+        stat.ammoStack1++;
+        stat.ammoStack2++;
     }
     void Lv1B()
     {

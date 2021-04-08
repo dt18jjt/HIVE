@@ -109,11 +109,25 @@ public class PlayerStat : MonoBehaviour
         Vector2 pickupPos = new Vector2(transform.position.x, transform.position.y + 15);
         pickupText.transform.position = pickupPos;
         //keeping value player preferences
-        PlayerPrefs.SetInt("BP", bp);
-        PlayerPrefs.SetInt("HP", hp);
-        PlayerPrefs.SetInt("HPMax", hpMax);
-        PlayerPrefs.SetInt("PPMax", ppMax);
-        PlayerPrefs.SetInt("Threat Level", threatLV);
+        {
+            PlayerPrefs.SetInt("BP", bp);
+            PlayerPrefs.SetInt("HP", hp);
+            PlayerPrefs.SetInt("HPMax", hpMax);
+            PlayerPrefs.SetInt("PPMax", ppMax);
+            PlayerPrefs.SetInt("Threat Level", threatLV);
+            PlayerPrefs.SetInt("Weapon1", weapon1);
+            PlayerPrefs.SetInt("Weapon2", weapon2);
+            PlayerPrefs.SetInt("Wep1LV", wep1Level);
+            PlayerPrefs.SetInt("Wep2LV", wep2Level);
+            PlayerPrefs.SetInt("Ammo Stack 1", ammoStack1);
+            PlayerPrefs.SetInt("Ammo Stack 2", ammoStack2);
+            PlayerPrefs.SetFloat("Threat Gauge", threatGauge);
+            PlayerPrefs.SetFloat("Bullet", ammoDict["bullet"]);
+            PlayerPrefs.SetFloat("Shell", ammoDict["shells"]);
+            PlayerPrefs.SetFloat("Explosive", ammoDict["explosive"]);
+            PlayerPrefs.SetFloat("Laser", ammoDict["laser"]);
+        }
+
         setText();
         //Player updates
         {
@@ -1039,15 +1053,16 @@ public class PlayerStat : MonoBehaviour
     }
     public void dropWeapon()
     {
-        Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
+        
+        Instantiate(wepDrop[wepDropNum], transform.position, Quaternion.identity);
     }
     IEnumerator pickedOff()
     {
         
         yield return new WaitForSeconds(0.3f);
         if (!stackWep)
-            dropWeapon();
-       
+            Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
+
     }
     IEnumerator burnDam()
     {
