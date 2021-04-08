@@ -6,14 +6,15 @@ public class EnemyFollow : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f;
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f,
+        ghostCooldown = 0.5f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false, bpSpawn = false, Avoid;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
     public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect, adsorbEffect,
-        bombProjectile;
-    public Transform cEnemy, distancePos;
+        bombProjectile, ghostProjectile;
+    public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
     Vector2 randDirection, randMovement;
@@ -106,8 +107,8 @@ public class EnemyFollow : MonoBehaviour
         if (adsorbCooldown > 0)
             adsorbCooldown -= Time.deltaTime;
         //adsord effect active
-        adsorbEffect.SetActive((adsorbCooldown >  0) ? true : false);
-
+        if(Bullet)
+            adsorbEffect.SetActive((adsorbCooldown >  0) ? true : false);
     }
     private void FixedUpdate()
     {
@@ -151,18 +152,23 @@ public class EnemyFollow : MonoBehaviour
                 randMovement = randDirection * speed;
                 transform.position = new Vector2 (transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
             }
-            else if (Vector2.Distance(transform.position, target.position) < retreatDistance && moveCooldown <= 0)
+            else if (Vector2.Distance(transform.position, target.position) < retreatDistance)
             {
+                if(moveCooldown <= 0)
                 transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
-                if (Melee && attackCooldown > 0)
+                if (Melee)
                 {
-                    StartCoroutine(Disappear());
+                    Color tmp = GetComponent<SpriteRenderer>().color;
+                    tmp.a = 0f;
+                    GetComponent<SpriteRenderer>().color = tmp;
+                    ghostCooldown -= Time.deltaTime;
                 }
             }
             if(adsorbCooldown <= 0)
             {
                 enemyRangeAtk();
-                StartCoroutine(adsorb());
+                if(Bullet)
+                    StartCoroutine(adsorb());
             }
         }
     }
@@ -181,7 +187,7 @@ public class EnemyFollow : MonoBehaviour
         // Range attack after cooldown reaches 0
         if (attackCooldown <= 0 && moveCooldown <= 0){
             // Spawn confusion projectile
-            if(confuseCooldown > 0)
+            if (confuseCooldown > 0)
                 Instantiate(confusionProjectile, transform.position, Quaternion.identity);
             // Spawn burn projectile
             else if (Pyro)
@@ -192,6 +198,9 @@ public class EnemyFollow : MonoBehaviour
             // Spawn weak projectile
             else if (Hypno)
                 Instantiate(weakProjectile, transform.position, Quaternion.identity);
+            //Spawn Ghost projectile
+            else if (Melee && ghostCooldown <= 0)
+                StartCoroutine(Disappear());
             // Spawn normal projectile
             else
                 Instantiate(projectile, transform.position, Quaternion.identity);
@@ -307,18 +316,24 @@ public class EnemyFollow : MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(2f, 3.1f));
         moveCooldown = 0.2f;
-
     }
     public IEnumerator Disappear()
     {
-        yield return new WaitForSeconds(0.2f);
-        transform.position = distancePos.position;
+        Color tmp = GetComponent<SpriteRenderer>().color;
+        // create projectile
+        GameObject g = Instantiate(ghostProjectile, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
+        // set postion to projectile
+        transform.position = g.transform.position;
+        tmp.a = 1f;
+        GetComponent<SpriteRenderer>().color = tmp;
+        //reset ghost cooldown
+        ghostCooldown = 0.5f;
     }
     public IEnumerator adsorb()
     {
         yield return new WaitForSeconds(3f);
         adsorbCooldown = 1.0f;
-        Debug.Log("a");
     }
     private void OnTriggerEnter2D(Collider2D other){
         //Hit by bullet object

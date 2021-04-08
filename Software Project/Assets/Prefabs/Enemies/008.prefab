@@ -101,8 +101,8 @@ MonoBehaviour:
   speed: 30
   normalSpeed: 30
   coldSpeed: 15
-  stoppingDistance: 70
-  retreatDistance: 20
+  stoppingDistance: 60
+  retreatDistance: 30
   attackCooldown: 1.5
   startAtkCooldown: 1.5
   moveCooldown: 0
@@ -112,6 +112,8 @@ MonoBehaviour:
   confuseCooldown: 0
   avoidCooldown: 0
   disappearCooldown: 0
+  adsorbCooldown: 0
+  ghostCooldown: 0
   ranged: 1
   frozen: 0
   bpSpawn: 0
@@ -140,8 +142,11 @@ MonoBehaviour:
   Corpse: {fileID: 6774491008760995051, guid: 2d378d1e6d70d1340a3ac27355315078, type: 3}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
+  adsorbEffect: {fileID: 0}
+  bombProjectile: {fileID: 0}
+  ghostProjectile: {fileID: 5623935904502013361, guid: 97677f1206a87804084b99977ccfafa3,
+    type: 3}
   cEnemy: {fileID: 0}
-  distancePos: {fileID: 0}
   normalColor: {r: 0.43137258, g: 0.90196085, b: 0.9176471, a: 1}
   frozenColor: {r: 0.8066038, g: 0.9937614, b: 1, a: 1}
   confuseColor: {r: 0.0521983, g: 0.62650484, b: 0.6509434, a: 1}

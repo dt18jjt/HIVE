@@ -53,17 +53,33 @@ public class buyScript : MonoBehaviour
         //Add all item functions
         buyItem.Add(sMedkit);
         buyItem.Add(lMedkit);
-        buyItem.Add(bAmmo8);
-        buyItem.Add(bAmmo16);
-        buyItem.Add(sAmmo4);
-        buyItem.Add(sAmmo8);
-        buyItem.Add(eAmmo2);
-        buyItem.Add(eAmmo4);
+        buyItem.Add(bAmmoS);
+        buyItem.Add(bAmmoL);
+        buyItem.Add(sAmmoS);
+        buyItem.Add(sAmmoL);
+        buyItem.Add(eAmmoS);
+        buyItem.Add(eAmmoL);
         buyItem.Add(HPMax);
         buyItem.Add(PPMax);
+        buyItem.Add(Lv1B);
+        buyItem.Add(Lv1S);
+        buyItem.Add(Lv1E);
+        buyItem.Add(Lv1L);
+        buyItem.Add(Lv1M);
+        buyItem.Add(Lv2B);
+        buyItem.Add(Lv2S);
+        buyItem.Add(Lv2E);
+        buyItem.Add(Lv2L);
+        buyItem.Add(Lv2M);
+        buyItem.Add(Lv3B);
+        buyItem.Add(Lv3S);
+        buyItem.Add(Lv3E);
+        buyItem.Add(Lv3L);
+        buyItem.Add(Lv3M);
         //call a method
         buyItem[effect]();
     }
+    //Buy item functions
     void sMedkit()
     {
         stat.hp += 20;
@@ -72,39 +88,127 @@ public class buyScript : MonoBehaviour
     {
         stat.hp += 40;
     }
-    void bAmmo8()
+    void bAmmoS()
     {
         stat.ammoDict["bullet"] += 8;
     }
-    void bAmmo16()
+    void bAmmoL()
     {
         stat.ammoDict["bullet"] += 8;
     }
-    void sAmmo4()
+    void sAmmoS()
     {
         stat.ammoDict["shell"] += 4;
     }
-    void sAmmo8()
+    void sAmmoL()
     {
         stat.ammoDict["shell"] += 8;
     }
-    void eAmmo2()
+    void eAmmoS()
     {
         stat.ammoDict["expolsive"] += 2;
 
     }
-    void eAmmo4()
+    void eAmmoL()
     {
         stat.ammoDict["expolsive"] += 4;
     }
     void HPMax()
     {
         stat.hpMax += 10;
-        //stat.hp += 10;
+        stat.hp += 10;
     }
     void PPMax()
     {
         stat.ppMax += 10;
-        //stat.pp += 10;
+    }
+    void Lv1B()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 1;
+        stat.wep1Level = 1;
+    }
+    void Lv1S()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 2;
+        stat.wep1Level = 1;
+    }
+    void Lv1E()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 3;
+        stat.wep1Level = 1;
+    }
+    void Lv1L()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 4;
+        stat.wep1Level = 1;
+    }
+    void Lv1M()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 5;
+        stat.wep1Level = 1;
+    }
+    void Lv2B()
+    {
+        stat.weapon1 = 1;
+        stat.wep1Level = 2;
+    }
+    void Lv2S()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 2;
+        stat.wep1Level = 2;
+    }
+    void Lv2E()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 3;
+        stat.wep1Level = 2;
+    }
+    void Lv2L()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 4;
+        stat.wep1Level = 2;
+    }
+    void Lv2M()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 5;
+        stat.wep1Level = 2;
+    }
+    void Lv3B()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 1;
+        stat.wep1Level = 3;
+    }
+    void Lv3S()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 2;
+        stat.wep1Level = 3;
+    }
+    void Lv3E()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 3;
+        stat.wep1Level = 3;
+    }
+    void Lv3L()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 4;
+        stat.wep1Level = 3;
+    }
+    void Lv3M()
+    {
+        stat.dropWeapon();
+        stat.weapon1 = 5;
+        stat.wep1Level = 3;
     }
 }

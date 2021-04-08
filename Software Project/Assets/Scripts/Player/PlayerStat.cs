@@ -1037,12 +1037,16 @@ public class PlayerStat : MonoBehaviour
             }
         }
     }
+    public void dropWeapon()
+    {
+        Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
+    }
     IEnumerator pickedOff()
     {
         
         yield return new WaitForSeconds(0.3f);
         if (!stackWep)
-            Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
+            dropWeapon();
        
     }
     IEnumerator burnDam()
