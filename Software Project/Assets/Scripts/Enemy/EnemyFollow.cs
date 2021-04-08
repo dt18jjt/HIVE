@@ -279,10 +279,11 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime) :
-                Vector2.MoveTowards(transform.position, -target.position, 200 * Time.deltaTime);
+            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 25 * Time.deltaTime) :
+                Vector2.MoveTowards(transform.position, -transform.position, 50 * Time.deltaTime);
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
+            attackCooldown = startAtkCooldown;
         }
     }
     void splitSpawn(int numberOfProjectiles)

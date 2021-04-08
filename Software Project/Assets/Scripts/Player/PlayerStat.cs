@@ -123,7 +123,7 @@ public class PlayerStat : MonoBehaviour
             PlayerPrefs.SetInt("Ammo Stack 2", ammoStack2);
             PlayerPrefs.SetFloat("Threat Gauge", threatGauge);
             PlayerPrefs.SetFloat("Bullet", ammoDict["bullet"]);
-            PlayerPrefs.SetFloat("Shell", ammoDict["shells"]);
+            PlayerPrefs.SetFloat("Shell", ammoDict["shell"]);
             PlayerPrefs.SetFloat("Explosive", ammoDict["explosive"]);
             PlayerPrefs.SetFloat("Laser", ammoDict["laser"]);
         }

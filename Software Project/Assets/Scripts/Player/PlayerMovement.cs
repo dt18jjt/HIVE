@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lStickInput, rStickInput;
     PlayerStat stat;
     RoomTemplates templates;
+    camShake shake;
     [SerializeField] LayerMask dashLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.IgnoreLayerCollision(10, 11, true);
         stat = GetComponent<PlayerStat>();
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
     }
 
     // Update is called once per frame
@@ -499,6 +501,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GameObject t = Instantiate(tremorArea, transform.position, Quaternion.identity) as GameObject;
         Destroy(t, 0.4f);
+        shake.shakeDuration = 0.6f;
     }
     void boltDash()
     {
