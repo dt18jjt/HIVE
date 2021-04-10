@@ -633,6 +633,80 @@ Transform:
   m_Father: {fileID: 931535230}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &463213302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 463213303}
+  - component: {fileID: 463213305}
+  - component: {fileID: 463213304}
+  m_Layer: 5
+  m_Name: blockImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &463213303
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463213302}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1535536800}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -4.1657, y: 22.512}
+  m_SizeDelta: {x: 395.92422, y: 395.92422}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &463213304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463213302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.16470589}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 7654cef33d467454fb6d91e5e607f073, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &463213305
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463213302}
+  m_CullTransparentMesh: 0
 --- !u!1 &568052875
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,22 +1041,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866a86add77314c42b60842208f0d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletHit: 0
-  shellHit: 0
-  explosiveHit: 0
-  laserHit: 0
-  meleeHit: 0
   pyroHit: 0
   cryoHit: 0
   geoHit: 0
   electroHit: 0
   hypnoHit: 0
+  bulletHit: 0
+  shellHit: 0
+  explosiveHit: 0
+  laserHit: 0
+  meleeHit: 0
   quickKill: 0
   shopUse: 0
   stackUse: 0
   healthUse: 0
   noDamage: 1
   slotsLeft: 2
+  add003: 0
+  add004: 0
+  add005: 0
+  add006: 0
+  add007: 0
+  add008: 0
+  add009: 0
+  add010: 0
+  add011: 0
+  add012: 0
+  del003: 0
+  del004: 0
+  del005: 0
+  del006: 0
+  del007: 0
+  del008: 0
+  del009: 0
+  del010: 0
+  del011: 0
+  del012: 0
 --- !u!114 &671624506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,7 +1968,6 @@ MonoBehaviour:
   Passive: Heatstroke
   wepJam: 0
   powBlock: 0
-  suddenDeath: 0
   shockDam: 0
   pickedUp: 0
   stackWep: 0
@@ -1895,6 +1988,8 @@ MonoBehaviour:
     type: 3}
   pulse: {fileID: 1200439515}
   jamImage: {fileID: 865206566}
+  blockImage: {fileID: 463213302}
+  hazardImage: {fileID: 1705150375}
   pickupText: {fileID: 1615499804}
   decoy: {fileID: 8273842971292900832}
   glitchItems:
@@ -2994,6 +3089,7 @@ RectTransform:
   - {fileID: 865206567}
   - {fileID: 1705150376}
   - {fileID: 1992556465}
+  - {fileID: 463213303}
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3107,7 +3203,7 @@ GameObject:
   - component: {fileID: 1705150378}
   - component: {fileID: 1705150377}
   m_Layer: 5
-  m_Name: sDeathImage
+  m_Name: hazardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3145,7 +3241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.31764707}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.14901961}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

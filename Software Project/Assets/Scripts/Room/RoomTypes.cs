@@ -80,6 +80,7 @@ public class RoomTypes : MonoBehaviour
             wJam = false;
             pBlocked = false;
             glitch = false;
+            hazard = false;
             Destroy(eBox);
             enemySpawnCount = 0;
             enemyCount = 0;
@@ -172,7 +173,6 @@ public class RoomTypes : MonoBehaviour
         {
             player.wepJam = false;
             player.powBlock = false;
-            player.suddenDeath = false;
         }
         if (other.CompareTag("Enemy"))
             enemyCount--;
@@ -367,37 +367,49 @@ public class RoomTypes : MonoBehaviour
     IEnumerator wJamRoom()
     {
         Debug.Log("J");
-        while (wJam && enemyCount > 0)
+        while (wJam)
         {
+            player.jamImage.SetActive(true);
             player.wepJam = true;
             yield return new WaitForSeconds(3.0f);
             player.wepJam = false;
-            yield return new WaitForSeconds(3.0f);
+            player.jamImage.SetActive(false);
+            yield return new WaitForSeconds(1.5f);
+            if (enemyCount <= 0)
+                wJam = false;
         }
+        
             
     }
     IEnumerator powBlockRoom()
     {
         Debug.Log("P");
-        while (pBlocked && enemyCount > 0)
+        while (pBlocked)
         {
+            player.blockImage.SetActive(true);
             player.powBlock = true;
             yield return new WaitForSeconds(3.0f);
             player.powBlock = false;
-            yield return new WaitForSeconds(3.0f);
+            player.blockImage.SetActive(false);
+            yield return new WaitForSeconds(1.5f);
+            if (enemyCount <= 0)
+                pBlocked = false;
         }
-
+        
     }
     IEnumerator hazardRoom()
     {
         Debug.Log("H");
         while (hazard)
         {
-            yield return new WaitForSeconds(1.0f);
+            player.hazardImage.SetActive(true);
+            yield return new WaitForSeconds(4.0f);
             Instantiate(hArea, player.transform.position, Quaternion.identity);
-            Debug.Log("spawned");
+            yield return new WaitForSeconds(0.1f);
+            if (enemyCount <= 0)
+                hazard = false;
         }
-
+        
     }
     public void itemSpawn()
     {

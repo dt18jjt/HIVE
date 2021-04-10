@@ -17,7 +17,7 @@ public class PlayerStat : MonoBehaviour
         shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f, killCoolDown = 0f;
     public string Active, Passive;
     //Room conditions
-    public bool wepJam = false, powBlock = false, suddenDeath = false, shockDam = false, pickedUp = false, stackWep = false,
+    public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
         inStore = false, enemyBuff = false, onLab = false;
     public int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -32,7 +32,7 @@ public class PlayerStat : MonoBehaviour
     public Color activeColor;
     public Color passiveColor;
     public GameObject hitEffect; //hit particle
-    public GameObject pulse, jamImage, pickupText, decoy;
+    public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
     public GameObject[] glitchItems;
     public GameObject[] wepDrop;
     public List<Transform> cEmenies;
@@ -128,7 +128,6 @@ public class PlayerStat : MonoBehaviour
             PlayerPrefs.SetFloat("Explosive", ammoDict["explosive"]);
             PlayerPrefs.SetFloat("Laser", ammoDict["laser"]);
         }
-
         setText();
         //Player updates
         {
@@ -193,8 +192,8 @@ public class PlayerStat : MonoBehaviour
             //Pulse CoolDown
             if (pulseCooldown > 0)
                 pulseCooldown -= Time.deltaTime;
-            //Weapon Jam
-            jamImage.SetActive((wepJam) ? true : false);
+            //Room images
+            
             //shockCooldown
             if (shockCoolDown > 0)
                 shockCoolDown -= Time.deltaTime;
