@@ -1096,6 +1096,7 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("Exit"))
         {
             //StartCoroutine(exitLevel());
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
         //Hit by burning projectile
         if (other.CompareTag("Burn"))

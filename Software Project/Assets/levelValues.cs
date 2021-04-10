@@ -24,21 +24,21 @@ public class levelValues : MonoBehaviour
         player.ammoStack1 = PlayerPrefs.GetInt("Ammo Stack 1");
         player.ammoStack2 = PlayerPrefs.GetInt("Ammo Stack 2");
         player.threatGauge = PlayerPrefs.GetFloat("Threat Gauge");
-        player.ammoDict["bullet"] = PlayerPrefs.GetFloat("Bullet");
-        player.ammoDict["shell"] = PlayerPrefs.GetFloat("Shell");
-        player.ammoDict["explosive"] = PlayerPrefs.GetFloat("Explosive");
-        player.ammoDict["laser"] = PlayerPrefs.GetFloat("Laser");
+        //player.ammoDict["bullet"] = PlayerPrefs.GetFloat("Bullet");
+        //player.ammoDict["shell"] = PlayerPrefs.GetFloat("Shell");
+        //player.ammoDict["explosive"] = PlayerPrefs.GetFloat("Explosive");
+        //player.ammoDict["laser"] = PlayerPrefs.GetFloat("Laser");
         //added enemies values
-        //log.add003 = (PlayerPrefs.GetInt("003") != 0);
-        //log.add004 = (PlayerPrefs.GetInt("004") != 0);
-        //log.add005 = (PlayerPrefs.GetInt("005") != 0);
-        //log.add006 = (PlayerPrefs.GetInt("006") != 0);
-        //log.add007 = (PlayerPrefs.GetInt("007") != 0);
-        //log.add008 = (PlayerPrefs.GetInt("008") != 0);
-        //log.add009 = (PlayerPrefs.GetInt("009") != 0);
-        //log.add010 = (PlayerPrefs.GetInt("010") != 0);
-        //log.add011 = (PlayerPrefs.GetInt("011") != 0);
-        //log.add012 = (PlayerPrefs.GetInt("012") != 0);
+        log.add003 = (PlayerPrefs.GetInt("003") != 0);
+        log.add004 = (PlayerPrefs.GetInt("004") != 0);
+        log.add005 = (PlayerPrefs.GetInt("005") != 0);
+        log.add006 = (PlayerPrefs.GetInt("006") != 0);
+        log.add007 = (PlayerPrefs.GetInt("007") != 0);
+        log.add008 = (PlayerPrefs.GetInt("008") != 0);
+        log.add009 = (PlayerPrefs.GetInt("009") != 0);
+        log.add010 = (PlayerPrefs.GetInt("010") != 0);
+        log.add011 = (PlayerPrefs.GetInt("011") != 0);
+        log.add012 = (PlayerPrefs.GetInt("012") != 0);
     }
 
     // Update is called once per frame
