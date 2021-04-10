@@ -279,8 +279,8 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 25 * Time.deltaTime) :
-                Vector2.MoveTowards(transform.position, -transform.position, 50 * Time.deltaTime);
+            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 50 * Time.deltaTime) :
+                Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime);
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
             attackCooldown = startAtkCooldown;
@@ -432,8 +432,8 @@ public class EnemyFollow : MonoBehaviour
     {
         if (collision.collider.CompareTag("Wall"))
         {
-            //rb.velocity = Vector3.zero;
-            transform.position = this.transform.position;
+            rb.velocity = Vector3.zero;
+            
         }
     }
 

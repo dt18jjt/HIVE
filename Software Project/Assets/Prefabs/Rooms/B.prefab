@@ -329,9 +329,6 @@ MonoBehaviour:
   exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
   floor: {fileID: 2156693266511595816}
   hArea: {fileID: 8655256940893662432, guid: 3b72445f949a9814699845ef199f4f91, type: 3}
-  enemies:
-  - {fileID: 8236186557077567600, guid: 53be14a927527e84f9589fc29c3cbbd4, type: 3}
-  - {fileID: 4865663397156743026, guid: 21a8cc33bfa960e4e88f870144114a44, type: 3}
   items:
   - {fileID: 3726360456443238240, guid: 1b259ef4aaf2be6408baf7ecae84ec0e, type: 3}
   - {fileID: 3297161048572204784, guid: 8296fe9f2b245b14dab0381dd1bb77c1, type: 3}
@@ -344,6 +341,17 @@ MonoBehaviour:
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
   - {fileID: 8413909174735247916, guid: 0000e3c53ca631540ab25df2f4761a75, type: 3}
+  newEnemies:
+  - {fileID: 3797393830507199851, guid: 2fdfee874ee37554bbeeadd0ae333c8b, type: 3}
+  - {fileID: 8121488632247780731, guid: 63c6e15d4dcde1148bda6f50649fe865, type: 3}
+  - {fileID: 2528608207621609121, guid: c021952df4fdd9b498e19bf93d06b238, type: 3}
+  - {fileID: 2085833764514777424, guid: 8b515206c02ec2b429a6b1a50364ce21, type: 3}
+  - {fileID: 7583515527903005915, guid: 40d6a49fa35124a45baa1799ef0121d1, type: 3}
+  - {fileID: 2387062786007409168, guid: 5191d297609399e4091110fa30539e28, type: 3}
+  - {fileID: 3236456838748142714, guid: 6bd918a7aded95944917d115f3815f2f, type: 3}
+  - {fileID: 8236186557077567600, guid: 0159980c5909ce34799dd67e98d03323, type: 3}
+  - {fileID: 8236186557077567600, guid: 30fd32df1749e7b4bac9a97b3e58c327, type: 3}
+  - {fileID: 7583515527903005915, guid: 183ce784c2e397b4dab2e34037a66463, type: 3}
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
@@ -354,6 +362,9 @@ MonoBehaviour:
   shockDamColor: {r: 0.9742948, g: 0.990566, b: 0.4719206, a: 1}
   earthColor: {r: 0.4034401, g: 0.5283019, b: 0.4012104, a: 1}
   decoyColor: {r: 0.5849056, g: 0.40557137, b: 0.5741991, a: 1}
+  enemies:
+  - {fileID: 8236186557077567600, guid: 53be14a927527e84f9589fc29c3cbbd4, type: 3}
+  - {fileID: 4865663397156743026, guid: 21a8cc33bfa960e4e88f870144114a44, type: 3}
   eSpawnPoints: []
   iSpawnPoints: []
 --- !u!1 &1724804915900602

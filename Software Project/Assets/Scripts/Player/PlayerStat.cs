@@ -37,6 +37,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject[] wepDrop;
     public List<Transform> cEmenies;
     Log log;
+
     // Start is called before the first frame update
     void Start(){
         //Set text at start
@@ -1055,16 +1056,13 @@ public class PlayerStat : MonoBehaviour
     }
     public void dropWeapon()
     {
-        
         Instantiate(wepDrop[wepDropNum], transform.position, Quaternion.identity);
     }
     IEnumerator pickedOff()
     {
-        
         yield return new WaitForSeconds(0.3f);
         if (!stackWep)
             Instantiate(wepDrop[tempWep], transform.position, Quaternion.identity);
-
     }
     IEnumerator burnDam()
     {
@@ -1086,6 +1084,7 @@ public class PlayerStat : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //Colleting bio points
         if (other.CompareTag("MP"))
         {
             bp += 1;
@@ -1093,10 +1092,15 @@ public class PlayerStat : MonoBehaviour
                 pp += 10;
             Destroy(other.gameObject);
         }
+        //Exiting level
         if (other.CompareTag("Exit"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        {
+            //StartCoroutine(exitLevel());
+        }
+        //Hit by burning projectile
         if (other.CompareTag("Burn"))
             burnCoolDown = Random.Range(1f, 1.6f);
+        //Hit by tangle projectile
         if (other.CompareTag("Spore"))
         {
             int chance = Random.Range(0, 4);
@@ -1106,6 +1110,7 @@ public class PlayerStat : MonoBehaviour
                 Debug.Log("tangled");
             }
         }
+        //Hit by bomb projectile
         if (other.CompareTag("E.Bomb"))
             Damage(Random.Range(20, 25));
     }
@@ -1566,6 +1571,55 @@ public class PlayerStat : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         pickupText.SetActive(false);
+    }
+    IEnumerator exitLevel()
+    {
+        if (log.add003 && !log.del003)
+        {
+            log.del003 = true;
+        }
+        if (log.add004 && !log.del004)
+        {
+            log.del004 = true;
+        }
+        if (log.add005 && !log.del005)
+        {
+            log.del005 = true;
+        }
+        if (log.add006 && !log.del006)
+        {
+            log.del006 = true;
+        }
+        if (log.add006 && !log.del006)
+        {
+            log.del006 = true;
+        }
+        if (log.add007 && !log.del007)
+        {
+            log.del007 = true;
+        }
+        if (log.add008 && !log.del008)
+        {
+            log.del008 = true;
+        }
+        if (log.add009 && !log.del009)
+        {
+            log.del009 = true;
+        }
+        if (log.add010 && !log.del010)
+        {
+            log.del010 = true;
+        }
+        if (log.add011 && !log.del011)
+        {
+            log.del011 = true;
+        }
+        if (log.add012 && !log.del012)
+        {
+            log.del012 = true;
+        }
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
    private void controlInputs()
     {

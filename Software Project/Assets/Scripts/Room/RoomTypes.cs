@@ -11,13 +11,15 @@ public class RoomTypes : MonoBehaviour
     private Countdown timeCountdown;
     private RoomTemplates templates;
     public GameObject sIcon, gIcon, eBox, IBox, box, eArea, exit, floor, hArea;
-    public GameObject[] enemies;
     public GameObject[] items;
+    public GameObject[] newEnemies;
     public int enemySpawnCount, enemyCount, itemCount;
     public Color normalColor, coldColor, hotColor, shockColor, shockDamColor, earthColor, decoyColor;
+    public List<GameObject> enemies;
     public List<Transform> eSpawnPoints;
     public List<Transform> iSpawnPoints;
     PlayerStat player;
+    Log log;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class RoomTypes : MonoBehaviour
         count = GameObject.Find("Global").GetComponent<RoomCount>();
         timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        log = GameObject.Find("Global").GetComponent<Log>();
         roomChance = Random.Range(1, 11);
         //timeSpawn();
         shopSpawn();
@@ -37,7 +40,57 @@ public class RoomTypes : MonoBehaviour
             glitchSpawn();
             hazardSpawn();
         }
-        
+        //Adding new enemies
+        if (log.add003 && !log.del003)
+        {
+            log.del003 = true;
+            enemies.Add(newEnemies[0]);
+        }
+        if (log.add004 && !log.del004)
+        {
+            log.del004 = true;
+            enemies.Add(newEnemies[1]);
+        }
+        if (log.add005 && !log.del005)
+        {
+            log.del005 = true;
+            enemies.Add(newEnemies[2]);
+        }
+        if (log.add006 && !log.del006)
+        {
+            log.del006 = true;
+            enemies.Add(newEnemies[3]);
+        }
+        if (log.add007 && !log.del007)
+        {
+            log.del007 = true;
+            enemies.Add(newEnemies[4]);
+        }
+        if (log.add008 && !log.del008)
+        {
+            log.del008 = true;
+            enemies.Add(newEnemies[5]);
+        }
+        if (log.add009 && !log.del009)
+        {
+            log.del009 = true;
+            enemies.Add(newEnemies[6]);
+        }
+        if (log.add010 && !log.del010)
+        {
+            log.del010 = true;
+            enemies.Add(newEnemies[7]);
+        }
+        if (log.add011 && !log.del011)
+        {
+            log.del011 = true;
+            enemies.Add(newEnemies[8]);
+        }
+        if (log.add012 && !log.del012)
+        {
+            log.del012 = true;
+            enemies.Add(newEnemies[9]);
+        }
     }
 
     // Update is called once per frame
@@ -281,7 +334,7 @@ public class RoomTypes : MonoBehaviour
         while (enemySpawnCount > 0){
             var area = Instantiate(eArea, position, Quaternion.identity);
             yield return new WaitForSeconds(0.3f);
-            Instantiate(enemies[Random.Range(0, enemies.Length)], position, Quaternion.identity) ;
+            Instantiate(enemies[Random.Range(0, enemies.Count)], position, Quaternion.identity) ;
             Destroy(area);
             postionNum++;
             position = eSpawnPoints[postionNum].position;
