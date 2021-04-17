@@ -34,6 +34,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject hitEffect; //hit particle
     public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
     public GameObject[] glitchItems;
+    public GameObject[] cacheItems;
     public GameObject[] wepDrop;
     public List<Transform> cEmenies;
     Log log;
@@ -1190,6 +1191,19 @@ public class PlayerStat : MonoBehaviour
             {
                 bp -= 50;
                 Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], other.transform.position, Quaternion.identity);
+                Destroy(other.gameObject);
+                log.shopUse++;
+                Debug.Log("shop: " + log.shopUse);
+            }
+        }
+        //Cache Pickup
+        if (other.CompareTag("Cache"))
+        {
+            pickupText.SetActive(true);
+            pickupText.GetComponent<TextMesh>().text = "Open the Cache";
+            if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                Instantiate(cacheItems[Random.Range(0, cacheItems.Length)], other.transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
                 log.shopUse++;
                 Debug.Log("shop: " + log.shopUse);

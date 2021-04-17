@@ -63,6 +63,7 @@ TagManager:
   - LWep3
   - MWep3
   - E.Bomb
+  - Cache
   layers:
   - Default
   - TransparentFX

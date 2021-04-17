@@ -11,6 +11,7 @@ public class RoomCount : MonoBehaviour
     public int powBlockCount;
     public int glitchCount;
     public int hazardCount;
+    public int cacheCount;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class RoomCount : MonoBehaviour
         glitchCount = Random.Range(0, 2);
         hazardCount = Random.Range(0, 3);
         shopCount = 1;
+        cacheCount = Random.Range(0, 3);
 
     }
 

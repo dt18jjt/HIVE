@@ -956,11 +956,13 @@ MonoBehaviour:
   pBlocked: 0
   glitch: 0
   hazard: 0
+  cache: 0
   entered: 0
   noEnemy: 0
   enemyBuff: 0
   sIcon: {fileID: 1898445321837384, guid: 3fcd6c733494dcf49b02ac0aa65f9cab, type: 3}
   gIcon: {fileID: 4372344665755389307, guid: 55af69fb408605a49a0b6a969b06b708, type: 3}
+  cIcon: {fileID: 4372344665755389307, guid: 1f587c9452ef87d4f8cecf4d1d217208, type: 3}
   eBox: {fileID: 5074451004498913425}
   IBox: {fileID: 8605177509756574161}
   box: {fileID: 0}

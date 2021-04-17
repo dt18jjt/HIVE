@@ -6,11 +6,11 @@ public class RoomTypes : MonoBehaviour
 {
     int roomChance;
     public bool enemyOn = false, start = false, boss = false, shop = false, time = false, wJam = false, pBlocked = false,
-        glitch = false, hazard = false, entered = false, noEnemy = false,  enemyBuff = false;
+        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false,  enemyBuff = false;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
-    public GameObject sIcon, gIcon, eBox, IBox, box, eArea, exit, floor, hArea;
+    public GameObject sIcon, gIcon, cIcon, eBox, IBox, box, eArea, exit, floor, hArea;
     public GameObject[] items;
     public GameObject[] newEnemies;
     public int enemySpawnCount, enemyCount, itemCount;
@@ -39,6 +39,7 @@ public class RoomTypes : MonoBehaviour
             powBlockSpawn();
             glitchSpawn();
             hazardSpawn();
+            cacheSpawn();
         }
         //Adding new enemies
         StartCoroutine(addEnemy());
@@ -54,6 +55,7 @@ public class RoomTypes : MonoBehaviour
             pBlocked = false;
             glitch = false;
             hazard = false;
+            cache = false;
             noEnemy = true;
             Destroy(eBox);
             Destroy(IBox);
@@ -68,6 +70,7 @@ public class RoomTypes : MonoBehaviour
             pBlocked = false;
             glitch = false;
             hazard = false;
+            cache = false;
             Destroy(eBox);
             Destroy(IBox);
             enemySpawnCount = 0;
@@ -81,6 +84,7 @@ public class RoomTypes : MonoBehaviour
             pBlocked = false;
             glitch = false;
             hazard = false;
+            cache = false;
             Destroy(eBox);
             enemySpawnCount = 0;
             enemyCount = 0;
@@ -94,6 +98,21 @@ public class RoomTypes : MonoBehaviour
             pBlocked = false;
             shop = false;
             hazard = false;
+            cache = false;
+            Destroy(eBox);
+            enemySpawnCount = 0;
+            enemyCount = 0;
+            Destroy(IBox);
+        }
+        if (cache)
+        {
+            noEnemy = true;
+            time = false;
+            wJam = false;
+            pBlocked = false;
+            shop = false;
+            hazard = false;
+            glitch = false;
             Destroy(eBox);
             enemySpawnCount = 0;
             enemyCount = 0;
@@ -140,6 +159,8 @@ public class RoomTypes : MonoBehaviour
                 Instantiate(exit, transform.position, Quaternion.identity);
             if (glitch)
                 Instantiate(gIcon, transform.position, Quaternion.identity);
+            if (cache)
+                Instantiate(cIcon, transform.position, Quaternion.identity);
             if (!entered && !noEnemy)
             {
                 StartCoroutine(eSpawn());
@@ -322,6 +343,19 @@ public class RoomTypes : MonoBehaviour
             }
         }
     }
+    void cacheSpawn()
+    {
+        if (count.cacheCount > 0)
+        {
+            //random chance of glitch room
+            if (roomChance == 7 && !start)
+            {
+                cache = true;
+                count.cacheCount--;
+                Debug.Log("cache");
+            }
+        }
+    }
     void timeRoom()
     {
         StartCoroutine(eSpawn());
@@ -376,7 +410,10 @@ public class RoomTypes : MonoBehaviour
             player.jamImage.SetActive(false);
             yield return new WaitForSeconds(1.5f);
             if (enemyCount <= 0)
+            {
                 wJam = false;
+                player.jamImage.SetActive(false);
+            }
         }
         
             
@@ -393,7 +430,11 @@ public class RoomTypes : MonoBehaviour
             player.blockImage.SetActive(false);
             yield return new WaitForSeconds(1.5f);
             if (enemyCount <= 0)
+            {
                 pBlocked = false;
+                player.blockImage.SetActive(false);
+            }
+               
         }
         
     }
@@ -407,7 +448,11 @@ public class RoomTypes : MonoBehaviour
             Instantiate(hArea, player.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
             if (enemyCount <= 0)
+            {
                 hazard = false;
+                player.hazardImage.SetActive(false);
+            }
+                
         }
         
     }
