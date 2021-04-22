@@ -36,9 +36,15 @@ public class EnemyProjectile : MonoBehaviour
         maxDamFinal = (!weak) ? ((!stat.enemyBuff) ? maxDam : maxBuff) : maxDam;
     }
     private void OnTriggerEnter2D(Collider2D other){
+        //Hits player
         if(other.name == "Player" && !bomb && !ghost){
             if(!stat.pAbilDict["earth"] && !confused)
                 stat.Damage(Random.Range(minDamFinal, maxDamFinal));
+            Destroy(gameObject);
+        }
+        //Hit Melee
+        if (other.CompareTag("Melee") && stat.wep1Level == 3)
+        {
             Destroy(gameObject);
         }
     }

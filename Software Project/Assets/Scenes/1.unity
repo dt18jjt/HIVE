@@ -1858,10 +1858,14 @@ MonoBehaviour:
   - {fileID: 1486764652276081942, guid: d3ed38ee266947e42b79cc703424bdd9, type: 3}
   - {fileID: 5989302267209684424, guid: cfcd013aae39f2c41b1a4934fa31dd1d, type: 3}
   - {fileID: 7615010872234464114, guid: 3077eb8a63321d44badbc298367da91e, type: 3}
+  - {fileID: 1486764652276081942, guid: 36eef5c1b5190c142971706249b3cfbb, type: 3}
+  - {fileID: 1486764652276081942, guid: e70598482ddb8d14193d4174ee08e461, type: 3}
   bulletSpeed: 100
   explosiveSpeed: 80
   laserSpeed: 60
   slowCoolDown: 0
+  rotationZ: 0
+  distance: 0
   dashLayerMask:
     serializedVersion: 2
     m_Bits: 8192
@@ -1946,9 +1950,9 @@ MonoBehaviour:
   threatGauge: 50
   ammo1: 0
   ammo2: 0
-  weapon1: 1
+  weapon1: 3
   weapon2: 2
-  wep1Level: 0
+  wep1Level: 1
   wep2Level: 0
   ammoStack1: 0
   ammoStack2: 0

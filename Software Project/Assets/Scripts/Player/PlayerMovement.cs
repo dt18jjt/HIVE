@@ -13,9 +13,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
     public GameObject[] ammoPrefabs;
-    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
-    private Vector3 target, moveDir, velocity;
-    private Vector2 lStickInput, rStickInput;
+    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown, rotationZ, distance;
+    private Vector3 target, moveDir, velocity, difference;
+    private Vector2 lStickInput, rStickInput, direction;
     PlayerStat stat;
     RoomTemplates templates;
     camShake shake;
@@ -96,40 +96,42 @@ public class PlayerMovement : MonoBehaviour
         target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         crosshair.transform.position = new Vector3(target.x, target.y, 10);
         //distance between the crosshair and player
-        Vector3 difference = target - gameObject.transform.position;
+        difference = target - gameObject.transform.position;
         Vector3 shDifference = crosshair2.transform.position - gameObject.transform.position;
         Vector3 shDifference2 = shCrosshair.transform.position - gameObject.transform.position;
         Vector3 shDifference3 = shCrosshair2.transform.position - gameObject.transform.position;
-        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
 
         if (Input.GetMouseButtonUp(0))
         {
             if(stat.ammo1 > 0 && !stat.wepJam){
-                float distance = difference.magnitude;
+                distance = difference.magnitude;
                 float shDistance = shDifference.magnitude;
-                Vector2 direction = difference / distance;
+                direction = difference / distance;
                 //Vector2 shDirection = shDifference / shDistance;
                 Vector2 shDirection2 = shDifference2 / shDistance;
                 Vector2 shDirection3 = shDifference3 / shDistance;
                 direction.Normalize();
                 if (stat.weapon1 == 1){
                     //Projectile
-                    bulletFire(direction, rotationZ);
                     //Ammo taken
                     switch (stat.wep1Level)
                     {
                         case 0:
+                            bulletFire(direction, rotationZ);
                             stat.ammoDict["bullet"]--;
                             break;
                         case 1:
-                            stat.ammoDict["bullet"] -= 3;
+                            bulletFire(direction, rotationZ);
+                            stat.ammoDict["bullet"] -= 2;
                             break;
                         case 2:
+                            bulletFire(direction, rotationZ);
                             stat.ammoDict["bullet"]--;
                             break;
                         case 3:
-                            stat.ammoDict["bullet"] -= 2;
+                            StartCoroutine(burstFire());
                             break;
                     }
                 }
@@ -293,13 +295,13 @@ public class PlayerMovement : MonoBehaviour
                             stat.ammoDict["bullet"]--;
                             break;
                         case 1:
-                            stat.ammoDict["bullet"] -= 3;
+                            stat.ammoDict["bullet"] -= 2;
                             break;
                         case 2:
                             stat.ammoDict["bullet"] --;
                             break;
                         case 3:
-                            stat.ammoDict["bullet"] -= 2;
+                            StartCoroutine(burstFire());
                             break;
                     }
                 }
@@ -451,11 +453,34 @@ public class PlayerMovement : MonoBehaviour
     //Explosive spawn
     void explosiveFire(Vector2 direction, float rotationZ)
     {
-        GameObject e = Instantiate(ammoPrefabs[2]) as GameObject;
-        e.transform.position = bulletStart.transform.position;
-        e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
-        e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
-        //Destroy(e, 1f);
+        GameObject e;
+        switch (stat.wep1Level)
+        {
+            case 0:
+                e = Instantiate(ammoPrefabs[2]) as GameObject;
+                e.transform.position = bulletStart.transform.position;
+                e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
+                break;
+            case 1:
+                e = Instantiate(ammoPrefabs[5]) as GameObject;
+                e.transform.position = bulletStart.transform.position;
+                e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
+                break;
+            case 2:
+                e = Instantiate(ammoPrefabs[6]) as GameObject;
+                e.transform.position = bulletStart.transform.position;
+                e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
+                break;
+            case 3:
+                e = Instantiate(ammoPrefabs[6]) as GameObject;
+                e.transform.position = bulletStart.transform.position;
+                e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
+                break;
+        }
     }
     //laser spawn
     void laserFire(Vector2 direction, float rotationZ)
@@ -474,7 +499,19 @@ public class PlayerMovement : MonoBehaviour
         m.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         Destroy(m, 0.5f);
     }
-
+    IEnumerator burstFire()
+    {
+        bulletFire(direction, rotationZ);
+        stat.ammoDict["bullet"]--;
+        yield return new WaitForSeconds(0.2f);
+        direction = difference / distance;
+        bulletFire(direction, rotationZ);
+        stat.ammoDict["bullet"]--;
+        yield return new WaitForSeconds(0.2f);
+        direction = difference / distance;
+        bulletFire(direction, rotationZ);
+        stat.ammoDict["bullet"]--;
+    }
     //Firebomb (Ability)
     void Firebomb()
     {

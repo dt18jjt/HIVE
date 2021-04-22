@@ -340,7 +340,8 @@ public class EnemyFollow : MonoBehaviour
         //Hit by bullet object
         if(other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
-            Destroy(other.gameObject);
+            if(player.wep1Level != 2)
+                Destroy(other.gameObject);
             log.bulletHit++;
             Debug.Log("Bullet:" + log.bulletHit);
         }
