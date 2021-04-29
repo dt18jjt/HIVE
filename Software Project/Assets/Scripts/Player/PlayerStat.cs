@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int hp = 100, hpMax = 100, ppMax = 100, bp = 0, buffNum, threatLV = 2;
-    public float pp = 100, threatGauge = 50;
+    public int hpMax = 100, ppMax = 100, bp = 0, buffNum, threatLV = 2, actNum, pasNum;
+    public float hp = 100, pp = 100, threatGauge = 50;
     //Ammo display
     public float ammo1 , ammo2;
     //Weapon values
@@ -35,6 +35,7 @@ public class PlayerStat : MonoBehaviour
     public GameObject[] glitchItems;
     public GameObject[] cacheItems;
     public GameObject[] wepDrop;
+    public Slider hpBar, ppBar;
     public List<Transform> cEmenies;
     Log log;
 
@@ -114,7 +115,7 @@ public class PlayerStat : MonoBehaviour
             threatText = GameObject.Find("TLvlText").GetComponent<Text>();
             bpText = GameObject.Find("bpText").GetComponent<Text>();
         }
-         
+       
 
     }
 
@@ -125,7 +126,7 @@ public class PlayerStat : MonoBehaviour
         //keeping value player preferences
         {
             PlayerPrefs.SetInt("BP", bp);
-            PlayerPrefs.SetInt("HP", hp);
+            PlayerPrefs.SetFloat("HP", hp);
             PlayerPrefs.SetInt("HPMax", hpMax);
             PlayerPrefs.SetInt("PPMax", ppMax);
             PlayerPrefs.SetInt("Threat Level", threatLV);
@@ -256,11 +257,13 @@ public class PlayerStat : MonoBehaviour
         }
         //When player is colliding with lab pod
         shop();
+        setBarSize();
+        setAbility();
     }
     private void setText()
     {
-        hpText.text = "HP:" + hp.ToString() + "/" + hpMax.ToString();
-        ppText.text = "PP:" + pp.ToString("F0") + "/"+ ppMax.ToString();
+        hpText.text = hp.ToString() + "/" + hpMax.ToString();
+        ppText.text = pp.ToString("F0") + "/"+ ppMax.ToString();
         bpText.text = bp.ToString();
         a1Text.text = ammo1.ToString("F0");
         a2Text.text = ammo2.ToString("F0");
@@ -1086,6 +1089,51 @@ public class PlayerStat : MonoBehaviour
     {
         Instantiate(wepDrop[wepDropNum], transform.position, Quaternion.identity);
     }
+    private void setBarSize()
+    {
+        hpBar.value = (hp / hpMax);
+        ppBar.value = (pp / ppMax);
+    }
+    private void setAbility()
+    {
+        switch (actNum)
+        {
+            case 0:
+                Active = "Firebomb";
+                break;
+            case 1:
+                Active = "Freeze Blast";
+                break;
+            case 2:
+                Active = "Bolt Dash";
+                break;
+            case 3:
+                Active = "Tremor";
+                break;
+            case 4:
+                Active = "Confusion";
+                break;
+        }
+        switch (pasNum)
+        {
+            case 0:
+                Passive = "Heatstroke";
+                break;
+            case 1:
+                Passive = "Cold Zone";
+                break;
+            case 2:
+                Passive = "Static Shock";
+                break;
+            case 3:
+                Passive = "Earth Barrier";
+                break;
+            case 4:
+                Passive = "Issuion Decoy";
+                break;
+        }
+    }
+
     IEnumerator pickedOff()
     {
         yield return new WaitForSeconds(0.3f);

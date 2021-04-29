@@ -27,25 +27,45 @@ public class Cheats : MonoBehaviour
         }
         //Active switch cheat
         if (Input.GetKeyUp(KeyCode.Alpha1))
-            player.Active = "Firebomb";
+        {
+            player.actNum = 0;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha2))
-            player.Active = "Freeze Blast";
+        {
+            player.actNum = 1;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha3))
-            player.Active = "Bolt Dash";
+        {
+            player.actNum = 2;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha4))
-            player.Active = "Tremor";
+        {
+            player.actNum = 3;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha5))
-            player.Active = "Confusion";
+        {
+            player.actNum = 4;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha6))
-            player.Passive = "Heatstroke";
+        {
+            player.pasNum = 0;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha7))
-            player.Passive = "Cold Zone";
+        {
+            player.pasNum = 1;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha8))
-            player.Passive = "Static Shock";
+        {
+            player.pasNum = 2;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha9))
-            player.Passive = "Earth Barrier";
+        {
+            player.pasNum = 3;
+        }
         if (Input.GetKeyUp(KeyCode.Alpha0))
-            player.Passive = "Issuion Decoy";
+        {
+            player.pasNum = 4;
+        }
         //Ammo cheat
         if (Input.GetKeyUp(KeyCode.F2))
         {

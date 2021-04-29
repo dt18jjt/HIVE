@@ -12,7 +12,7 @@ public class levelValues : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         log = log = GameObject.Find("Global").GetComponent<Log>();
         //Player values carry over from previous
-        player.hp = PlayerPrefs.GetInt("HP");
+        player.hp = PlayerPrefs.GetFloat("HP");
         player.bp = PlayerPrefs.GetInt("BP");
         player.hpMax = PlayerPrefs.GetInt("HPMax");
         player.ppMax = PlayerPrefs.GetInt("PPMax");
