@@ -371,7 +371,7 @@ GameObject:
   - component: {fileID: 144279950}
   - component: {fileID: 144279949}
   m_Layer: 5
-  m_Name: mutateText
+  m_Name: bpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1979,12 +1979,7 @@ MonoBehaviour:
   inStore: 0
   enemyBuff: 0
   onLab: 0
-  tempWep: 0
-  hpText: {fileID: 887834006}
-  ppText: {fileID: 2029249686}
-  mpText: {fileID: 144279949}
-  a1Text: {fileID: 922659890}
-  a2Text: {fileID: 568052877}
+  bossfight: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}
@@ -2865,8 +2860,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -898, y: -334}
-  m_SizeDelta: {x: 87.294495, y: 98.94122}
+  m_AnchoredPosition: {x: -886.73, y: -335.83}
+  m_SizeDelta: {x: 86.054794, y: 82.20572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476262400
 MonoBehaviour:
@@ -2887,7 +2882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 044d638396f07fc438c29ba1e4492bc7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dfda28e84269b248a5269d3ea8002e4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

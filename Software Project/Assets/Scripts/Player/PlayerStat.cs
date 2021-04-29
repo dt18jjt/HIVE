@@ -18,19 +18,18 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false, onLab = false;
-    public int tempWep;
+        inStore = false, enemyBuff = false, onLab = false, bossfight;
+    int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, int> damDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, int> wepLevelDict = new Dictionary<string, int>(); // Damage Dictionary
     public Dictionary<string, float> ammoDict = new Dictionary<string, float>(); // Ammo Dictionary
     public Dictionary<string, int> ammoMaxDict = new Dictionary<string, int>(); // Max Ammo Dictionary
-    public Text hpText, ppText, mpText, a1Text, a2Text;
-    public Text activeText;
-    public Text passiveText;
-    public Color activeColor;
-    public Color passiveColor;
+    public Text activeText, passiveText;
+    Text hpText, ppText, a1Text, a2Text, threatText, bpText;
+    private Image threatImg;
+    public Color activeColor, passiveColor;
     public GameObject hitEffect; //hit particle
     public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
     public GameObject[] glitchItems;
@@ -103,7 +102,20 @@ public class PlayerStat : MonoBehaviour
             wepPickupDict.Add("m3", false);
         }
         decoy.SetActive(false);
+        //finding class values
         log = GameObject.Find("Global").GetComponent<Log>();
+        hpText = GameObject.Find("hpText").GetComponent<Text>();
+        ppText = GameObject.Find("ppText").GetComponent<Text>();
+        a1Text = GameObject.Find("ammo1Text").GetComponent<Text>();
+        a2Text = GameObject.Find("ammo2Text").GetComponent<Text>();
+        if (!bossfight)
+        {
+            threatImg = GameObject.Find("TLvlImage").GetComponent<Image>();
+            threatText = GameObject.Find("TLvlText").GetComponent<Text>();
+            bpText = GameObject.Find("bpText").GetComponent<Text>();
+        }
+         
+
     }
 
     // Update is called once per frame
@@ -249,13 +261,29 @@ public class PlayerStat : MonoBehaviour
     {
         hpText.text = "HP:" + hp.ToString() + "/" + hpMax.ToString();
         ppText.text = "PP:" + pp.ToString("F0") + "/"+ ppMax.ToString();
-        mpText.text = bp.ToString();
+        bpText.text = bp.ToString();
         a1Text.text = ammo1.ToString("F0");
         a2Text.text = ammo2.ToString("F0");
         activeText.text = Active;
         passiveText.text = Passive;
         activeText.color = (powBlock) ? Color.gray : activeColor;
         passiveText.color= (powBlock) ? Color.gray : passiveColor;
+        threatText.text = "LV." + threatLV;
+        switch (threatLV)
+        {
+            case 1:
+                threatText.color = Color.green;
+                threatImg.color = Color.green;
+                break;
+            case 2:
+                threatText.color = Color.yellow;
+                threatImg.color = Color.yellow;
+                break;
+            case 3:
+                threatText.color = Color.red;
+                threatImg.color = Color.red;
+                break;
+        }
 
     }
     public void Damage(int dam){
