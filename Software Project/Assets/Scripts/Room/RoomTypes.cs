@@ -6,7 +6,7 @@ public class RoomTypes : MonoBehaviour
 {
     int roomChance;
     public bool enemyOn = false, start = false, boss = false, shop = false, time = false, wJam = false, pBlocked = false,
-        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false,  enemyBuff = false;
+        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
@@ -33,7 +33,7 @@ public class RoomTypes : MonoBehaviour
         roomChance = Random.Range(1, 11);
         //timeSpawn();
         shopSpawn();
-        if(PlayerPrefs.GetInt("Threat Level") >= 2)
+        if (PlayerPrefs.GetInt("Threat Level") >= 2)
         {
             wepJamSpawn();
             powBlockSpawn();
@@ -46,7 +46,8 @@ public class RoomTypes : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
         if (boss)
         {
             shop = false;
@@ -171,7 +172,8 @@ public class RoomTypes : MonoBehaviour
         }
         if (other.CompareTag("Boss"))
             boss = true;
-        if (other.CompareTag("Shop")){
+        if (other.CompareTag("Shop"))
+        {
             shop = true;
             other.transform.parent = gameObject.transform;
         }
@@ -190,7 +192,7 @@ public class RoomTypes : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if(other.name == "Player")
+        if (other.name == "Player")
         {
             player.wepJam = false;
             player.powBlock = false;
@@ -290,7 +292,7 @@ public class RoomTypes : MonoBehaviour
                 Debug.Log("time");
             }
         }
-    }    
+    }
     void wepJamSpawn()
     {
         if (count.wepJamCount > 0)
@@ -363,7 +365,7 @@ public class RoomTypes : MonoBehaviour
         timeCountdown.timerIsRunning = true;
         //timeCountdown.timeRemaining = randomTime[Random.Range(0, 3)];
         timeCountdown.timeRemaining = 15;
-        if (timeCountdown.timerIsRunning && timeCountdown.timeRemaining > 0 )
+        if (timeCountdown.timerIsRunning && timeCountdown.timeRemaining > 0)
             StartCoroutine(waveSpawn());
     }
     IEnumerator eSpawn()
@@ -372,10 +374,11 @@ public class RoomTypes : MonoBehaviour
         enemyCount = enemySpawnCount;
         int postionNum = 0;
         Vector3 position = eSpawnPoints[postionNum].position;
-        while (enemySpawnCount > 0){
+        while (enemySpawnCount > 0)
+        {
             var area = Instantiate(eArea, position, Quaternion.identity);
             yield return new WaitForSeconds(0.3f);
-            Instantiate(enemies[Random.Range(0, enemies.Count)], position, Quaternion.identity) ;
+            Instantiate(enemies[Random.Range(0, enemies.Count)], position, Quaternion.identity);
             Destroy(area);
             postionNum++;
             position = eSpawnPoints[postionNum].position;
@@ -386,10 +389,10 @@ public class RoomTypes : MonoBehaviour
     IEnumerator waveSpawn()
     {
         float spawnTime = 12.0f;
-        while (timeCountdown.timeRemaining > 0 && enemyCount < 7 )
+        while (timeCountdown.timeRemaining > 0 && enemyCount < 7)
         {
             yield return new WaitForSeconds(spawnTime);
-            if(timeCountdown.timerIsRunning)
+            if (timeCountdown.timerIsRunning)
                 StartCoroutine(eSpawn());
             eSpawnShuffle();
             iSpawnShuffle();
@@ -415,8 +418,8 @@ public class RoomTypes : MonoBehaviour
                 player.jamImage.SetActive(false);
             }
         }
-        
-            
+
+
     }
     IEnumerator powBlockRoom()
     {
@@ -434,9 +437,9 @@ public class RoomTypes : MonoBehaviour
                 pBlocked = false;
                 player.blockImage.SetActive(false);
             }
-               
+
         }
-        
+
     }
     IEnumerator hazardRoom()
     {
@@ -452,20 +455,21 @@ public class RoomTypes : MonoBehaviour
                 hazard = false;
                 player.hazardImage.SetActive(false);
             }
-                
+
         }
-        
+
     }
     public void itemSpawn()
     {
         itemCount = Random.Range(2, 7);
         int postionNum = 0;
         Vector3 position = iSpawnPoints[postionNum].position;
-        while (itemCount > 0){
+        while (itemCount > 0)
+        {
             int rndNum = Random.Range(0, items.Length);
             GameObject b = Instantiate(items[rndNum], position, Quaternion.identity);
             b.transform.parent = this.transform;
-            
+
             postionNum++;
             position = iSpawnPoints[postionNum].position;
             itemCount--;
@@ -473,7 +477,8 @@ public class RoomTypes : MonoBehaviour
     }
     void eSpawnShuffle()
     {
-        for (int i = 0; i < eSpawnPoints.Count; i++){
+        for (int i = 0; i < eSpawnPoints.Count; i++)
+        {
             Transform temp = eSpawnPoints[i];
             int randomIndex = Random.Range(i, eSpawnPoints.Count);
             eSpawnPoints[i] = eSpawnPoints[randomIndex];

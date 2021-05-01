@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false, onLab = false, bossfight;
+        inStore = false, enemyBuff = false, onLab = false, bossFight;
     int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -109,7 +109,7 @@ public class PlayerStat : MonoBehaviour
         ppText = GameObject.Find("ppText").GetComponent<Text>();
         a1Text = GameObject.Find("ammo1Text").GetComponent<Text>();
         a2Text = GameObject.Find("ammo2Text").GetComponent<Text>();
-        if (!bossfight)
+        if (!bossFight)
         {
             threatImg = GameObject.Find("TLvlImage").GetComponent<Image>();
             threatText = GameObject.Find("TLvlText").GetComponent<Text>();
@@ -264,11 +264,12 @@ public class PlayerStat : MonoBehaviour
     {
         hpText.text = hp.ToString() + "/" + hpMax.ToString();
         ppText.text = pp.ToString("F0") + "/"+ ppMax.ToString();
-        bpText.text = bp.ToString();
         a1Text.text = ammo1.ToString("F0");
         a2Text.text = ammo2.ToString("F0");
         activeText.text = Active;
         passiveText.text = Passive;
+        if(bossFight)
+        bpText.text = bp.ToString();
         activeText.color = (powBlock) ? Color.gray : activeColor;
         passiveText.color= (powBlock) ? Color.gray : passiveColor;
         threatText.text = "LV." + threatLV;
