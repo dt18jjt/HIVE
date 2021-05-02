@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFollow : MonoBehaviour
+public class alphaBossScript : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0;
-    public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f,
-        ghostCooldown = 0.5f;
+    public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown,
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown;
     float heatTimer = 1f, coldTimer = 1f;
-    public bool ranged, frozen = false, bpSpawn = false, Avoid;
+    public bool ranged, frozen = false, bpSpawn = false;
     //Enemy Types
-    public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
-    public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect, adsorbEffect,
-        bombProjectile, ghostProjectile;
+    public GameObject hitEffect, bombProjectile;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -22,7 +19,7 @@ public class EnemyFollow : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     Log log;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +29,6 @@ public class EnemyFollow : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
-        if (Hypno)
-            player.buffNum++;
     }
     // Update is called once per frame
     void Update()
@@ -49,19 +44,12 @@ public class EnemyFollow : MonoBehaviour
         staticShock();
         tremorKnockback();
         //Death
-        if (hp <= 0){
-            Instantiate(Corpse, transform.position, Quaternion.identity);
-            Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
+        if (hp <= 0)
+        {
+            //Instantiate(Corpse, transform.position, Quaternion.identity);
+            //Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
-            if (Hypno)
-                player.buffNum--;
-            if (player.killCoolDown > 0)
-            {
-                log.quickKill++;
-                Debug.Log("Quick Kill: " + log.quickKill);
-            }
-            player.killCoolDown = 0.5f;
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";
@@ -79,36 +67,16 @@ public class EnemyFollow : MonoBehaviour
         }
         //target change
         if (confuseCooldown <= 0)
-            target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
+            target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>() :
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        else if(confuseCooldown > 0)
+        else if (confuseCooldown > 0)
         {
-            while (player.cEmenies.Count > 1 && cEnemy == null)
-                cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
-            transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
             confuseCooldown -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
-            target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
-        }
-        //Laser Behaviour change
-        if (Laser && hp < 20 && ranged)
-        {
-            ranged = false;
-            retreatDistance = 25;
-            stoppingDistance = 15;
-            attackCooldown = 0.5f;
-            startAtkCooldown = 0.5f;
-            hp += 20;
         }
         //Avoid movement cooldown
-        if(avoidCooldown > 0)
+        if (avoidCooldown > 0)
             avoidCooldown -= Time.deltaTime;
-        // Adsorb bullets cooldown
-        if (adsorbCooldown > 0)
-            adsorbCooldown -= Time.deltaTime;
-        //adsord effect active
-        if(Bullet)
-            adsorbEffect.SetActive((adsorbCooldown >  0) ? true : false);
     }
     private void FixedUpdate()
     {
@@ -143,67 +111,41 @@ public class EnemyFollow : MonoBehaviour
             }
             else if (Vector2.Distance(transform.position, target.position) < stoppingDistance && Vector2.Distance(transform.position, target.position) > retreatDistance)
             {
-                // transform.position = this.transform.position;
-                if(avoidCooldown <= 0)
+                transform.position = this.transform.position;
+            }
+            else if (Vector2.Distance(transform.position, target.position) < retreatDistance)
+            {
+                if (avoidCooldown <= 0)
                 {
                     randDirection = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2)).normalized;
                     avoidCooldown = 2f;
                 }
                 randMovement = randDirection * speed;
-                transform.position = new Vector2 (transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
+                transform.position = new Vector2(transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
+                //if (moveCooldown <= 0)
+                //    transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
+                Debug.Log("Close");
             }
-            else if (Vector2.Distance(transform.position, target.position) < retreatDistance)
-            {
-                if(moveCooldown <= 0)
-                    transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
-                if (Melee)
-                {
-                    Color tmp = GetComponent<SpriteRenderer>().color;
-                    tmp.a = 0f;
-                    GetComponent<SpriteRenderer>().color = tmp;
-                    ghostCooldown -= Time.deltaTime;
-                }
-            }
-            if(adsorbCooldown <= 0)
-            {
-                enemyRangeAtk();
-                if(Bullet)
-                    StartCoroutine(adsorb());
-            }
+            enemyRangeAtk();
         }
     }
-    void enemyCloseAtk(){
+    void enemyCloseAtk()
+    {
         if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
         {
-            player.Damage((player.enemyBuff) ?Random.Range(15, 30) : Random.Range(10, 20));
+            player.Damage((player.enemyBuff) ? Random.Range(15, 30) : Random.Range(10, 20));
         }
         else if (confuseCooldown > 0)
-            target.GetComponent<EnemyFollow>().Damage(10);
-        if (Cryo && playerMove.slowCoolDown <= 0)
-            playerMove.slowCoolDown = 1f;
+            Damage(10);
         attackCooldown = startAtkCooldown;
     }
-    void enemyRangeAtk(){
+    void enemyRangeAtk()
+    {
         // Range attack after cooldown reaches 0
-        if (attackCooldown <= 0 && moveCooldown <= 0){
-            // Spawn confusion projectile
-            if (confuseCooldown > 0)
-                Instantiate(confusionProjectile, transform.position, Quaternion.identity);
-            // Spawn burn projectile
-            else if (Pyro)
-                Instantiate(burnProjectile, transform.position, Quaternion.identity);
-            // Spawn tangle projectile
-            else if (Geo)
-                Instantiate(sporeProjectile, transform.position, Quaternion.identity);
-            // Spawn weak projectile
-            else if (Hypno)
-                Instantiate(weakProjectile, transform.position, Quaternion.identity);
-            //Spawn Ghost projectile
-            else if (Melee && ghostCooldown <= 0)
-                StartCoroutine(Disappear());
+        if (attackCooldown <= 0 && moveCooldown <= 0)
+        {
             // Spawn normal projectile
-            else
-                Instantiate(projectile, transform.position, Quaternion.identity);
+            Instantiate(bombProjectile, transform.position, Quaternion.identity);
             // Reset projectile
             attackCooldown = startAtkCooldown;
             moveCooldown = startMvCooldown;
@@ -242,74 +184,36 @@ public class EnemyFollow : MonoBehaviour
         {
             coldTimer = 1f;
             speed = normalSpeed;
-        }          
+        }
     }
     void staticShock()
     {
-        if (player.pAbilDict["shock"] && player.shockDam && player.shockCoolDown <= 0){
+        if (player.pAbilDict["shock"] && player.shockDam && player.shockCoolDown <= 0)
+        {
             player.shockCoolDown = 0.2f;
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
             hit.GetComponent<ParticleSystem>().Play();
-            hp -= (Electro) ? 5 : 10;
+            hp -= 5;
         }
-        
-       
+
+
     }
-    public void Damage(int dam)
+    void Damage(int dam)
     {
         GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
-        if(adsorbCooldown <= 0)
-            hp -= dam;
-        player.threatGauge += 5;
-        if (Electro){
-            normalSpeed += 10;
-            coldSpeed += 10;
-        }
-        if (Shell)
-            splitSpawn(4);
-        if (adsorbCooldown > 0)
-        {
-            Instantiate(bombProjectile, transform.position, Quaternion.identity);
-        }
-
+        hp -= dam;
+        //player.threatGauge += 5;
     }
     void tremorKnockback()
     {
-        if(tremorCooldown > 0)
+        if (tremorCooldown > 0)
         {
-            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 50 * Time.deltaTime) :
-                Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime);
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
             attackCooldown = startAtkCooldown;
-        }
-    }
-    void splitSpawn(int numberOfProjectiles)
-    {
-        float radius, splitSpeed = 80f;
-        radius = GetComponent<CircleCollider2D>().radius;
-        //starting point for projectiles
-        Vector2 startPoint = gameObject.transform.position;
-        // angle difference between projectiles
-        float angleStep = 360f / numberOfProjectiles;
-        float angle = 0f;
-        //spawning projectiles
-        for (int i = 0; i <= numberOfProjectiles - 1; i++)
-        {
-
-            float projectileDirXposition = startPoint.x + Mathf.Sin((angle * Mathf.PI) / 180) * radius;
-            float projectileDirYposition = startPoint.y + Mathf.Cos((angle * Mathf.PI) / 180) * radius;
-
-            Vector2 projectileVector = new Vector2(projectileDirXposition, projectileDirYposition);
-            Vector2 projectileMoveDirection = (projectileVector - startPoint).normalized * splitSpeed;
-
-            var proj = Instantiate(splitProjectile, startPoint, Quaternion.identity);
-            proj.GetComponent<Rigidbody2D>().velocity =
-                new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
-
-            angle += angleStep;
         }
     }
     //pause in close range enemy movement
@@ -318,29 +222,13 @@ public class EnemyFollow : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(2f, 3.1f));
         moveCooldown = 0.2f;
     }
-    public IEnumerator Disappear()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Color tmp = GetComponent<SpriteRenderer>().color;
-        // create projectile
-        GameObject g = Instantiate(ghostProjectile, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.5f);
-        // set postion to projectile
-        transform.position = g.transform.position;
-        tmp.a = 1f;
-        GetComponent<SpriteRenderer>().color = tmp;
-        //reset ghost cooldown
-        ghostCooldown = 0.5f;
-    }
-    public IEnumerator adsorb()
-    {
-        yield return new WaitForSeconds(3f);
-        adsorbCooldown = 1.0f;
-    }
-    private void OnTriggerEnter2D(Collider2D other){
         //Hit by bullet object
-        if(other.CompareTag("Bullet")){
+        if (other.CompareTag("Bullet"))
+        {
             Damage(player.damDict["bulletDam"]);
-            if(player.wep1Level != 2)
+            if (player.wep1Level != 2)
                 Destroy(other.gameObject);
             log.bulletHit++;
             Debug.Log("Bullet:" + log.bulletHit);
@@ -364,12 +252,9 @@ public class EnemyFollow : MonoBehaviour
         //Hit by explosive object
         if (other.CompareTag("Bomb"))
         {
-            if (!Explosive)
-            {
-                Damage(player.damDict["explosiveDam"]);
-                log.explosiveHit++;
-                Debug.Log("explosive:" + log.shellHit);
-            }
+            Damage(player.damDict["explosiveDam"]);
+            log.explosiveHit++;
+            Debug.Log("explosive:" + log.shellHit);
         }
         //Hit by melee object
         if (other.CompareTag("Melee"))
@@ -381,7 +266,7 @@ public class EnemyFollow : MonoBehaviour
         //Hit by active pyro
         if (other.CompareTag("Fire"))
         {
-            Damage((Cryo) ? player.damDict["fireDam"] / 2 : player.damDict["fireDam"]);
+            Damage(player.damDict["fireDam"] / 2);
             log.pyroHit++;
             Debug.Log("Pyro:" + log.pyroHit);
         }
@@ -389,7 +274,7 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Freeze"))
         {
             Damage(player.damDict["freezeDam"]);
-            frozenCooldown = (Pyro) ? 0.5f : 1.5f;
+            frozenCooldown = 0.5f;
             Destroy(other.gameObject);
             log.cryoHit++;
             Debug.Log("Cryo:" + log.cryoHit);
@@ -399,9 +284,9 @@ public class EnemyFollow : MonoBehaviour
         //    Damage(player.damDict["pulseDam"]);
         //}
         //Hit by active electro
-        if (other.CompareTag("Bolt") )
+        if (other.CompareTag("Bolt"))
         {
-            Damage((Electro) ? player.damDict["boltDam"]/2 : player.damDict["boltDam"]);
+            Damage(player.damDict["boltDam"] / 2);
             log.electroHit++;
             Debug.Log("Electro:" + log.electroHit);
         }
@@ -416,8 +301,7 @@ public class EnemyFollow : MonoBehaviour
         //Hit by active hypno 
         if (other.CompareTag("Confuse"))
         {
-            if(!Hypno)
-                confuseCooldown = 5f;
+            confuseCooldown = 2f;
             Destroy(other.gameObject);
             log.hypnoHit++;
             Debug.Log("Shell:" + log.hypnoHit);
@@ -434,8 +318,7 @@ public class EnemyFollow : MonoBehaviour
         if (collision.collider.CompareTag("Wall"))
         {
             rb.velocity = Vector3.zero;
-            
+
         }
     }
-
 }

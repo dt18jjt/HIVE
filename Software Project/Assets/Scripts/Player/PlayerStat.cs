@@ -268,25 +268,27 @@ public class PlayerStat : MonoBehaviour
         a2Text.text = ammo2.ToString("F0");
         activeText.text = Active;
         passiveText.text = Passive;
-        if(bossFight)
-        bpText.text = bp.ToString();
-        activeText.color = (powBlock) ? Color.gray : activeColor;
-        passiveText.color= (powBlock) ? Color.gray : passiveColor;
-        threatText.text = "LV." + threatLV;
-        switch (threatLV)
+        if (!bossFight)
         {
-            case 1:
-                threatText.color = Color.green;
-                threatImg.color = Color.green;
-                break;
-            case 2:
-                threatText.color = Color.yellow;
-                threatImg.color = Color.yellow;
-                break;
-            case 3:
-                threatText.color = Color.red;
-                threatImg.color = Color.red;
-                break;
+            bpText.text = bp.ToString();
+            activeText.color = (powBlock) ? Color.gray : activeColor;
+            passiveText.color = (powBlock) ? Color.gray : passiveColor;
+            threatText.text = "LV." + threatLV;
+            switch (threatLV)
+            {
+                case 1:
+                    threatText.color = Color.green;
+                    threatImg.color = Color.green;
+                    break;
+                case 2:
+                    threatText.color = Color.yellow;
+                    threatImg.color = Color.yellow;
+                    break;
+                case 3:
+                    threatText.color = Color.red;
+                    threatImg.color = Color.red;
+                    break;
+            }
         }
 
     }
