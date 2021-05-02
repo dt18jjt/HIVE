@@ -6,11 +6,12 @@ public class alphaBossScript : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown,
-        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown;
+        moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, shockWaveCooldown, startSWCooldown;
     float heatTimer = 1f, coldTimer = 1f;
-    public bool ranged, frozen = false, bpSpawn = false;
+    public bool ranged, frozen = false;
+    bool blastSpawned = false;
     //Enemy Types
-    public GameObject hitEffect, bombProjectile;
+    public GameObject hitEffect, bombProjectile, warningArea, blastArea;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -19,7 +20,8 @@ public class alphaBossScript : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     Log log;
-
+    camShake shake;
+    public GameObject[] deathDrop;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class alphaBossScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
+        shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
     }
     // Update is called once per frame
     void Update()
@@ -46,8 +49,7 @@ public class alphaBossScript : MonoBehaviour
         //Death
         if (hp <= 0)
         {
-            //Instantiate(Corpse, transform.position, Quaternion.identity);
-            //Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
+            Instantiate(deathDrop[Random.Range(0, deathDrop.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
         }
@@ -77,6 +79,14 @@ public class alphaBossScript : MonoBehaviour
         //Avoid movement cooldown
         if (avoidCooldown > 0)
             avoidCooldown -= Time.deltaTime;
+        //Alpha shockwave blast
+        if (shockWaveCooldown <= 0 && !blastSpawned)
+        {
+            blastSpawned = true;
+            StartCoroutine(shockWave());
+        }
+            
+        warningArea.SetActive(((Vector2.Distance(transform.position, target.position) < retreatDistance) && !blastSpawned) ? true : false);
     }
     private void FixedUpdate()
     {
@@ -108,12 +118,9 @@ public class alphaBossScript : MonoBehaviour
             if (Vector2.Distance(transform.position, target.position) > stoppingDistance && moveCooldown <= 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+                shockWaveCooldown = startSWCooldown;
             }
             else if (Vector2.Distance(transform.position, target.position) < stoppingDistance && Vector2.Distance(transform.position, target.position) > retreatDistance)
-            {
-                transform.position = this.transform.position;
-            }
-            else if (Vector2.Distance(transform.position, target.position) < retreatDistance)
             {
                 if (avoidCooldown <= 0)
                 {
@@ -122,11 +129,18 @@ public class alphaBossScript : MonoBehaviour
                 }
                 randMovement = randDirection * speed;
                 transform.position = new Vector2(transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
+            }
+            else if (Vector2.Distance(transform.position, target.position) < retreatDistance)
+            {
+                transform.position = this.transform.position;
                 //if (moveCooldown <= 0)
                 //    transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * Time.deltaTime);
                 Debug.Log("Close");
+                shockWaveCooldown -= Time.deltaTime;
+                
             }
-            enemyRangeAtk();
+            if(shockWaveCooldown > 0)
+                enemyRangeAtk();
         }
     }
     void enemyCloseAtk()
@@ -216,11 +230,15 @@ public class alphaBossScript : MonoBehaviour
             attackCooldown = startAtkCooldown;
         }
     }
-    //pause in close range enemy movement
-    public IEnumerator stopTimer()
+    IEnumerator shockWave()
     {
-        yield return new WaitForSeconds(Random.Range(2f, 3.1f));
-        moveCooldown = 0.2f;
+        GameObject b = Instantiate(blastArea, transform.position, Quaternion.identity) as GameObject;
+        Destroy(b, .5f);
+        shake.shakeDuration = .5f;
+        yield return new WaitForSeconds(.5f);
+        shockWaveCooldown = startSWCooldown;
+        blastSpawned = false;
+        
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

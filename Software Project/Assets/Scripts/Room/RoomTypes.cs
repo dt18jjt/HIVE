@@ -31,13 +31,23 @@ public class RoomTypes : MonoBehaviour
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         log = GameObject.Find("Global").GetComponent<Log>();
         roomChance = Random.Range(1, 11);
-        //timeSpawn();
+        //always spawn a lab room in level
         shopSpawn();
+        //spawn room when threat level is 1
+        if (PlayerPrefs.GetInt("Threat Level") >= 1)
+        {
+            timeSpawn();
+            glitchSpawn();
+        }
+        //spawn room when threat level is 2
         if (PlayerPrefs.GetInt("Threat Level") >= 2)
         {
             wepJamSpawn();
             powBlockSpawn();
-            glitchSpawn();
+        }
+        //spawn room when threat level is 2
+        if (PlayerPrefs.GetInt("Threat Level") >= 3)
+        {
             hazardSpawn();
             cacheSpawn();
         }
@@ -48,6 +58,7 @@ public class RoomTypes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //room types wont overlap with necessary rooms with no enemies
         if (boss)
         {
             shop = false;
@@ -120,6 +131,7 @@ public class RoomTypes : MonoBehaviour
             Destroy(IBox);
         }
         enemyOn = (enemyCount > 0) ? true : false;
+        //Passive ability floor effect
         if (player.pAbilDict["heat"])
             floor.GetComponent<SpriteRenderer>().color = hotColor;
         else if (player.pAbilDict["cold"])
@@ -134,6 +146,7 @@ public class RoomTypes : MonoBehaviour
             floor.GetComponent<SpriteRenderer>().color = decoyColor;
         else
             floor.GetComponent<SpriteRenderer>().color = normalColor;
+        //room clear cheat
         if (Input.GetKey(KeyCode.F1))
         {
             enemyCount = 0;
@@ -146,6 +159,7 @@ public class RoomTypes : MonoBehaviour
             start = true;
             Debug.Log("start");
         }
+        //when the player enters a special room 
         if (other.name == "Player")
         {
             if (time && !entered)
@@ -170,6 +184,7 @@ public class RoomTypes : MonoBehaviour
             entered = true;
 
         }
+        //minimap icons
         if (other.CompareTag("Boss"))
             boss = true;
         if (other.CompareTag("Shop"))
@@ -186,7 +201,12 @@ public class RoomTypes : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-        if (other.CompareTag("BAmmo") || other.CompareTag("ShAmmo") || other.CompareTag("Health"))
+        //turn items into children of the room
+        if (other.CompareTag("BAmmo") || other.CompareTag("ShAmmo") || other.CompareTag("Health") || other.CompareTag("Glitch") || other.CompareTag("BWep0") ||
+            other.CompareTag("BWep1") || other.CompareTag("BWep2") || other.CompareTag("BWep3") || other.CompareTag("SWep0") || other.CompareTag("SWep1") || 
+            other.CompareTag("SWep2") || other.CompareTag("SWep3") || other.CompareTag("EWep0") || other.CompareTag("EWep1") || other.CompareTag("EWep2") ||
+            other.CompareTag("EWep3") || other.CompareTag("LWep0") || other.CompareTag("LWep1") || other.CompareTag("LWep2") || other.CompareTag("LWep3") ||
+            other.CompareTag("MWep0") || other.CompareTag("MWep1") || other.CompareTag("MWep2") || other.CompareTag("MWep3") || other.CompareTag("Cache"))
             other.transform.parent = gameObject.transform;
 
     }
@@ -197,14 +217,17 @@ public class RoomTypes : MonoBehaviour
             player.wepJam = false;
             player.powBlock = false;
         }
+        //Lower enemy count when a enemy dies
         if (other.CompareTag("Enemy"))
             enemyCount--;
+        //Lower item count when a item is taken
         if (other.CompareTag("Box"))
             itemCount--;
 
     }
     IEnumerator addEnemy()
     {
+        // Adding new enemies at the end of the level
         if (log.add003 && !log.del003)
         {
             enemies.Add(newEnemies[0]);
@@ -361,9 +384,9 @@ public class RoomTypes : MonoBehaviour
     void timeRoom()
     {
         StartCoroutine(eSpawn());
-        List<int> randomTime = new List<int> { 15, 30, 45 };
+        List<int> randomTime = new List<int> { 15, 25, 35 };
         timeCountdown.timerIsRunning = true;
-        //timeCountdown.timeRemaining = randomTime[Random.Range(0, 3)];
+        timeCountdown.timeRemaining = randomTime[Random.Range(0, 3)];
         timeCountdown.timeRemaining = 15;
         if (timeCountdown.timerIsRunning && timeCountdown.timeRemaining > 0)
             StartCoroutine(waveSpawn());

@@ -2325,7 +2325,7 @@ MonoBehaviour:
   inStore: 0
   enemyBuff: 0
   onLab: 0
-  bossfight: 0
+  bossFight: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}

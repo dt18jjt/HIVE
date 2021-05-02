@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public float speed;
+    public float speed, targetModfier = 1f;
     public int minDam, maxDam, minDamFinal, maxDamFinal;
     int minBuff, maxBuff;
-    public bool confused, weak, noPath, bomb, ghost;
+    public bool confused, weak, noPath, bomb, ghost, bossAlpha;
     private Transform player;
     private Transform enemy;
     private Transform decoy;
@@ -16,13 +16,15 @@ public class EnemyProjectile : MonoBehaviour
     Rigidbody2D rb2D;
     // Start is called before the first frame update
     void Start(){
+        List<float> newModifer = new List<float> { 1f, 1.25f, .75f };
+        targetModfier = (bossAlpha) ? newModifer[Random.Range(0, 3)] : 1f;
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         enemy = GameObject.FindWithTag("Enemy").transform;
         rb2D = GetComponent<Rigidbody2D>();
         //Bullet set to target
         target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((!stat.pAbilDict["decoy"]) ?
-            (player.transform.position - transform.position).normalized * speed : 
+            (player.transform.position * targetModfier - transform.position).normalized * speed : 
             (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
         if(!noPath)
             rb2D.velocity = new Vector2(target.x, target.y);
