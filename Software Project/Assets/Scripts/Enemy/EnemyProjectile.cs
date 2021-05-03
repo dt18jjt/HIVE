@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public float speed, targetModfier = 1f;
+    public float speed, normalSpeed, targetModfier = 1f;
     public int minDam, maxDam, minDamFinal, maxDamFinal;
     int minBuff, maxBuff;
-    public bool confused, weak, noPath, bomb, ghost, bossAlpha;
+    public bool confused, weak, noPath, bomb, ghost, bossAlpha, bossSigma;
     private Transform player;
     private Transform enemy;
     private Transform decoy;
@@ -28,7 +28,7 @@ public class EnemyProjectile : MonoBehaviour
             (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
         if(!noPath)
             rb2D.velocity = new Vector2(target.x, target.y);
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, (bossSigma) ? 2f : 1f);
         minBuff = minDam + (minDam/2);
         maxBuff = maxDam + (maxDam / 2);
     }
@@ -36,6 +36,7 @@ public class EnemyProjectile : MonoBehaviour
     {
         minDamFinal = (!weak) ? ((!stat.enemyBuff) ? minDam : minBuff) : minDam;
         maxDamFinal = (!weak) ? ((!stat.enemyBuff) ? maxDam : maxBuff) : maxDam;
+        speed = (stat.pAbilDict["cold"]) ? normalSpeed / 2 : normalSpeed;
     }
     private void OnTriggerEnter2D(Collider2D other){
         //Hits player

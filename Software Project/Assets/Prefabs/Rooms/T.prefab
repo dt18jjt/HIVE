@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyOn: 0
   start: 0
-  boss: 0
+  exit: 0
   shop: 0
   time: 0
   wJam: 0
@@ -224,6 +224,7 @@ MonoBehaviour:
   entered: 0
   noEnemy: 0
   enemyBuff: 0
+  boss: 0
   sIcon: {fileID: 1898445321837384, guid: 3fcd6c733494dcf49b02ac0aa65f9cab, type: 3}
   gIcon: {fileID: 4372344665755389307, guid: 55af69fb408605a49a0b6a969b06b708, type: 3}
   cIcon: {fileID: 4372344665755389307, guid: 1f587c9452ef87d4f8cecf4d1d217208, type: 3}
@@ -231,7 +232,8 @@ MonoBehaviour:
   IBox: {fileID: 548869996246090093}
   box: {fileID: 0}
   eArea: {fileID: 4398299625377698726, guid: 83f0a002a425f9741ae562bf595eabfb, type: 3}
-  exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
+  exitPortal: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041,
+    type: 3}
   floor: {fileID: 420319650862918602}
   hArea: {fileID: 8655256940893662432, guid: 3b72445f949a9814699845ef199f4f91, type: 3}
   items:

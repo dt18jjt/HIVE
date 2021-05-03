@@ -11,17 +11,20 @@ public class camShake : MonoBehaviour
     public float shakeAmount = 0.7f;
     public float decreaseFactor = 1.0f;
     Vector3 originalPos;
+    public bool boss;
     // Start is called before the first frame update
     void Start()
     {
         camTransform = GetComponent<Transform>();
-        //originalPos = camTransform.localPosition;
+        if(boss)
+            originalPos = camTransform.localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        originalPos = camTransform.localPosition;
+        if(!boss)
+            originalPos = camTransform.localPosition;
         if (shakeDuration > 0)
         {
             camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;

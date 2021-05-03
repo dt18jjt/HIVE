@@ -5,7 +5,7 @@ using UnityEngine;
 public class sigmaBossScript : MonoBehaviour
 {
     public int hp = 20, moveAngle = 0, pointPos;
-    public float attackCooldown, startAtkCooldown, confuseCooldown = 0f, frozenCooldown, angle, switchCooldown, startSwhCooldown;
+    public float attackCooldown, startAtkCooldown, confuseCooldown = 0f, frozenCooldown, angle, switchCooldown, startSwhCooldown, splitSpeed = 60f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false;
     public GameObject splitProjectile, hitEffect;
@@ -85,15 +85,16 @@ public class sigmaBossScript : MonoBehaviour
             switchCooldown -= Time.deltaTime;
         if(switchCooldown <= 0)
             postionChange();
-
+        //split bullet speed change
+        splitSpeed = (player.pAbilDict["cold"]) ? 30f : 60;
     }
     void enemyRangeAtk()
     {
 
         // Range attack after cooldown reaches 0
-        if (attackCooldown <= 0 && switchCooldown > 1)
+        if (attackCooldown <= 0 && switchCooldown > 1 && frozenCooldown <= 0)
         {
-            splitSpawn(6);
+            splitSpawn(5);
             // Reset projectile
             attackCooldown = startAtkCooldown;
         }
@@ -152,7 +153,7 @@ public class sigmaBossScript : MonoBehaviour
     }
     void splitSpawn(int numberOfProjectiles)
     {
-        float radius, splitSpeed = 100f;
+        float radius;
         radius = GetComponent<CircleCollider2D>().radius;
         //starting point for projectiles
         Vector2 startPoint = gameObject.transform.position;

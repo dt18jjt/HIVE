@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
+  normalSpeed: 40
   targetModfier: 1
   minDam: 10
   maxDam: 15
@@ -155,3 +156,4 @@ MonoBehaviour:
   bomb: 0
   ghost: 0
   bossAlpha: 0
+  bossSigma: 1

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8066107739425895672}
   - component: {fileID: 8086394451181377368}
   m_Layer: 0
-  m_Name: E,Expolsive
+  m_Name: E.Expolsive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,8 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Area: {fileID: 8391506735180036390, guid: 0459f859102a7184a939d32a714bdc23, type: 3}
-  enemyArea: {fileID: 8391506735180036390, guid: 0459f859102a7184a939d32a714bdc23,
-    type: 3}
   enemy: 1
   grenade: 1
   mine: 0
@@ -153,6 +151,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 60
+  normalSpeed: 60
+  targetModfier: 1
   minDam: 10
   maxDam: 15
   minDamFinal: 0
@@ -161,3 +161,6 @@ MonoBehaviour:
   weak: 0
   noPath: 0
   bomb: 1
+  ghost: 0
+  bossAlpha: 0
+  bossSigma: 0

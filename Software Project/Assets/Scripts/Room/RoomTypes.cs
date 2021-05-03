@@ -5,12 +5,12 @@ using UnityEngine;
 public class RoomTypes : MonoBehaviour
 {
     int roomChance;
-    public bool enemyOn = false, start = false, boss = false, shop = false, time = false, wJam = false, pBlocked = false,
-        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false;
+    public bool enemyOn = false, start = false, exit = false, shop = false, time = false, wJam = false, pBlocked = false,
+        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false, boss;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
-    public GameObject sIcon, gIcon, cIcon, eBox, IBox, box, eArea, exit, floor, hArea;
+    public GameObject sIcon, gIcon, cIcon, eBox, IBox, box, eArea, exitPortal, floor, hArea;
     public GameObject[] items;
     public GameObject[] newEnemies;
     public int enemySpawnCount, enemyCount, itemCount;
@@ -23,43 +23,47 @@ public class RoomTypes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (start)
-            noEnemy = true;
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
-        count = GameObject.Find("Global").GetComponent<RoomCount>();
-        timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
-        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-        log = GameObject.Find("Global").GetComponent<Log>();
-        roomChance = Random.Range(1, 11);
-        //always spawn a lab room in level
-        shopSpawn();
-        //spawn room when threat level is 1
-        if (PlayerPrefs.GetInt("Threat Level") >= 1)
+        if (!boss)
         {
-            timeSpawn();
-            glitchSpawn();
+            if (start)
+                noEnemy = true;
+            count = GameObject.Find("Global").GetComponent<RoomCount>();
+            timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
+            templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+            log = GameObject.Find("Global").GetComponent<Log>();
+            roomChance = Random.Range(1, 11);
+            //always spawn a lab room in level
+            shopSpawn();
+            //spawn room when threat level is 1
+            if (PlayerPrefs.GetInt("Threat Level") >= 1)
+            {
+                timeSpawn();
+                glitchSpawn();
+            }
+            //spawn room when threat level is 2
+            if (PlayerPrefs.GetInt("Threat Level") >= 2)
+            {
+                wepJamSpawn();
+                powBlockSpawn();
+            }
+            //spawn room when threat level is 2
+            if (PlayerPrefs.GetInt("Threat Level") >= 3)
+            {
+                hazardSpawn();
+                cacheSpawn();
+            }
+            //Adding new enemies
+            StartCoroutine(addEnemy());
         }
-        //spawn room when threat level is 2
-        if (PlayerPrefs.GetInt("Threat Level") >= 2)
-        {
-            wepJamSpawn();
-            powBlockSpawn();
-        }
-        //spawn room when threat level is 2
-        if (PlayerPrefs.GetInt("Threat Level") >= 3)
-        {
-            hazardSpawn();
-            cacheSpawn();
-        }
-        //Adding new enemies
-        StartCoroutine(addEnemy());
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         //room types wont overlap with necessary rooms with no enemies
-        if (boss)
+        if (exit)
         {
             shop = false;
             time = false;
@@ -170,13 +174,13 @@ public class RoomTypes : MonoBehaviour
                 StartCoroutine(powBlockRoom());
             if (hazard && !entered)
                 StartCoroutine(hazardRoom());
-            if (boss)
-                Instantiate(exit, transform.position, Quaternion.identity);
+            if (exit)
+                Instantiate(exitPortal, transform.position, Quaternion.identity);
             if (glitch)
                 Instantiate(gIcon, transform.position, Quaternion.identity);
             if (cache)
                 Instantiate(cIcon, transform.position, Quaternion.identity);
-            if (!entered && !noEnemy)
+            if (!entered && !noEnemy && !boss)
             {
                 StartCoroutine(eSpawn());
                 itemSpawn();
@@ -185,8 +189,8 @@ public class RoomTypes : MonoBehaviour
 
         }
         //minimap icons
-        if (other.CompareTag("Boss"))
-            boss = true;
+        if (other.CompareTag("Boss") && !boss)
+            exit = true;
         if (other.CompareTag("Shop"))
         {
             shop = true;
@@ -197,7 +201,7 @@ public class RoomTypes : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Shop") && boss)
+        if (other.CompareTag("Shop") && exit)
         {
             Destroy(other.gameObject);
         }
