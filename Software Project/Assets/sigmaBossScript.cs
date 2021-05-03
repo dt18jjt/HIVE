@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class sigmaBossScript : MonoBehaviour
 {
-    public int hp = 20, moveAngle = 0;
-    public float attackCooldown, startAtkCooldown, confuseCooldown = 0f, frozenCooldown;
+    public int hp = 20, moveAngle = 0, pointPos;
+    public float attackCooldown, startAtkCooldown, confuseCooldown = 0f, frozenCooldown, angle, switchCooldown, startSwhCooldown;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false;
     public GameObject splitProjectile, hitEffect;
@@ -17,10 +17,16 @@ public class sigmaBossScript : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     Log log;
-
+    public Transform[] points;
+    List<int> newPoint;
+    public GameObject[] deathDrop;
     // Start is called before the first frame update
     void Start()
     {
+        startSwhCooldown = Random.Range(5f, 10.1f);
+        switchCooldown = startSwhCooldown;
+        newPoint = new List<int>{0, 1, 2, 3};
+        pointPos = newPoint[Random.Range(0, 4)];
         target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -32,6 +38,8 @@ public class sigmaBossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Postion change
+        transform.position = points[pointPos].position;
         //Kill Cheat
         if (Input.GetKey(KeyCode.F1))
         {
@@ -70,15 +78,22 @@ public class sigmaBossScript : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
         }
+        //shooting
         enemyRangeAtk();
+        //switch postion
+        if (switchCooldown > 0)
+            switchCooldown -= Time.deltaTime;
+        if(switchCooldown <= 0)
+            postionChange();
+
     }
     void enemyRangeAtk()
     {
 
         // Range attack after cooldown reaches 0
-        if (attackCooldown <= 0)
+        if (attackCooldown <= 0 && switchCooldown > 1)
         {
-            splitSpawn(12);
+            splitSpawn(6);
             // Reset projectile
             attackCooldown = startAtkCooldown;
         }
@@ -137,13 +152,28 @@ public class sigmaBossScript : MonoBehaviour
     }
     void splitSpawn(int numberOfProjectiles)
     {
-        float radius, splitSpeed = 80f;
+        float radius, splitSpeed = 100f;
         radius = GetComponent<CircleCollider2D>().radius;
         //starting point for projectiles
         Vector2 startPoint = gameObject.transform.position;
         // angle difference between projectiles
-        float angleStep = 360f / numberOfProjectiles;
-        float angle = 0f;
+        float angleStep = 115f / numberOfProjectiles;
+        // change angle based on postion
+        switch (pointPos)
+        {
+            case 0:
+                angle = 90f;
+                break;
+            case 1:
+                angle = 0f;
+                break;
+            case 2:
+                angle = 180f;
+                break;
+            case 3:
+                angle = 270f;
+                break;
+        }
         //spawning projectiles
         for (int i = 0; i <= numberOfProjectiles - 1; i++)
         {
@@ -159,6 +189,35 @@ public class sigmaBossScript : MonoBehaviour
                 new Vector2(projectileMoveDirection.x, projectileMoveDirection.y);
 
             angle += angleStep;
+        }
+    }
+    void postionChange()
+    {
+        //Randomize the starting switch cooldown
+        startSwhCooldown = Random.Range(5f, 10.1f);
+        //Switch postion after switch after cooldown reaches 0 makes sure it switches to a different postion
+        switch (pointPos)
+        {
+            case 0:
+                newPoint = new List<int> { 1, 2, 3 };
+                pointPos = newPoint[Random.Range(0, 3)];
+                switchCooldown = startSwhCooldown;
+                break;
+            case 1:
+                newPoint = new List<int> { 0, 2, 3 };
+                pointPos = newPoint[Random.Range(0, 3)];
+                switchCooldown = startSwhCooldown;
+                break;
+            case 2:
+                newPoint = new List<int> { 0, 1, 3 };
+                pointPos = newPoint[Random.Range(0, 3)];
+                switchCooldown = startSwhCooldown;
+                break;
+            case 3:
+                newPoint = new List<int> { 0, 1, 2 };
+                pointPos = newPoint[Random.Range(0, 3)];
+                switchCooldown = startSwhCooldown;
+                break;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
