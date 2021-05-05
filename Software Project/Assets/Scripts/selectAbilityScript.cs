@@ -182,6 +182,7 @@ public class selectAbilityScript : MonoBehaviour
     }
     IEnumerator passiveSwitch()
     {
+        yield return new WaitForSeconds(0.1f);
         //First passive
         if (!active)
         {

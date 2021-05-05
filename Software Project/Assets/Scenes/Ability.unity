@@ -1244,15 +1244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 1
-  a1Off: 1
+  a1Off: 0
   a2Off: 0
-  a3Off: 1
+  a3Off: 0
   a4Off: 0
   a5Off: 0
   p1Off: 0
   p2Off: 0
-  p3Off: 1
-  p4Off: 1
+  p3Off: 0
+  p4Off: 0
   p5Off: 0
   abilityText: {fileID: 359410946}
   explainText: {fileID: 642644604}
