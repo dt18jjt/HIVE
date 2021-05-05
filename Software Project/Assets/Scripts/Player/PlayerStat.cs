@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStat : MonoBehaviour
 {
-    public int hpMax = 100, ppMax = 100, bp = 0, buffNum, threatLV = 2, actNum, pasNum;
+    public int hpMax = 100, ppMax = 100, bp = 0, buffNum, threatLV = 2, actNum, pasNum, gameLevel = 0;
     public float hp = 100, pp = 100, threatGauge = 50;
     //Ammo display
     public float ammo1 , ammo2;
@@ -1176,6 +1176,8 @@ public class PlayerStat : MonoBehaviour
         {
             //StartCoroutine(exitLevel());
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            PlayerPrefs.SetInt("lastActive", actNum);
+            PlayerPrefs.SetInt("lastPassive", pasNum);
         }
         //Hit by burning projectile
         if (other.CompareTag("Burn"))

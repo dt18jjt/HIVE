@@ -1109,6 +1109,7 @@ MonoBehaviour:
   shakeDuration: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  boss: 0
 --- !u!1 &671624500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,6 +2344,9 @@ MonoBehaviour:
   bp: 0
   buffNum: 0
   threatLV: 2
+  actNum: 0
+  pasNum: 0
+  gameLevel: 1
   hp: 100
   pp: 100
   threatGauge: 50
@@ -2377,7 +2381,7 @@ MonoBehaviour:
   inStore: 0
   enemyBuff: 0
   onLab: 0
-  bossfight: 0
+  bossFight: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}
@@ -3763,6 +3767,7 @@ MonoBehaviour:
   load: {fileID: 119227885}
   rooms: []
   waitTime: 2
+  selection: 0
   boss: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
 --- !u!1 &1535536796
 GameObject:
@@ -3977,6 +3982,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac71913b6d58851489da9db75ca67702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  active: 0
+  icon: []
 --- !u!1 &1615499804
 GameObject:
   m_ObjectHideFlags: 0

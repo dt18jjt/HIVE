@@ -58,7 +58,7 @@ public class Log : MonoBehaviour
                 slotsLeft--;
                 Debug.Log("010 added!");
             }
-            if (explosiveHit >= 20 && !add011){
+            if (explosiveHit >= 30 && !add011){
                 add011 = true;
                 slotsLeft--;
                 Debug.Log("011 added!");

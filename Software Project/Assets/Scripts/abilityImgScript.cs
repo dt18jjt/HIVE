@@ -12,6 +12,7 @@ public class abilityImgScript : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
+       
     }
 
     // Update is called once per frame

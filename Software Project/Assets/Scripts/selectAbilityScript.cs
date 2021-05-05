@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
 public class selectAbilityScript : MonoBehaviour
 {
-    public bool active;
+    public bool active, a1Off = false, a2Off = false, a3Off = false, a4Off = false, a5Off = false, p1Off = false, p2Off = false, 
+        p3Off = false, p4Off = false, p5Off = false;
     public Text abilityText, explainText, headText;
     public int abilityNum;
     public Image icon;
     public Sprite[] abilityIcons;
+    public Image B1, B2, B3, B4, B5;
     float cooldown;
     PlayerStat player;
     RoomTemplates templates;
@@ -21,7 +24,57 @@ public class selectAbilityScript : MonoBehaviour
        player = GameObject.Find("Player").GetComponent<PlayerStat>();
        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
        Cursor.visible = true;
-        cooldown = 3f;
+       cooldown = 3f;
+       if(player.gameLevel > 0)
+        {
+            switch (PlayerPrefs.GetInt("lastActive"))
+            {
+                case 0:
+                    a1Off = true;
+                    break;
+                case 1:
+                    a2Off = true;
+                    break;
+                case 2:
+                    a3Off = true;
+                    break;
+                case 3:
+                    a4Off = true;
+                    break;
+                case 4:
+                    a5Off = true;
+                    break;
+            }
+            switch (PlayerPrefs.GetInt("lastPassive"))
+            {
+                case 0:
+                    p1Off = true;
+                    break;
+                case 1:
+                    p2Off = true;
+                    break;
+                case 2:
+                    p3Off = true;
+                    break;
+                case 3:
+                    p4Off = true;
+                    break;
+                case 4:
+                    p5Off = true;
+                    break;
+            }
+        }
+        //First active
+        if (a1Off)
+            abilityNum = 1;
+        else if (a1Off && a2Off)
+            abilityNum = 2;
+        else if (a1Off && a2Off && a3Off)
+            abilityNum = 3;
+        else if (a1Off && a2Off && a3Off && a4Off)
+            abilityNum = 4;
+        else
+            abilityNum = 0;
     }
 
     // Update is called once per frame
@@ -36,6 +89,13 @@ public class selectAbilityScript : MonoBehaviour
         //select ability
         if (active)
         {
+            
+            //Button greyed out
+            B1.color = (a1Off) ? Color.black : Color.white;
+            B2.color = (a2Off) ? Color.black : Color.white;
+            B3.color = (a3Off) ? Color.black : Color.white;
+            B4.color = (a4Off) ? Color.black : Color.white;
+            B5.color = (a5Off) ? Color.black : Color.white;
             //Go onto passive selection
             if(cooldown <= 0)
             {
@@ -43,6 +103,9 @@ public class selectAbilityScript : MonoBehaviour
                 {
                     cooldown = 3f;
                     active = false;
+                    abilityText.enabled = false;
+                    explainText.enabled = false;
+                    StartCoroutine(passiveSwitch());
                 }
             }
             player.actNum = abilityNum;
@@ -73,8 +136,15 @@ public class selectAbilityScript : MonoBehaviour
         }
         if (!active)
         {
+            
+            //Button greyed out
+            B1.color = (p1Off) ? Color.black : Color.white;
+            B2.color = (p2Off) ? Color.black : Color.white;
+            B3.color = (p3Off) ? Color.black : Color.white;
+            B4.color = (p4Off) ? Color.black : Color.white;
+            B5.color = (p5Off) ? Color.black : Color.white;
             //Go onto level
-            if(cooldown <= 0)
+            if (cooldown <= 0)
             {
                 if (Input.GetKey(KeyCode.Joystick1Button7) || Input.GetKey(KeyCode.Space))
                 {
@@ -110,72 +180,92 @@ public class selectAbilityScript : MonoBehaviour
         }
 
     }
+    IEnumerator passiveSwitch()
+    {
+        //First passive
+        if (!active)
+        {
+            if (p1Off)
+                abilityNum = 1;
+            else if (p1Off && p2Off)
+                abilityNum = 2;
+            else if (p1Off && p2Off && p3Off)
+                abilityNum = 3;
+            else if (p1Off && p2Off && p3Off && p4Off)
+                abilityNum = 4;
+            else
+                abilityNum = 0;
+        }
+        yield return new WaitForSeconds(0.3f);
+        abilityText.enabled = true;
+        explainText.enabled = true;
+    }
     public void chooseFire()
     {
-        if (active)
+        if (active && !a1Off)
         {
             abilityNum = 0;
         }
     }
     public void chooseHeat()
     {
-        if (!active)
+        if (!active && !p1Off)
         {
             abilityNum = 0;
         }
     }
     public void chooseFreeze()
     {
-        if (active)
+        if (active && !a2Off)
         {
             abilityNum = 1;
         }
     }
     public void chooseCold()
     {
-        if (!active)
+        if (!active && !p2Off)
         {
             abilityNum = 1;
         }
     }
     public void chooseBolt()
     {
-        if (active)
+        if (active && !a3Off)
         {
             abilityNum = 2;
         }
     }
     public void chooseShock()
     {
-        if (!active)
+        if (!active && !p3Off)
         {
             abilityNum = 2;
         }
     }
     public void chooseTremor()
     {
-        if (active)
+        if (active && !a4Off)
         {
             abilityNum = 3;
         }
     } 
     public void chooseEarth()
     {
-        if (!active)
+        if (!active && !p4Off)
         {
             abilityNum = 3;
         }
     }
     public void chooseConfuse()
     {
-        if (active)
+        if (active && !a5Off)
         {
             abilityNum = 4;
         }
     }
     public void chooseDecoy()
     {
-        if (!active)
+        if (!active && !p5Off)
         {
             abilityNum = 4;
         }
