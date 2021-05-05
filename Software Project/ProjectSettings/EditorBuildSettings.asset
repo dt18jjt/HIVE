@@ -10,11 +10,17 @@ EditorBuildSettings:
     guid: cef596fcd216291478dd8c66832552d5
   - enabled: 1
     path: Assets/Scenes/2.unity
-    guid: de7cee203f4a34e45855d11f271ad61b
+    guid: da2db3c8118c64e46bbfa301284b2572
   - enabled: 1
-    path: Assets/Scenes/BOSS.unity
-    guid: 9b35d86a5c45eec488a13e5e2066f7e9
+    path: Assets/Scenes/Boss(Alpha).unity
+    guid: 4c0829efbc9b63a41a27454aca54a94d
+  - enabled: 1
+    path: Assets/Scenes/Boss(Sigma).unity
+    guid: cea2612504a31144f989f3b28d766874
   - enabled: 1
     path: Assets/Scenes/Shop.unity
     guid: 8f33b80564bcb984e916152810135445
+  - enabled: 1
+    path: Assets/Scenes/Ability.unity
+    guid: 1fc1c0a56435ae84f951a2c97068b3d2
   m_configObjects: {}

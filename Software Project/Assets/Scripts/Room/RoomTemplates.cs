@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomTemplates : MonoBehaviour {
 
@@ -23,25 +24,37 @@ public class RoomTemplates : MonoBehaviour {
 
 	public float waitTime;
 	private bool spawnedBoss;
+	public bool selection;
 	public GameObject boss;
 	VisibleRoom visible;
     private void Start()
     {
 		load.SetActive(true);
+		selection = true;
+		SceneManager.LoadScene("Ability", LoadSceneMode.Additive);
 	}
 
     void Update(){
-		if (waitTime <= 0 && !spawnedBoss){
-			for (int i = 0; i < rooms.Count; i++) {
-				if(i == rooms.Count-1){
-					Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
-					spawnedBoss = true;
-					load.SetActive(false);
+        if (!selection)
+        {
+			if (waitTime <= 0 && !spawnedBoss)
+			{
+				for (int i = 0; i < rooms.Count; i++)
+				{
+					if (i == rooms.Count - 1)
+					{
+						Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
+						spawnedBoss = true;
+						load.SetActive(false);
+					}
 				}
 			}
-		} else {
-			waitTime -= Time.deltaTime;
+			else
+			{
+				waitTime -= Time.deltaTime;
+			}
 		}
+		
 
 	}
 }

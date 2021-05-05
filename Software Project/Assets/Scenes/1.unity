@@ -1109,6 +1109,7 @@ MonoBehaviour:
   shakeDuration: 0
   shakeAmount: 0.7
   decreaseFactor: 1
+  boss: 0
 --- !u!1 &671624500
 GameObject:
   m_ObjectHideFlags: 0
@@ -3731,6 +3732,7 @@ MonoBehaviour:
   load: {fileID: 119227885}
   rooms: []
   waitTime: 2
+  selection: 0
   boss: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
 --- !u!1 &1535536796
 GameObject:

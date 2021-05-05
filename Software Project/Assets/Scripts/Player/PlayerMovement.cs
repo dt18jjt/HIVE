@@ -34,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //allow movement and actions after the level starts
+        stopMovement = (templates.waitTime <= 0) ? false : true;
+        //Minimap
         if (Input.GetKeyUp(KeyCode.M) || Input.GetKeyUp(KeyCode.Joystick1Button6))
             mapOn = !mapOn;
         miniMap.SetActive((mapOn) ? false : true);
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lStickInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             velocity = lStickInput.normalized * runSpeed;
-            if (templates.waitTime <= 0 && !stat.inStore && stat.tangleCooldown <= 0)
+            if (!stopMovement && !stat.inStore && stat.tangleCooldown <= 0)
                 transform.position += velocity * Time.deltaTime;
         }
         if (stat.Active == "Bolt Dash")
@@ -565,12 +568,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void controllerDetection()
     {
-        if (!controller && !stat.inStore && stat.storeCoolDown <= 0){
+        if (!controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement){
             mouseAim();
             crosshair.SetActive(true);
             crosshair2.GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (controller && !stat.inStore && stat.storeCoolDown <= 0){
+        if (controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement){
             stickAim();
             crosshair.SetActive(false);
             crosshair2.GetComponent<SpriteRenderer>().enabled = true;

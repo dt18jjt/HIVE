@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class selectAbilityScript : MonoBehaviour
 {
@@ -10,23 +12,40 @@ public class selectAbilityScript : MonoBehaviour
     public int abilityNum;
     public Image icon;
     public Sprite[] abilityIcons;
+    float cooldown;
     PlayerStat player;
+    RoomTemplates templates;
     // Start is called before the first frame update
     void Start()
     {
-        
+       player = GameObject.Find("Player").GetComponent<PlayerStat>();
+       templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+       Cursor.visible = true;
+        cooldown = 3f;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         headText.text = (active) ? "CHOOSE A ACTIVE ABlLITY" : "CHOOSE A PASSIVE ABlLITY";
         icon.sprite = abilityIcons[abilityNum];
+        //Cooldown between choices
+        if (cooldown > 0)
+            cooldown -= Time.deltaTime;
+        //select ability
         if (active)
         {
             //Go onto passive selection
-            if (Input.GetKey(KeyCode.Joystick1Button7))
-                active = false;
+            if(cooldown <= 0)
+            {
+                if (Input.GetKey(KeyCode.Joystick1Button7) || Input.GetKey(KeyCode.Space))
+                {
+                    cooldown = 3f;
+                    active = false;
+                }
+            }
+            player.actNum = abilityNum;
             //Change text
             switch (abilityNum)
             {
@@ -54,9 +73,17 @@ public class selectAbilityScript : MonoBehaviour
         }
         if (!active)
         {
-            //Go onto passive selection
-            if (Input.GetKey(KeyCode.Joystick1Button7))
-                active = false;
+            //Go onto level
+            if(cooldown <= 0)
+            {
+                if (Input.GetKey(KeyCode.Joystick1Button7) || Input.GetKey(KeyCode.Space))
+                {
+                    SceneManager.UnloadSceneAsync("Ability");
+                    templates.selection = false;
+                    Cursor.visible = false;
+                }
+            }
+            player.pasNum = abilityNum;
             switch (abilityNum)
             {
                 case 0:
