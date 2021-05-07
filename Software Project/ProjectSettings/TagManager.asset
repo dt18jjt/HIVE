@@ -64,6 +64,8 @@ TagManager:
   - MWep3
   - E.Bomb
   - Cache
+  - H.UP
+  - P.Up
   layers:
   - Default
   - TransparentFX

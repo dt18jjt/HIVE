@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5686562618964730490}
   - component: {fileID: 1705493053823970904}
   - component: {fileID: 8066107739425895672}
+  - component: {fileID: -707367548628385531}
   m_Layer: 0
-  m_Name: Expolsive.M
+  m_Name: Expolsive.Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: c6666f0ddb8007142b986861cbe6cd15, type: 3}
+  m_Color: {r: 0.50313884, g: 0.50222504, b: 0.509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -134,7 +135,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Area: {fileID: 8391506735180036390, guid: 204a296e0c3753043b79b6cc4ce1c83c, type: 3}
-  enemyArea: {fileID: 0}
   enemy: 0
   grenade: 0
-  mine: 0
+  mine: 1
+--- !u!114 &-707367548628385531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1486764652276081942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 240d72654bce40244b64bcd517b72847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -10,22 +10,24 @@ public class selectAbilityScript : MonoBehaviour
 {
     public bool active, a1Off = false, a2Off = false, a3Off = false, a4Off = false, a5Off = false, p1Off = false, p2Off = false, 
         p3Off = false, p4Off = false, p5Off = false;
-    public Text abilityText, explainText, headText;
+    public Text abilityText, explainText, headText, contText;
     public int abilityNum;
     public Image icon;
     public Sprite[] abilityIcons;
     public Image B1, B2, B3, B4, B5;
     float cooldown;
-    PlayerStat player;
+    PlayerStat stat;
+    PlayerMovement player;
     RoomTemplates templates;
     // Start is called before the first frame update
     void Start()
     {
-       player = GameObject.Find("Player").GetComponent<PlayerStat>();
+       stat = GameObject.Find("Player").GetComponent<PlayerStat>();
+       player = GameObject.Find("Player").GetComponent<PlayerMovement>();
        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
        Cursor.visible = true;
-       cooldown = 3f;
-       if(player.gameLevel > 0)
+       cooldown = 1f;
+       if(stat.gameLevel > 0)
         {
             switch (PlayerPrefs.GetInt("lastActive"))
             {
@@ -80,12 +82,14 @@ public class selectAbilityScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         headText.text = (active) ? "CHOOSE A ACTIVE ABlLITY" : "CHOOSE A PASSIVE ABlLITY";
         icon.sprite = abilityIcons[abilityNum];
         //Cooldown between choices
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
+        //countine text
+        contText.text = (cooldown <= 0) ? "PRESS START/SPACE": ""; 
         //select ability
         if (active)
         {
@@ -101,14 +105,14 @@ public class selectAbilityScript : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.Joystick1Button7) || Input.GetKey(KeyCode.Space))
                 {
-                    cooldown = 3f;
+                    cooldown = 1f;
                     active = false;
                     abilityText.enabled = false;
                     explainText.enabled = false;
                     StartCoroutine(passiveSwitch());
                 }
             }
-            player.actNum = abilityNum;
+            stat.actNum = abilityNum;
             //Change text
             switch (abilityNum)
             {
@@ -153,7 +157,7 @@ public class selectAbilityScript : MonoBehaviour
                     Cursor.visible = false;
                 }
             }
-            player.pasNum = abilityNum;
+            stat.pasNum = abilityNum;
             switch (abilityNum)
             {
                 case 0:

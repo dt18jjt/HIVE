@@ -7,13 +7,13 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D body;
     public float runSpeed = 100.0f;
-    private float dashSpeed = 30f;
+    private float dashSpeed = 30f, rotationZ, distance;
     public bool isDash, controller = false;
     bool mapOn = false, pressed = false, stopMovement;
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
     public GameObject[] ammoPrefabs;
-    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown, rotationZ, distance;
+    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
     private Vector3 target, moveDir, velocity, difference;
     private Vector2 lStickInput, rStickInput, direction;
     PlayerStat stat;
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if(stat.ammo1 > 0 && !stat.wepJam){
+            if(!stat.wepJam){
                 distance = difference.magnitude;
                 float shDistance = shDifference.magnitude;
                 direction = difference / distance;
@@ -117,24 +117,36 @@ public class PlayerMovement : MonoBehaviour
                 Vector2 shDirection3 = shDifference3 / shDistance;
                 direction.Normalize();
                 if (stat.weapon1 == 1){
-                    //Projectile
                     //Ammo taken
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            bulletFire(direction, rotationZ);
-                            stat.ammoDict["bullet"]--;
+                            if(stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, rotationZ);
+                                stat.ammoDict["bullet"]--;
+                                
+                            }
                             break;
                         case 1:
-                            bulletFire(direction, rotationZ);
-                            stat.ammoDict["bullet"] -= 2;
+                            if (stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, rotationZ);
+                                stat.ammoDict["bullet"]--;
+
+                            }
                             break;
                         case 2:
-                            bulletFire(direction, rotationZ);
-                            stat.ammoDict["bullet"]--;
+                            if (stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, rotationZ);
+                                stat.ammoDict["bullet"]--;
+
+                            }
                             break;
                         case 3:
-                            StartCoroutine(burstFire());
+                            if (stat.ammo1 >= 3)
+                                StartCoroutine(burstFire());
                             break;
                     }
                 }
@@ -143,52 +155,81 @@ public class PlayerMovement : MonoBehaviour
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            stat.ammoDict["shell"] -= 2;
-                            shellFire(shDirection2, body.rotation);
-                            shellFire(shDirection3, body.rotation);
+                            if(stat.ammo1 >= 2)
+                            {
+                                stat.ammoDict["shell"] -= 2;
+                                shellFire(shDirection2, body.rotation);
+                                shellFire(shDirection3, body.rotation);
+                            }
                             break;
                         case 1:
-                            stat.ammoDict["shell"] -= 2;
-                            shellFire(shDirection2, body.rotation);
-                            shellFire(shDirection3, body.rotation);
+                            if (stat.ammo1 >= 2)
+                            {
+                                stat.ammoDict["shell"] -= 2;
+                                shellFire(shDirection2, body.rotation);
+                                shellFire(shDirection3, body.rotation);
+                            }
                             break;
                         case 2:
-                            stat.ammoDict["shell"] -= 4;
-                            shellFire(direction, body.rotation);
-                            shellFire(shDirection2, body.rotation);
-                            shellFire(shDirection3, body.rotation);
+                            if (stat.ammo1 >= 3)
+                            {
+                                stat.ammoDict["shell"] -= 3;
+                                shellFire(direction, body.rotation);
+                                shellFire(shDirection2, body.rotation);
+                                shellFire(shDirection3, body.rotation);
+                            }
                             break;
                         case 3:
-                            stat.ammoDict["shell"] -= 4;
-                            shellFire(direction, body.rotation);
-                            shellFire(shDirection2, body.rotation);
-                            shellFire(shDifference3, body.rotation);
+                            if (stat.ammo1 >= 3)
+                            {
+                                stat.ammoDict["shell"] -= 3;
+                                shellFire(direction, body.rotation);
+                                shellFire(shDirection2, body.rotation);
+                                shellFire(shDirection3, body.rotation);
+                            }
                             break;
                     }
                 }
                 if (stat.weapon1 == 3){
                     //Projectile
-                    explosiveFire(direction, rotationZ);
-                    //Ammo Taken
-                    stat.ammoDict["explosive"]--;
+                    if(stat.ammo1 > 0)
+                    {
+                        explosiveFire(direction, rotationZ);
+                        //Ammo Taken
+                        stat.ammoDict["explosive"]--;
+                    }
                 }
                 if (stat.weapon1 == 4){
-                    //Projectile
-                    laserFire(direction, rotationZ);
                     //Ammo taken
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            stat.ammoDict["laser"]--;
+                            if(stat.ammo1 > 0)
+                            {
+                                laserFire(direction, rotationZ);
+                                stat.ammoDict["laser"]--;
+                            }
                             break;
                         case 1:
-                            stat.ammoDict["laser"] -= 2;
+                            if(stat.ammo1 >= 2)
+                            {
+                                laserFire(direction, rotationZ);
+                                stat.ammoDict["laser"]-= 2;
+                            }
                             break;
                         case 2:
-                            stat.ammoDict["laser"] -= 6;
+                            if (stat.ammo1 >= 6)
+                            {
+                                laserFire(direction, rotationZ);
+                                stat.ammoDict["laser"] -= 6;
+                            }
                             break;
                         case 3:
-                            stat.ammoDict["laser"] -= 12;
+                            if (stat.ammo1 >= 12)
+                            {
+                                laserFire(direction, rotationZ);
+                                stat.ammoDict["laser"] -= 12;
+                            }
                             break;
                     }
                     stat.laserCooldown = 2f;
@@ -265,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
         rStickInput = new Vector2(Input.GetAxisRaw("RightStickX"), Input.GetAxisRaw("RightStickY"));
         if (rStickInput.magnitude > 0f)
         {
-            Vector3 difference = Vector3.down * rStickInput.x + Vector3.left * rStickInput.y;
+            difference = Vector3.down * rStickInput.x + Vector3.left * rStickInput.y;
             Quaternion rotationZ = Quaternion.LookRotation(difference, Vector3.forward);
             body.SetRotation(rotationZ);
             crosshair2.SetActive(true);
@@ -277,34 +318,48 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxis("Fire1") == 1 && !pressed )
         {
             pressed = true;
-            if (stat.ammo1 > 0 && !stat.wepJam)
+            if (!stat.wepJam)
             {
                 //distance between the crosshair and player
-                Vector3 difference = crosshair2.transform.position - gameObject.transform.position;
+                difference = crosshair2.transform.position - gameObject.transform.position;
                 Vector3 difference2 = shCrosshair.transform.position - gameObject.transform.position;
                 Vector3 difference3 = shCrosshair2.transform.position - gameObject.transform.position;
-                float distance = difference.magnitude;
-                Vector2 direction = difference / distance;
+                distance = difference.magnitude;
+                direction = difference / distance;
                 Vector2 direction2 = difference2 / distance;
                 Vector2 direction3 = difference3 / distance;
                 direction.Normalize();
                 if (stat.weapon1 == 1){
-                    //Projectile 
-                    bulletFire(direction, body.rotation);
                     //Ammo taken
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            stat.ammoDict["bullet"]--;
+                            if (stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, body.rotation);
+                                stat.ammoDict["bullet"]--;
+
+                            }
                             break;
                         case 1:
-                            stat.ammoDict["bullet"] -= 2;
+                            if (stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, body.rotation);
+                                stat.ammoDict["bullet"]--;
+
+                            }
                             break;
                         case 2:
-                            stat.ammoDict["bullet"] --;
+                            if (stat.ammo1 > 0)
+                            {
+                                bulletFire(direction, body.rotation);
+                                stat.ammoDict["bullet"]--;
+
+                            }
                             break;
                         case 3:
-                            StartCoroutine(burstFire());
+                            if (stat.ammo1 >= 0)
+                                StartCoroutine(burstFire());
                             break;
                     }
                 }
@@ -313,34 +368,48 @@ public class PlayerMovement : MonoBehaviour
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            stat.ammoDict["shell"]-= 2;
-                            shellFire(direction2, body.rotation);
-                            shellFire(direction3, body.rotation);
+                            if (stat.ammo1 >= 2)
+                            {
+                                stat.ammoDict["shell"] -= 2;
+                                shellFire(direction2, body.rotation);
+                                shellFire(direction3, body.rotation);
+                            }
                             break;
                         case 1:
-                            stat.ammoDict["shell"] -= 2;
-                            shellFire(direction2, body.rotation);
-                            shellFire(direction3, body.rotation);
+                            if (stat.ammo1 >= 2)
+                            {
+                                stat.ammoDict["shell"] -= 2;
+                                shellFire(direction2, body.rotation);
+                                shellFire(direction3, body.rotation);
+                            }
                             break;
                         case 2:
-                            stat.ammoDict["shell"] -= 4;
-                            shellFire(direction, body.rotation);
-                            shellFire(direction2, body.rotation);
-                            shellFire(direction3, body.rotation);
+                            if (stat.ammo1 >= 3)
+                            {
+                                stat.ammoDict["shell"] -= 3;
+                                shellFire(direction, body.rotation);
+                                shellFire(direction2, body.rotation);
+                                shellFire(direction3, body.rotation);
+                            }
                             break;
                         case 3:
-                            stat.ammoDict["shell"] -= 4;
-                            shellFire(direction, body.rotation);
-                            shellFire(direction2, body.rotation);
-                            shellFire(direction3, body.rotation);
+                            if (stat.ammo1 >= 3)
+                            {
+                                stat.ammoDict["shell"] -= 3;
+                                shellFire(direction, body.rotation);
+                                shellFire(direction2, body.rotation);
+                                shellFire(direction3, body.rotation);
+                            }
                             break;
                     }
                 }
                 if (stat.weapon1 == 3){
-                    //Projectile 
-                    explosiveFire(direction, body.rotation);
-                    //Ammo taken
-                    stat.ammoDict["explosive"]--;
+                    if (stat.ammo1 > 0)
+                    {
+                        explosiveFire(direction, body.rotation);
+                        //Ammo taken
+                        stat.ammoDict["explosive"]--;
+                    }
                 }
                 if (stat.weapon1 == 4){
                     //Projectile 
@@ -349,19 +418,35 @@ public class PlayerMovement : MonoBehaviour
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            stat.ammoDict["laser"]--;
+                            if (stat.ammo1 > 0)
+                            {
+                                laserFire(direction, body.rotation);
+                                stat.ammoDict["laser"]--;
+                            }
                             break;
                         case 1:
-                            stat.ammoDict["laser"]-=2;
+                            if (stat.ammo1 >= 2)
+                            {
+                                laserFire(direction, body.rotation);
+                                stat.ammoDict["laser"] -= 2;
+                            }
                             break;
                         case 2:
-                            stat.ammoDict["laser"] -= 6;
+                            if (stat.ammo1 >= 6)
+                            {
+                                laserFire(direction, body.rotation);
+                                stat.ammoDict["laser"] -= 6;
+                            }
                             break;
                         case 3:
-                            stat.ammoDict["laser"] -= 12;
+                            if (stat.ammo1 >= 12)
+                            {
+                                laserFire(direction, body.rotation);
+                                stat.ammoDict["laser"] -= 12;
+                            }
                             break;
                     }
-                    stat.laserCooldown = 2f;
+                            stat.laserCooldown = 2f;
                 }
                 
             }
@@ -439,7 +524,7 @@ public class PlayerMovement : MonoBehaviour
     }
     //Bullets spawn
     void bulletFire(Vector2 direction, float rotationZ){
-        GameObject b = Instantiate(ammoPrefabs[0]) as GameObject;
+        GameObject b = Instantiate((stat.wep1Level == 2) ? ammoPrefabs[7] : ammoPrefabs[0]) as GameObject;
         b.transform.position = bulletStart.transform.position;
         b.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
@@ -456,6 +541,7 @@ public class PlayerMovement : MonoBehaviour
     //Explosive spawn
     void explosiveFire(Vector2 direction, float rotationZ)
     {
+        //different types spawned based on level
         GameObject e;
         switch (stat.wep1Level)
         {
@@ -488,11 +574,39 @@ public class PlayerMovement : MonoBehaviour
     //laser spawn
     void laserFire(Vector2 direction, float rotationZ)
     {
-        GameObject l = Instantiate(ammoPrefabs[3]) as GameObject;
-        l.transform.position = bulletStart.transform.position;
-        l.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
-        l.GetComponent<Rigidbody2D>().velocity = direction * laserSpeed;
-        Destroy(l, 0.8f);
+        //different types spawned based on level
+        GameObject l;
+        switch (stat.wep1Level)
+        {
+            case 0:
+                l = Instantiate(ammoPrefabs[3]) as GameObject;
+                l.transform.position = bulletStart.transform.position;
+                l.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                l.GetComponent<Rigidbody2D>().velocity = direction * laserSpeed;
+                Destroy(l, 0.8f);
+                break;
+            case 1:
+                l = Instantiate(ammoPrefabs[8]) as GameObject;
+                l.transform.position = bulletStart.transform.position;
+                l.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                l.GetComponent<Rigidbody2D>().velocity = direction * laserSpeed;
+                Destroy(l, 0.8f);
+                break;
+            case 2:
+                l = Instantiate(ammoPrefabs[9]) as GameObject;
+                l.transform.position = bulletStart.transform.position;
+                l.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                l.GetComponent<Rigidbody2D>().velocity = direction * laserSpeed;
+                Destroy(l, 0.8f);
+                break;
+            case 3:
+                l = Instantiate(ammoPrefabs[10]) as GameObject;
+                l.transform.position = bulletStart.transform.position;
+                l.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
+                l.GetComponent<Rigidbody2D>().velocity = direction * laserSpeed;
+                Destroy(l, 0.8f);
+                break;
+        }
     }
     //melee spawn
     void meleeFire(float rotationZ)
@@ -502,18 +616,32 @@ public class PlayerMovement : MonoBehaviour
         m.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         Destroy(m, 0.5f);
     }
+    //Level 3 bullet weapon burst fire
     IEnumerator burstFire()
     {
-        bulletFire(direction, rotationZ);
-        stat.ammoDict["bullet"]--;
+        if(stat.ammo1 > 0)
+        {
+            bulletFire(direction, (controller) ? body.rotation : rotationZ);
+            stat.ammoDict["bullet"]--;
+        }
         yield return new WaitForSeconds(0.2f);
-        direction = difference / distance;
-        bulletFire(direction, rotationZ);
-        stat.ammoDict["bullet"]--;
+        if (stat.ammo1 > 0)
+        {
+            if(controller)
+                difference = crosshair2.transform.position - gameObject.transform.position;
+            direction = difference / distance;
+            bulletFire(direction, (controller) ? body.rotation : rotationZ);
+            stat.ammoDict["bullet"]--;
+        }
         yield return new WaitForSeconds(0.2f);
-        direction = difference / distance;
-        bulletFire(direction, rotationZ);
-        stat.ammoDict["bullet"]--;
+        if (stat.ammo1 > 0)
+        {
+            if (controller)
+                difference = crosshair2.transform.position - gameObject.transform.position;
+            direction = difference / distance;
+            bulletFire(direction, (controller) ? body.rotation : rotationZ);
+            stat.ammoDict["bullet"]--;
+        }
     }
     //Firebomb (Ability)
     void Firebomb()
@@ -521,6 +649,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject b = Instantiate(firePrefab, transform.position, Quaternion.identity) as GameObject;
         Destroy(b, 0.5f);
     }
+    //Freeze Blast (Ability)
     void freezeBlast(Vector2 direction, float rotationZ)
     {
         GameObject b = Instantiate(freezePrefab) as GameObject;
@@ -529,6 +658,7 @@ public class PlayerMovement : MonoBehaviour
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(b, 0.7f);
     }
+    //Confusion (Ability)
     void confusion(Vector2 direction, float rotationZ)
     {
         GameObject c = Instantiate(confusePrefab) as GameObject;
@@ -537,6 +667,7 @@ public class PlayerMovement : MonoBehaviour
         c.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(c, 0.7f);
     }
+    //Tremor (Ability)
     void tremor()
     {
         GameObject t = Instantiate(tremorArea, transform.position, Quaternion.identity) as GameObject;
@@ -584,7 +715,8 @@ public class PlayerMovement : MonoBehaviour
         if(Input.anyKey)
             controller = false;
         //joystick detection
-        if (Input.GetAxisRaw("RightStickX") != 0.0f || Input.GetAxisRaw("RightStickY") != 0.0f || Input.GetAxis("Fire1") != 0 || Input.GetAxis("Fire2") != 0)
+        if (Input.GetAxisRaw("RightStickX") != 0.0f || Input.GetAxisRaw("RightStickY") != 0.0f || Input.GetAxis("Fire1") != 0 || Input.GetAxis("Fire2") != 0 ||
+            Input.GetAxisRaw("LeftStickX") != 0.0f || Input.GetAxisRaw("LeftStickY") != 0.0f)
             controller = true;
         if (Input.GetKey(KeyCode.Joystick1Button0) ||
             Input.GetKey(KeyCode.Joystick1Button1) ||

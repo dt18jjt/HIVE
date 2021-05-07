@@ -478,7 +478,7 @@ public class PlayerStat : MonoBehaviour
             ammoDict["laser"] = ammoMaxDict["laserMax"];
         //Laser recharge
         if (laserCooldown >= 0)
-            laserCooldown -= Time.deltaTime;
+            laserCooldown -= Time.deltaTime * 2;
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
             ammoDict["laser"] += Time.deltaTime;
     }
@@ -1297,6 +1297,36 @@ public class PlayerStat : MonoBehaviour
             pickupText.SetActive(true);
             onLab = true;
         }
+        //Heatlh Upgrade Pickup
+        if (other.CompareTag("H.UP"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "HP Booster";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (hpMax < 200)
+                {
+                    hpMax += 10;
+                    Destroy(other.gameObject);
+                    pickupText.GetComponent<TextMesh>().text = "Max HP + 10";
+                }
+            }
+        }
+        //Psychic Upgrade Pickup
+        if (other.CompareTag("P.Up"))
+        {
+            pickupText.GetComponent<TextMesh>().text = "PP Booster";
+            pickupText.SetActive(true);
+            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            {
+                if (ppMax < 200)
+                {
+                    ppMax += 10;
+                    Destroy(other.gameObject);
+                    pickupText.GetComponent<TextMesh>().text = "Max PP + 10";
+                }
+            }
+        }
         //LV0 Bullet Weapon Pickup
         if (other.CompareTag("BWep0"))
         {
@@ -1556,6 +1586,10 @@ public class PlayerStat : MonoBehaviour
             StartCoroutine(textOff());
         if (other.CompareTag("EAmmo"))
             StartCoroutine(textOff());
+        if (other.CompareTag("H.UP"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("P.Up"))
+            StartCoroutine(textOff());
         if (other.CompareTag("Shop"))
         {
             onLab = false;
@@ -1666,55 +1700,6 @@ public class PlayerStat : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         pickupText.SetActive(false);
-    }
-    IEnumerator exitLevel()
-    {
-        if (log.add003 && !log.del003)
-        {
-            log.del003 = true;
-        }
-        if (log.add004 && !log.del004)
-        {
-            log.del004 = true;
-        }
-        if (log.add005 && !log.del005)
-        {
-            log.del005 = true;
-        }
-        if (log.add006 && !log.del006)
-        {
-            log.del006 = true;
-        }
-        if (log.add006 && !log.del006)
-        {
-            log.del006 = true;
-        }
-        if (log.add007 && !log.del007)
-        {
-            log.del007 = true;
-        }
-        if (log.add008 && !log.del008)
-        {
-            log.del008 = true;
-        }
-        if (log.add009 && !log.del009)
-        {
-            log.del009 = true;
-        }
-        if (log.add010 && !log.del010)
-        {
-            log.del010 = true;
-        }
-        if (log.add011 && !log.del011)
-        {
-            log.del011 = true;
-        }
-        if (log.add012 && !log.del012)
-        {
-            log.del012 = true;
-        }
-        yield return new WaitForSeconds(0.3f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
    private void controlInputs()
     {
