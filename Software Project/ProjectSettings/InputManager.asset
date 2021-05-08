@@ -246,7 +246,7 @@ InputManager:
     axis: 3
     joyNum: 0
   - serializedVersion: 3
-    m_Name: RightStickX
+    m_Name: RightStickY
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -259,7 +259,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 3
+    axis: 4
     joyNum: 0
   - serializedVersion: 3
     m_Name: LeftStickX

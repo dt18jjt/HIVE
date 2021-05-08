@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool mapOn = false, pressed = false, stopMovement;
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
+    private GameObject spriteObj;
     public GameObject[] ammoPrefabs;
     public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
     private Vector3 target, moveDir, velocity, difference;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerStat stat;
     RoomTemplates templates;
     camShake shake;
+    public Sprite[] playerSprite;
     [SerializeField] LayerMask dashLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -29,11 +31,24 @@ public class PlayerMovement : MonoBehaviour
         stat = GetComponent<PlayerStat>();
         templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
+        spriteObj = GameObject.Find("P.Sprite");
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(transform.rotation.z);
+        //Sprite same pos as object
+        spriteObj.transform.position = transform.position;
+        //Change sprite based on rotation
+        if (transform.rotation.z <= 0 && transform.rotation.z > -.6f)
+            spriteObj.GetComponent<SpriteRenderer>().sprite = playerSprite[0];
+        if (transform.rotation.z <= -.6f && transform.rotation.z >= -1)
+            spriteObj.GetComponent<SpriteRenderer>().sprite = playerSprite[1];
+        if (transform.rotation.z <= 1f && transform.rotation.z >= .6f)
+            spriteObj.GetComponent<SpriteRenderer>().sprite = playerSprite[2];
+        if (transform.rotation.z <= .6f && transform.rotation.z >= 0)
+            spriteObj.GetComponent<SpriteRenderer>().sprite = playerSprite[3];
         //allow movement and actions after the level starts
         stopMovement = (templates.waitTime <= 0) ? false : true;
         //Minimap
@@ -715,8 +730,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.anyKey)
             controller = false;
         //joystick detection
-        if (Input.GetAxisRaw("RightStickX") != 0.0f || Input.GetAxisRaw("RightStickY") != 0.0f || Input.GetAxis("Fire1") != 0 || Input.GetAxis("Fire2") != 0 ||
-            Input.GetAxisRaw("LeftStickX") != 0.0f || Input.GetAxisRaw("LeftStickY") != 0.0f)
+        if (Input.GetAxisRaw("RightStickX") != 0.0f || Input.GetAxisRaw("RightStickY") != 0.0f || Input.GetAxis("Fire1") != 0 || Input.GetAxis("Fire2") != 0)
             controller = true;
         if (Input.GetKey(KeyCode.Joystick1Button0) ||
             Input.GetKey(KeyCode.Joystick1Button1) ||
