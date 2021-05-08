@@ -10,6 +10,7 @@ public class DoorScript : MonoBehaviour
     SpriteRenderer door;
     RoomTypes room;
     Countdown timeCountdown;
+    public Sprite open, closed;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +31,11 @@ public class DoorScript : MonoBehaviour
             Destroy(gameObject);
         else
             locked = false;
-        if (!locked)
-            door.color = Color.green;
-        else
-            door.color = Color.red;
+        //if (!locked)
+        //    door.color = Color.green;
+        //else
+        //    door.color = Color.red;
+        door.sprite = (locked) ? closed : open;
 
     }
     private void OnTriggerEnter2D(Collider2D other){
