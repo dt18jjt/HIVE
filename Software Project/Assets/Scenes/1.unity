@@ -1309,20 +1309,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 866a86add77314c42b60842208f0d200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pyroHit: 0
-  cryoHit: 0
-  geoHit: 0
-  electroHit: 0
-  hypnoHit: 0
-  bulletHit: 0
-  shellHit: 0
-  explosiveHit: 0
-  laserHit: 0
-  meleeHit: 0
   quickKill: 0
   shopUse: 0
   stackUse: 0
   healthUse: 0
+  highestActions: []
   noDamage: 1
   slotsLeft: 2
   add003: 0
@@ -2424,7 +2415,7 @@ MonoBehaviour:
   threatGauge: 50
   ammo1: 0
   ammo2: 0
-  weapon1: 3
+  weapon1: 1
   weapon2: 2
   wep1Level: 0
   wep2Level: 0
@@ -3860,7 +3851,11 @@ MonoBehaviour:
   rooms: []
   waitTime: 2
   selection: 0
-  boss: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
+  bossFight: 0
+  exit: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
+  boss: {fileID: 0}
+  bossText: {fileID: 0}
+  visible: {fileID: 0}
 --- !u!1 &1535536796
 GameObject:
   m_ObjectHideFlags: 0

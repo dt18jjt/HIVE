@@ -18,6 +18,7 @@ public class alphaBossScript : MonoBehaviour
     Vector2 randDirection, randMovement;
     PlayerStat player;
     PlayerMovement playerMove;
+    RoomTemplates templates;
     Rigidbody2D rb;
     Log log;
     camShake shake;
@@ -32,6 +33,7 @@ public class alphaBossScript : MonoBehaviour
         log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
         shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
+        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
     }
     // Update is called once per frame
     void Update()
@@ -248,45 +250,45 @@ public class alphaBossScript : MonoBehaviour
             Damage(player.damDict["bulletDam"]);
             if (player.wep1Level != 2)
                 Destroy(other.gameObject);
-            log.bulletHit++;
-            Debug.Log("Bullet:" + log.bulletHit);
+            //log.bulletHit++;
+            //Debug.Log("Bullet:" + log.bulletHit);
         }
         //Hit by shell object
         if (other.CompareTag("Shell"))
         {
             Damage(player.damDict["shellDam"]);
             Destroy(other.gameObject);
-            log.shellHit++;
-            Debug.Log("Shell:" + log.shellHit);
+            //log.shellHit++;
+            //Debug.Log("Shell:" + log.shellHit);
         }
         //Hit by laser object
         if (other.CompareTag("Laser"))
         {
             Damage(player.damDict["laserDam"]);
             Destroy(other.gameObject);
-            log.laserHit++;
-            Debug.Log("Laser:" + log.laserHit);
+            //log.laserHit++;
+            //Debug.Log("Laser:" + log.laserHit);
         }
         //Hit by explosive object
         if (other.CompareTag("Bomb"))
         {
             Damage(player.damDict["explosiveDam"]);
-            log.explosiveHit++;
-            Debug.Log("explosive:" + log.shellHit);
+            //log.explosiveHit++;
+            //Debug.Log("explosive:" + log.shellHit);
         }
         //Hit by melee object
         if (other.CompareTag("Melee"))
         {
             Damage(player.damDict["meleeDam"]);
-            log.meleeHit++;
-            Debug.Log("Melee:" + log.meleeHit);
+            //log.meleeHit++;
+            //Debug.Log("Melee:" + log.meleeHit);
         }
         //Hit by active pyro
         if (other.CompareTag("Fire"))
         {
             Damage(player.damDict["fireDam"] / 2);
-            log.pyroHit++;
-            Debug.Log("Pyro:" + log.pyroHit);
+            //log.pyroHit++;
+            //Debug.Log("Pyro:" + log.pyroHit);
         }
         //Hit by active cryo
         if (other.CompareTag("Freeze"))
@@ -294,35 +296,31 @@ public class alphaBossScript : MonoBehaviour
             Damage(player.damDict["freezeDam"]);
             frozenCooldown = 0.5f;
             Destroy(other.gameObject);
-            log.cryoHit++;
-            Debug.Log("Cryo:" + log.cryoHit);
+            //log.cryoHit++;
+            //Debug.Log("Cryo:" + log.cryoHit);
         }
-        //if (other.CompareTag("Pulse"))
-        //{
-        //    Damage(player.damDict["pulseDam"]);
-        //}
         //Hit by active electro
         if (other.CompareTag("Bolt"))
         {
             Damage(player.damDict["boltDam"] / 2);
-            log.electroHit++;
-            Debug.Log("Electro:" + log.electroHit);
+            //log.electroHit++;
+            //Debug.Log("Electro:" + log.electroHit);
         }
         //Hit by active geo
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
             tremorCooldown = 0.5f;
-            log.geoHit++;
-            Debug.Log("Geo:" + log.geoHit);
+            //log.geoHit++;
+            //Debug.Log("Geo:" + log.geoHit);
         }
         //Hit by active hypno 
         if (other.CompareTag("Confuse"))
         {
             confuseCooldown = 2f;
             Destroy(other.gameObject);
-            log.hypnoHit++;
-            Debug.Log("Shell:" + log.hypnoHit);
+            //log.hypnoHit++;
+            //Debug.Log("Shell:" + log.hypnoHit);
         }
         //Hit by projectiles from confused enemy
         if (other.CompareTag("CBullet") && gameObject.CompareTag("Enemy"))

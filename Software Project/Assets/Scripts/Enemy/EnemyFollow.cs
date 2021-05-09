@@ -342,24 +342,30 @@ public class EnemyFollow : MonoBehaviour
             Damage(player.damDict["bulletDam"]);
             if(player.wep1Level != 2)
                 Destroy(other.gameObject);
-            log.bulletHit++;
-            Debug.Log("Bullet:" + log.bulletHit);
+            if(!log.del009)
+                log.playerAction["bulletHit"]++;
+            //log.bulletHit++;
+            Debug.Log("Bullet:" + log.playerAction["bulletHit"]);
         }
         //Hit by shell object
         if (other.CompareTag("Shell"))
         {
             Damage(player.damDict["shellDam"]);
             Destroy(other.gameObject);
-            log.shellHit++;
-            Debug.Log("Shell:" + log.shellHit);
+            //log.shellHit++;
+            if (!log.del010)
+                log.playerAction["shellHit"]++;
+            Debug.Log("Shell:" + log.playerAction["shellHit"]);
         }
         //Hit by laser object
         if (other.CompareTag("Laser"))
         {
             Damage(player.damDict["laserDam"]);
             Destroy(other.gameObject);
-            log.laserHit++;
-            Debug.Log("Laser:" + log.laserHit);
+            if (!log.del012)
+                log.playerAction["laserHit"]++;
+            //log.laserHit++;
+            Debug.Log("Laser:" + log.playerAction["laserHit"]);
         }
         //Hit by explosive object
         if (other.CompareTag("Bomb"))
@@ -367,23 +373,29 @@ public class EnemyFollow : MonoBehaviour
             if (!Explosive)
             {
                 Damage(player.damDict["explosiveDam"]);
-                log.explosiveHit++;
-                Debug.Log("explosive:" + log.shellHit);
+                if (!log.del011)
+                    log.playerAction["explosiveHit"]++;
+                //log.explosiveHit++;
+                Debug.Log("explosive:" + log.playerAction["explosiveHit"]);
             }
         }
         //Hit by melee object
         if (other.CompareTag("Melee"))
         {
             Damage(player.damDict["meleeDam"]);
-            log.meleeHit++;
-            Debug.Log("Melee:" + log.meleeHit);
+            if (!log.del008)
+                log.playerAction["meleeHit"]++;
+            //log.meleeHit++;
+            Debug.Log("Melee:" + log.playerAction["meleeHit"]);
         }
         //Hit by active pyro
         if (other.CompareTag("Fire"))
         {
             Damage((Cryo) ? player.damDict["fireDam"] / 2 : player.damDict["fireDam"]);
-            log.pyroHit++;
-            Debug.Log("Pyro:" + log.pyroHit);
+            if (!log.del003)
+                log.playerAction["pyroHit"]++;
+            //log.pyroHit++;
+            Debug.Log("Pyro:" + log.playerAction["pyroHit"]);
         }
         //Hit by active cryo
         if (other.CompareTag("Freeze"))
@@ -391,27 +403,29 @@ public class EnemyFollow : MonoBehaviour
             Damage(player.damDict["freezeDam"]);
             frozenCooldown = (Pyro) ? 0.5f : 1.5f;
             Destroy(other.gameObject);
-            log.cryoHit++;
-            Debug.Log("Cryo:" + log.cryoHit);
+            if (!log.del004)
+                log.playerAction["cryoHit"]++;
+            //log.cryoHit++;
+            Debug.Log("Cryo:" + log.playerAction["cryoHit"]);
         }
-        //if (other.CompareTag("Pulse"))
-        //{
-        //    Damage(player.damDict["pulseDam"]);
-        //}
         //Hit by active electro
         if (other.CompareTag("Bolt") )
         {
             Damage((Electro) ? player.damDict["boltDam"]/2 : player.damDict["boltDam"]);
-            log.electroHit++;
-            Debug.Log("Electro:" + log.electroHit);
+            if (!log.del005)
+                log.playerAction["electroHit"]++;
+            //log.electroHit++;
+            Debug.Log("Electro:" + log.playerAction["electroHit"]);
         }
         //Hit by active geo
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
             tremorCooldown = 0.5f;
-            log.geoHit++;
-            Debug.Log("Geo:" + log.geoHit);
+            if (!log.del006)
+                log.playerAction["geoHit"]++;
+            //log.geoHit++;
+            Debug.Log("Geo:" + log.playerAction["geoHit"]);
         }
         //Hit by active hypno 
         if (other.CompareTag("Confuse"))
@@ -419,14 +433,19 @@ public class EnemyFollow : MonoBehaviour
             if(!Hypno)
                 confuseCooldown = 5f;
             Destroy(other.gameObject);
-            log.hypnoHit++;
-            Debug.Log("Shell:" + log.hypnoHit);
+            if (!log.del007)
+                log.playerAction["hypnoHit"]++;
+            //log.hypnoHit++;
+            Debug.Log("Hypno:" + log.playerAction["hypnoHit"]);
         }
         //Hit by projectiles from confused enemy
         if (other.CompareTag("CBullet") && gameObject.CompareTag("Enemy"))
         {
             Damage(player.damDict["confuseDam"]);
             Destroy(other.gameObject);
+            if (!log.del007)
+                log.playerAction["hypnoHit"]++;
+            Debug.Log("Hypno:" + log.playerAction["hypnoHit"]);
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)

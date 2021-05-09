@@ -72,7 +72,7 @@ public class Cheats : MonoBehaviour
             player.hp = player.hpMax;
             player.ammoDict["bullet"] = player.ammoMaxDict["bulletMax"];
             player.ammoDict["shell"] = player.ammoMaxDict["shellMax"];
-            player.ammoDict["expolsive"] = player.ammoDict["expolsiveMax"];
+            player.ammoDict["explosive"] = player.ammoDict["explosiveMax"];
         }
     }
 }

@@ -1148,6 +1148,14 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Damage(Random.Range(4, 8));
     }
+    IEnumerator exitLevel()
+    {
+        StartCoroutine(log.addEnemy());
+        PlayerPrefs.SetInt("lastActive", actNum);
+        PlayerPrefs.SetInt("lastPassive", pasNum);
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     void shop()
     {
         if (onLab && !inStore)
@@ -1174,10 +1182,8 @@ public class PlayerStat : MonoBehaviour
         //Exiting level
         if (other.CompareTag("Exit"))
         {
-            //StartCoroutine(exitLevel());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            PlayerPrefs.SetInt("lastActive", actNum);
-            PlayerPrefs.SetInt("lastPassive", pasNum);
+            StartCoroutine(exitLevel());
+            
         }
         //Hit by burning projectile
         if (other.CompareTag("Burn"))
