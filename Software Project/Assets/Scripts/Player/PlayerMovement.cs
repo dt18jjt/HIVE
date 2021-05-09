@@ -37,7 +37,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(transform.rotation.z);
         //Sprite same pos as object
         spriteObj.transform.position = transform.position;
         //Change sprite based on rotation

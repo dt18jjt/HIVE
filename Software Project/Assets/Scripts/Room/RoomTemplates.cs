@@ -23,29 +23,48 @@ public class RoomTemplates : MonoBehaviour {
 	public List<GameObject> rooms;
 
 	public float waitTime;
-	private bool spawnedBoss;
-	public bool selection;
+	private bool spawnedExit;
+	public bool selection, bossFight;
+	public GameObject exit;
 	public GameObject boss;
+	public GameObject bossText;
+	public
 	VisibleRoom visible;
     private void Start()
     {
 		load.SetActive(true);
-		selection = true;
-		SceneManager.LoadScene("Ability", LoadSceneMode.Additive);
+		//show the ability choice screen for normal levels
+		if (!bossFight)
+        {
+			selection = true;
+			SceneManager.LoadScene("Ability", LoadSceneMode.Additive);
+		}
+        //set boss inactive at start
+        if (bossFight)
+        {
+			boss.gameObject.SetActive(false);
+			bossText.gameObject.SetActive(true);
+		}
+		
 	}
 
     void Update(){
-        if (!selection)
-        {
-			if (waitTime <= 0 && !spawnedBoss)
+		if (!selection)
+		{
+			if (waitTime <= 0 && !spawnedExit)
 			{
 				for (int i = 0; i < rooms.Count; i++)
 				{
 					if (i == rooms.Count - 1)
 					{
-						Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
-						spawnedBoss = true;
 						load.SetActive(false);
+						if (!bossFight)
+                        {
+							Instantiate(exit, rooms[i].transform.position, Quaternion.identity);
+							spawnedExit = true;
+						}
+						if(bossFight)
+							bossText.gameObject.SetActive(false);
 					}
 				}
 			}
@@ -54,7 +73,14 @@ public class RoomTemplates : MonoBehaviour {
 				waitTime -= Time.deltaTime;
 			}
 		}
+		//set boss active in boss fight after wait time
+		if (bossFight && waitTime <= 0)
+			StartCoroutine(bossOn());
 		
-
+	}
+	IEnumerator bossOn()
+    {
+		yield return new WaitForSeconds(1f);
+		boss.SetActive(true);
 	}
 }

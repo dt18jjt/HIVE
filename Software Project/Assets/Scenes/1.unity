@@ -657,11 +657,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
-  - {fileID: 21300000, guid: 3130671030db47a439a3e3509882d0ba, type: 3}
-  - {fileID: 21300000, guid: f84efe1ec0a67374fb3ef0f8ce9af14c, type: 3}
-  - {fileID: 21300000, guid: 8f45e146b1d06c94aa1646ee5d51d004, type: 3}
-  - {fileID: 21300000, guid: 4117d28f28af3834a822d2d62251468a, type: 3}
+  - {fileID: 21300000, guid: e496a885d6f604541b058cbad23f5450, type: 3}
+  - {fileID: 21300000, guid: 8e777dbaf75078546a997b3fcc8005c5, type: 3}
+  - {fileID: 21300000, guid: 06df659992a71774ea8765513f180cc5, type: 3}
+  - {fileID: 21300000, guid: e6abf4986ec003b49a16d67ff7a9fa42, type: 3}
+  - {fileID: 21300000, guid: 87fe10044f667fd49a2ac0baa4f92785, type: 3}
+  - {fileID: 21300000, guid: 05c7af31c192bdf4f985ba098b68523a, type: 3}
+  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
+  - {fileID: 21300000, guid: 5c368007a3c3e914cb06e217defa4fd0, type: 3}
+  - {fileID: 21300000, guid: 13bab8ae36ee8cc4282e0d00ec83dfee, type: 3}
+  - {fileID: 21300000, guid: b7762d5641570544fb16ab08eff7abed, type: 3}
+  - {fileID: 21300000, guid: ed7556d889b3d2545bd6a4e03a37bb96, type: 3}
+  - {fileID: 21300000, guid: ece1573222dd1744d99e339092978ed8, type: 3}
+  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: b5ed3cc1ae64c444c844f6a413a7e494, type: 3}
+  - {fileID: 21300000, guid: e263b1089b29048469620e6c023b4e9f, type: 3}
+  - {fileID: 21300000, guid: 40a3b98a556efd04dbfa7ec38e98830a, type: 3}
+  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
+  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: fbeaa950e8266d143b594df11e4ea761, type: 3}
+  - {fileID: 21300000, guid: fc32d0b87459f4b44a77950654590585, type: 3}
   primary: 1
   normalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &159551463
@@ -683,7 +698,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e496a885d6f604541b058cbad23f5450, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1568,13 +1583,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
-  - {fileID: 21300000, guid: 3130671030db47a439a3e3509882d0ba, type: 3}
-  - {fileID: 21300000, guid: f84efe1ec0a67374fb3ef0f8ce9af14c, type: 3}
-  - {fileID: 21300000, guid: 8f45e146b1d06c94aa1646ee5d51d004, type: 3}
-  - {fileID: 21300000, guid: 4117d28f28af3834a822d2d62251468a, type: 3}
+  - {fileID: 21300000, guid: e496a885d6f604541b058cbad23f5450, type: 3}
+  - {fileID: 21300000, guid: 8e777dbaf75078546a997b3fcc8005c5, type: 3}
+  - {fileID: 21300000, guid: 06df659992a71774ea8765513f180cc5, type: 3}
+  - {fileID: 21300000, guid: e6abf4986ec003b49a16d67ff7a9fa42, type: 3}
+  - {fileID: 21300000, guid: 87fe10044f667fd49a2ac0baa4f92785, type: 3}
+  - {fileID: 21300000, guid: 05c7af31c192bdf4f985ba098b68523a, type: 3}
+  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
+  - {fileID: 21300000, guid: 5c368007a3c3e914cb06e217defa4fd0, type: 3}
+  - {fileID: 21300000, guid: 13bab8ae36ee8cc4282e0d00ec83dfee, type: 3}
+  - {fileID: 21300000, guid: b7762d5641570544fb16ab08eff7abed, type: 3}
+  - {fileID: 21300000, guid: ed7556d889b3d2545bd6a4e03a37bb96, type: 3}
+  - {fileID: 21300000, guid: ece1573222dd1744d99e339092978ed8, type: 3}
+  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: b5ed3cc1ae64c444c844f6a413a7e494, type: 3}
+  - {fileID: 21300000, guid: e263b1089b29048469620e6c023b4e9f, type: 3}
+  - {fileID: 21300000, guid: 40a3b98a556efd04dbfa7ec38e98830a, type: 3}
+  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
+  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: fbeaa950e8266d143b594df11e4ea761, type: 3}
+  - {fileID: 21300000, guid: fc32d0b87459f4b44a77950654590585, type: 3}
   primary: 0
-  normalColor: {r: 0.54901963, g: 0.53333336, b: 0.53333336, a: 1}
+  normalColor: {r: 0.4039216, g: 0.4039216, b: 0.4039216, a: 1}
 --- !u!114 &783025852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,13 +1618,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5471698, g: 0.53426486, b: 0.53426486, a: 1}
+  m_Color: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e9846eddeb9b72e40a01496a8dbba937, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e496a885d6f604541b058cbad23f5450, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
