@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomTypes : MonoBehaviour
 {
-    int roomChance;
+    int roomChance, slot;
     public bool enemyOn = false, start = false, exit = false, shop = false, time = false, wJam = false, pBlocked = false,
         glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false, boss;
     private RoomCount count;
@@ -231,65 +231,66 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator addEnemy()
     {
+        slot = 0;
         // Adding new enemies at the end of the level
         if (log.add003 && !log.del003)
         {
             enemies.Add(newEnemies[0]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del003 = true;
         }
         if (log.add004 && !log.del004)
         {
             enemies.Add(newEnemies[1]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del004 = true;
         }
         if (log.add005 && !log.del005)
         {
             enemies.Add(newEnemies[2]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del005 = true;
         }
         if (log.add006 && !log.del006)
         {
             enemies.Add(newEnemies[3]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del006 = true;
         }
         if (log.add007 && !log.del007)
         {
             enemies.Add(newEnemies[4]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del007 = true;
         }
         if (log.add008 && !log.del008)
         {
             enemies.Add(newEnemies[5]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del008 = true;
         }
         if (log.add009 && !log.del009)
         {
             enemies.Add(newEnemies[6]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del009 = true;
         }
         if (log.add010 && !log.del010)
         {
             enemies.Add(newEnemies[7]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del010 = true;
         }
         if (log.add011 && !log.del011)
         {
             enemies.Add(newEnemies[8]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del011 = true;
         }
         if (log.add012 && !log.del012)
         {
             enemies.Add(newEnemies[9]);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(.5f);
             log.del012 = true;
         }
     }
