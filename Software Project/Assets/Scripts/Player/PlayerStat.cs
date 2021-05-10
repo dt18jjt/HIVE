@@ -38,9 +38,10 @@ public class PlayerStat : MonoBehaviour
     public Slider hpBar, ppBar;
     public List<Transform> cEmenies;
     Log log;
-
+    PlayerMovement player;
     // Start is called before the first frame update
     void Start(){
+        player = GetComponent<PlayerMovement>();
         //Set text at start
         pickupText.SetActive(false);
         //Setting Damage Values
@@ -197,7 +198,7 @@ public class PlayerStat : MonoBehaviour
             controlInputs();
 
             //Damage CoolDown
-            GetComponent<SpriteRenderer>().color = (damCooldown > 0) ? Color.yellow : Color.white;
+            player.spriteObj.GetComponent<SpriteRenderer>().color = (damCooldown > 0) ? Color.gray : Color.white;
             if (damCooldown > 0)
                 damCooldown -= Time.deltaTime;
         }
@@ -206,8 +207,6 @@ public class PlayerStat : MonoBehaviour
             //Pulse CoolDown
             if (pulseCooldown > 0)
                 pulseCooldown -= Time.deltaTime;
-            //Room images
-            
             //shockCooldown
             if (shockCoolDown > 0)
                 shockCoolDown -= Time.deltaTime;

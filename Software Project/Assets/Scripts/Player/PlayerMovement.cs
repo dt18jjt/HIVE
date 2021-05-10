@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     bool mapOn = false, pressed = false, stopMovement;
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
-    private GameObject spriteObj;
+    public GameObject spriteObj;
     public GameObject[] ammoPrefabs;
     public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
     private Vector3 target, moveDir, velocity, difference;
