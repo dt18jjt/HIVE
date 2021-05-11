@@ -12,6 +12,11 @@ public class shopScript : MonoBehaviour
     Dictionary<string, int> priceDict = new Dictionary<string, int>(); // price Dictionary
     Dictionary<string, int> effectDict = new Dictionary<string, int>(); //effects dictionary
     PlayerStat stat;
+    public Sprite[] shopImages;
+    public Text buyText1, buyText2, buyText3, buyText4, buyText5, buyText6;
+    public Text priceText1, priceText2, priceText3, priceText4, priceText5, priceText6;
+    public int price1, price2, price3, price4, price5, price6;
+    public int effect1, effect2, effect3, effect4, effect5, effect6;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,10 +31,10 @@ public class shopScript : MonoBehaviour
             priceDict.Add("Shell Ammo L", 30);
             priceDict.Add("Expolsive Ammo S", 15);
             priceDict.Add("Expolsive Ammo L", 30);
-            priceDict.Add("Health Booster", 50); 
+            priceDict.Add("Health Booster", 50);
             priceDict.Add("Psychic Booster", 50);
             priceDict.Add("Ammo Stack + 1", 40);
-            priceDict.Add("Twin Revolvers (LV.1 B)", 40);
+            priceDict.Add("Revolver (LV.1 B)", 40);
             priceDict.Add("Pump Shotgun (LV.1 S)", 40);
             priceDict.Add("Missile Launcher (LV.1 E)", 40);
             priceDict.Add("Laser Repeater (LV.1 L)", 40);
@@ -40,7 +45,7 @@ public class shopScript : MonoBehaviour
             priceDict.Add("Beam Rifle (LV.2 L)", 60);
             priceDict.Add("Sledgehammer (LV.2 M)", 60);
             priceDict.Add("Machine gun (LV.3 B)", 80);
-            priceDict.Add("Quad barrel (LV.3 S)", 80);
+            priceDict.Add("Super barrel (LV.3 S)", 80);
             priceDict.Add("Heat Seeker (LV.3 E)", 80);
             priceDict.Add("Rail Gun (LV.3 L)", 80);
             priceDict.Add("Katana (LV.3 M)", 80);
@@ -74,17 +79,38 @@ public class shopScript : MonoBehaviour
             effectDict.Add("Rail Gun (LV.3 L)", 24);
             effectDict.Add("Katana (LV.3 M)", 25);
         }
-        for (int i = 0; i < buttons.Count; i++)
+       
+        if (!stat.storeFound)
         {
-            var random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count - 1));
-            buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
-            buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
-            buttons[i].gameObject.GetComponent<buyScript>().priceText.text =
-            buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
-            buttons[i].gameObject.GetComponent<buyScript>().effect = effectDict[random];
-            priceDict.Remove(random);
-
+            //setting each buy item for the first time
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                var random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count - 1));
+                buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
+                buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
+                buttons[i].gameObject.GetComponent<buyScript>().priceText.text =
+                buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
+                buttons[i].gameObject.GetComponent<buyScript>().effect = effectDict[random];
+                priceDict.Remove(random);
+                PlayerPrefs.SetString("Value" + i.ToString(), random);
+            }
+            stat.storeFound = true;
         }
+        if (stat.storeFound)
+        {
+            //setting each buy item for repeated times
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[PlayerPrefs.GetString("Value" + i.ToString())];
+                buttons[i].gameObject.GetComponent<buyScript>().buyText.text = PlayerPrefs.GetString("Value" + i.ToString());
+                buttons[i].gameObject.GetComponent<buyScript>().priceText.text =
+                buttons[i].gameObject.GetComponent<buyScript>().price.ToString();
+                buttons[i].gameObject.GetComponent<buyScript>().effect = effectDict[PlayerPrefs.GetString("Value" + i.ToString())];
+                priceDict.Remove(PlayerPrefs.GetString("Value" + i.ToString()));
+                
+            }
+        }
+        
     }
 
     // Update is called once per frame
@@ -99,5 +125,6 @@ public class shopScript : MonoBehaviour
         SceneManager.UnloadSceneAsync("shop");
         stat.inStore = false;
         stat.storeCoolDown = 0.1f;
+        Cursor.visible = false;
     }
 }

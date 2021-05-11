@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false, onLab = false, bossFight;
+        inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false;
     int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -1163,6 +1163,8 @@ public class PlayerStat : MonoBehaviour
             {
                 SceneManager.LoadScene("Shop", LoadSceneMode.Additive);
                 inStore = true;
+                Cursor.visible = true;
+                
             }
                 
         }

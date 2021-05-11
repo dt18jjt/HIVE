@@ -10,7 +10,7 @@ public class Log : MonoBehaviour
     public Dictionary<string, int> playerAction = new Dictionary<string, int>(); //Dictionary of player actions
     public List<string> highestActions; //highest actions are put into a list
     public bool noDamage = true;
-    string h;
+    string highString, highString2;
     //enemy add slots
     public int slotsLeft = 2; // slots for new enemies
     //adding enemy spawn values
@@ -29,78 +29,10 @@ public class Log : MonoBehaviour
         playerAction.Add("explosiveHit", 0);
         playerAction.Add("laserHit", 0);
         playerAction.Add("meleeHit", 0);
-        playerAction.Add("quickKill", 0);
-        playerAction.Add("shopUse", 0);
-        playerAction.Add("stackUse", 0);
-        playerAction.Add("healthUse", 0);
         //StartCoroutine(addEnemy());
     }
     private void Update()
     {
-        //set add enemy based actions
-        //if (slotsLeft > 0)
-        //{
-        //    if (playerAction["pyroHit"] >= 20 && !add003)
-        //    {
-        //        add003 = true;
-        //        slotsLeft--;
-        //        Debug.Log("003 added!");
-        //    }
-        //    if (playerAction["cryoHit"] >= 20 && !add004)
-        //    {
-        //        add004 = true;
-        //        slotsLeft--;
-        //        Debug.Log("004 added!");
-        //    }
-        //    if (playerAction["geoHit"] >= 20 && !add005)
-        //    {
-        //        add005 = true;
-        //        slotsLeft--;
-        //        Debug.Log("005 added!");
-        //    }
-        //    if (playerAction["electroHit"] >= 20 && !add006)
-        //    {
-        //        add006 = true;
-        //        slotsLeft--;
-        //        Debug.Log("006 added!");
-        //    }
-        //    if (playerAction["hypnoHit"] >= 20 && !add007)
-        //    {
-        //        add007 = true;
-        //        slotsLeft--;
-        //        Debug.Log("007 added!");
-        //    }
-        //    if (playerAction["meleeHit"] >= 20 && !add008)
-        //    {
-        //        add008 = true;
-        //        slotsLeft--;
-        //        Debug.Log("008 added!");
-        //    }
-        //    if (playerAction["bulletHit"] >= 20 && !add009)
-        //    {
-        //        add009 = true;
-        //        slotsLeft--;
-        //        Debug.Log("009 added!");
-        //    }
-        //    if (playerAction["shellHit"] >= 20 && !add010)
-        //    {
-        //        add010 = true;
-        //        slotsLeft--;
-        //        Debug.Log("010 added!");
-        //    }
-        //    if (playerAction["explosiveHit"] >= 30 && !add011)
-        //    {
-        //        add011 = true;
-        //        slotsLeft--;
-        //        Debug.Log("011 added!");
-        //    }
-        //    if (playerAction["laserHit"] >= 20 && !add012)
-        //    {
-        //        add012 = true;
-        //        slotsLeft--;
-        //        Debug.Log("012 added!");
-        //    }
-        //}
         //setting enemies added
         PlayerPrefs.SetInt("003", (add003 ? 1 : 0));
         PlayerPrefs.SetInt("004", (add004 ? 1 : 0));
@@ -150,17 +82,17 @@ public class Log : MonoBehaviour
         foreach(KeyValuePair<string, int> pAction in playerAction)
         {
             if(pAction.Value == playerAction.Values.Max())
-                h = pAction.Key;
+                highString = pAction.Key;
         }
-        highestActions.Add(h);
-        playerAction.Remove(h);
+        highestActions.Add(highString);
+        playerAction.Remove(highString);
         yield return new WaitForSeconds(1f);
         foreach (KeyValuePair<string, int> pAction in playerAction)
         {
             if (pAction.Value == playerAction.Values.Max())
-                h = pAction.Key;
+                highString2 = pAction.Key;
         }
-        highestActions.Add(h);
-        playerAction.Remove(h);
+        highestActions.Add(highString2);
+        playerAction.Remove(highString2);
     }
 }

@@ -10,17 +10,22 @@ public class buyScript : MonoBehaviour
     public bool bought;
     PlayerStat stat;
     Log log;
+    public Image item;
+    shopScript shop;
     // Start is called before the first frame update
     void Start()
     {
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         log = GameObject.Find("Global").GetComponent<Log>();
+        shop = GameObject.Find("shopSystem").GetComponent<shopScript>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        item.sprite = shop.shopImages[effect];
+        item.SetNativeSize();
     }
     public void buy()
     {

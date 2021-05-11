@@ -1345,7 +1345,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 671624500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c3446fed0aed524ebee411167a92979, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d40bbaaaad5ecc4d8d95abaf2001a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &701834201
@@ -2410,7 +2410,7 @@ MonoBehaviour:
   threatLV: 2
   actNum: 1
   pasNum: 1
-  gameLevel: 0
+  gameLevel: 2
   hp: 100
   pp: 100
   threatGauge: 50

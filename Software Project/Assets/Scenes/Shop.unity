@@ -158,6 +158,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 1077378089}
 --- !u!114 &24135409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.25339934, g: 0.5471698, b: 0.018066937, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -684,6 +685,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 311431653}
 --- !u!1 &243884499
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,13 +736,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7735849, g: 0.37584552, b: 0.37584552, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cc8b2dbf5c042bf4eab867507f86d421, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -991,6 +993,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 243884501}
 --- !u!1 &311431651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1044,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.77254903, g: 0.3764706, b: 0.7241144, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1198,6 +1201,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 134770731}
 --- !u!114 &518874918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1560,6 +1564,33 @@ MonoBehaviour:
   - {fileID: 201988073}
   - {fileID: 518874915}
   - {fileID: 24135407}
+  shopImages:
+  - {fileID: 21300000, guid: cc8b2dbf5c042bf4eab867507f86d421, type: 3}
+  - {fileID: 21300000, guid: cc8b2dbf5c042bf4eab867507f86d421, type: 3}
+  - {fileID: 21300000, guid: 608c789e0350ba64ab50947942ade958, type: 3}
+  - {fileID: 21300000, guid: 608c789e0350ba64ab50947942ade958, type: 3}
+  - {fileID: 21300000, guid: 01cad38b251bea14ea8f14330ebe408b, type: 3}
+  - {fileID: 21300000, guid: 01cad38b251bea14ea8f14330ebe408b, type: 3}
+  - {fileID: 21300000, guid: a53dd2c52fea03d4ea30ac0f2839fc62, type: 3}
+  - {fileID: 21300000, guid: a53dd2c52fea03d4ea30ac0f2839fc62, type: 3}
+  - {fileID: 21300000, guid: 82b534cce84ec7848b66b03be6d197a9, type: 3}
+  - {fileID: 21300000, guid: 5d6116d624ef3cc49af1b3a6bcb5c359, type: 3}
+  - {fileID: 21300000, guid: 178748b955bb5a346afc7701e9c4c38b, type: 3}
+  - {fileID: 21300000, guid: 05c7af31c192bdf4f985ba098b68523a, type: 3}
+  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
+  - {fileID: 21300000, guid: 5c368007a3c3e914cb06e217defa4fd0, type: 3}
+  - {fileID: 21300000, guid: 13bab8ae36ee8cc4282e0d00ec83dfee, type: 3}
+  - {fileID: 21300000, guid: b7762d5641570544fb16ab08eff7abed, type: 3}
+  - {fileID: 21300000, guid: ed7556d889b3d2545bd6a4e03a37bb96, type: 3}
+  - {fileID: 21300000, guid: ece1573222dd1744d99e339092978ed8, type: 3}
+  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: b5ed3cc1ae64c444c844f6a413a7e494, type: 3}
+  - {fileID: 21300000, guid: e263b1089b29048469620e6c023b4e9f, type: 3}
+  - {fileID: 21300000, guid: 40a3b98a556efd04dbfa7ec38e98830a, type: 3}
+  - {fileID: 21300000, guid: a4ad5d98f678c5845a447b48e00589fd, type: 3}
+  - {fileID: 21300000, guid: e09560c5d7cb40b4f936afc4b2e4f580, type: 3}
+  - {fileID: 21300000, guid: fbeaa950e8266d143b594df11e4ea761, type: 3}
+  - {fileID: 21300000, guid: fc32d0b87459f4b44a77950654590585, type: 3}
 --- !u!4 &763327598
 Transform:
   m_ObjectHideFlags: 0
@@ -1724,6 +1755,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 2068890818}
 --- !u!1 &783467878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2282,7 +2314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.77254903, g: 0.3764706, b: 0.7241144, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2998,6 +3030,7 @@ MonoBehaviour:
   price: 0
   effect: 0
   bought: 0
+  item: {fileID: 1986817882}
 --- !u!1 &1973130724
 GameObject:
   m_ObjectHideFlags: 0
@@ -3128,7 +3161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7676597, g: 0.77254903, b: 0.3764706, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3202,7 +3235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3764706, g: 0.45531923, b: 0.77254903, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
