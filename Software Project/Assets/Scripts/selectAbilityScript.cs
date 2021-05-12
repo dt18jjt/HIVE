@@ -27,7 +27,20 @@ public class selectAbilityScript : MonoBehaviour
        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
        Cursor.visible = true;
        cooldown = 1f;
-        if (stat.gameLevel > 0)
+        if(stat.gameLevel <= 0)
+        {
+            PlayerPrefs.SetInt("a1", 0);
+            PlayerPrefs.SetInt("a2", 0);
+            PlayerPrefs.SetInt("a3", 0);
+            PlayerPrefs.SetInt("a4", 0);
+            PlayerPrefs.SetInt("a5", 0);
+            PlayerPrefs.SetInt("p1", 0);
+            PlayerPrefs.SetInt("p2", 0);
+            PlayerPrefs.SetInt("p3", 0);
+            PlayerPrefs.SetInt("p4", 0);
+            PlayerPrefs.SetInt("p5", 0);
+        }
+       if (stat.gameLevel > 0)
         {
             //values for next level
             a1Off = (PlayerPrefs.GetInt("a1") != 0);
@@ -300,3 +313,4 @@ public class selectAbilityScript : MonoBehaviour
         }
     }
 }
+

@@ -31,27 +31,6 @@ public class Log : MonoBehaviour
     }
     private void Update()
     {
-        //remove keys for enemies that are already added
-        if (del003)
-            playerAction.Remove("pyroHit");
-        if (del004)
-            playerAction.Remove("cryoHit");
-        if (del005)
-            playerAction.Remove("geoHit");
-        if (del006)
-            playerAction.Remove("electroHit");
-        if (del007)
-            playerAction.Remove("hypnoHit");
-        if (del008)
-            playerAction.Remove("bulletHit");
-        if (del009)
-            playerAction.Remove("shellHit");
-        if (del010)
-            playerAction.Remove("explosiveHit");
-        if (del011)
-            playerAction.Remove("laserHit");
-        if (del012)
-            playerAction.Remove("meleeHit");
         //setting enemies added
         PlayerPrefs.SetInt("003", (add003 ? 1 : 0));
         PlayerPrefs.SetInt("004", (add004 ? 1 : 0));
@@ -95,6 +74,27 @@ public class Log : MonoBehaviour
             add011 = (highestActions.Contains("explosiveHit")) ? true : false;
         if (!add012)
             add012 = (highestActions.Contains("laserHit")) ? true : false;
+        //remove keys for enemies that are already added
+        if (del003)
+            playerAction.Remove("pyroHit");
+        if (del004)
+            playerAction.Remove("cryoHit");
+        if (del005)
+            playerAction.Remove("geoHit");
+        if (del006)
+            playerAction.Remove("electroHit");
+        if (del007)
+            playerAction.Remove("hypnoHit");
+        if (del008)
+            playerAction.Remove("meleeHit");
+        if (del009)
+            playerAction.Remove("bulletHit");
+        if (del010)
+            playerAction.Remove("shellHit");
+        if (del011)
+            playerAction.Remove("explosiveHit");
+        if (del012)
+            playerAction.Remove("laserHit");
     }
     public IEnumerator addEnemy()
     {
@@ -109,9 +109,9 @@ public class Log : MonoBehaviour
         foreach (KeyValuePair<string, int> pAction in playerAction)
         {
             if (pAction.Value == playerAction.Values.Max())
-                highString2 = pAction.Key;
+                highString = pAction.Key;
         }
-        highestActions.Add(highString2);
-        playerAction.Remove(highString2);
+        highestActions.Add(highString);
+        playerAction.Remove(highString);
     }
 }
