@@ -1275,6 +1275,8 @@ public class PlayerStat : MonoBehaviour
         }
         //Glitch Pickup
         if (other.CompareTag("Glitch")){
+            pickupText.GetComponent<TextMesh>().text = "Random item 50BP";
+            pickupText.SetActive(true);
             if (Input.GetKeyUp(KeyCode.E) && bp >= 50|| Input.GetKeyUp(KeyCode.Joystick1Button0) && bp >= 50)
             {
                 bp -= 50;
@@ -1592,6 +1594,8 @@ public class PlayerStat : MonoBehaviour
         if (other.CompareTag("ShAmmo"))
             StartCoroutine(textOff());
         if (other.CompareTag("EAmmo"))
+            StartCoroutine(textOff());
+        if (other.CompareTag("Glitch"))
             StartCoroutine(textOff());
         if (other.CompareTag("H.UP"))
             StartCoroutine(textOff());

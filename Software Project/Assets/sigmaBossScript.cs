@@ -8,7 +8,7 @@ public class sigmaBossScript : MonoBehaviour
     public float attackCooldown, startAtkCooldown, confuseCooldown = 0f, frozenCooldown, angle, switchCooldown, startSwhCooldown, splitSpeed = 60f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false;
-    public GameObject splitProjectile, hitEffect;
+    public GameObject splitProjectile, hitEffect, spriteObj;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -20,6 +20,7 @@ public class sigmaBossScript : MonoBehaviour
     public Transform[] points;
     List<int> newPoint;
     public GameObject[] deathDrop;
+    public Sprite[] Sprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +39,8 @@ public class sigmaBossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //change sprite
+        spriteObj.GetComponent<SpriteRenderer>().sprite = Sprites[pointPos];
         //Postion change
         transform.position = points[pointPos].position;
         //Kill Cheat

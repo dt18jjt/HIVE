@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RoomTypes : MonoBehaviour
 {
-    int roomChance, slot;
+    int roomChance;
     public bool enemyOn = false, start = false, exit = false, shop = false, time = false, wJam = false, pBlocked = false,
         glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false, boss;
     private RoomCount count;
@@ -231,7 +231,6 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator addEnemy()
     {
-        slot = 0;
         // Adding new enemies at the end of the level
         if (log.add003 && !log.del003)
         {

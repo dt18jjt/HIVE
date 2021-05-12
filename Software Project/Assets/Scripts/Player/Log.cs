@@ -11,8 +11,6 @@ public class Log : MonoBehaviour
     public List<string> highestActions; //highest actions are put into a list
     public bool noDamage = true;
     string highString, highString2;
-    //enemy add slots
-    public int slotsLeft = 2; // slots for new enemies
     //adding enemy spawn values
     public bool add003, add004, add005, add006, add007, add008, add009, add010, add011, add012;
     //remove enemies stopping them from being spawned again
@@ -33,6 +31,27 @@ public class Log : MonoBehaviour
     }
     private void Update()
     {
+        //remove keys for enemies that are already added
+        if (del003)
+            playerAction.Remove("pyroHit");
+        if (del004)
+            playerAction.Remove("cryoHit");
+        if (del005)
+            playerAction.Remove("geoHit");
+        if (del006)
+            playerAction.Remove("electroHit");
+        if (del007)
+            playerAction.Remove("hypnoHit");
+        if (del008)
+            playerAction.Remove("bulletHit");
+        if (del009)
+            playerAction.Remove("shellHit");
+        if (del010)
+            playerAction.Remove("explosiveHit");
+        if (del011)
+            playerAction.Remove("laserHit");
+        if (del012)
+            playerAction.Remove("meleeHit");
         //setting enemies added
         PlayerPrefs.SetInt("003", (add003 ? 1 : 0));
         PlayerPrefs.SetInt("004", (add004 ? 1 : 0));

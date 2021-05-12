@@ -27,8 +27,19 @@ public class selectAbilityScript : MonoBehaviour
        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
        Cursor.visible = true;
        cooldown = 1f;
-       if(stat.gameLevel > 0)
+        if (stat.gameLevel > 0)
         {
+            //values for next level
+            a1Off = (PlayerPrefs.GetInt("a1") != 0);
+            a2Off = (PlayerPrefs.GetInt("a2") != 0);
+            a3Off = (PlayerPrefs.GetInt("a3") != 0);
+            a4Off = (PlayerPrefs.GetInt("a4") != 0);
+            a5Off = (PlayerPrefs.GetInt("a5") != 0);
+            p1Off = (PlayerPrefs.GetInt("p1") != 0);
+            p2Off = (PlayerPrefs.GetInt("p2") != 0);
+            p3Off = (PlayerPrefs.GetInt("p3") != 0);
+            p4Off = (PlayerPrefs.GetInt("p4") != 0);
+            p5Off = (PlayerPrefs.GetInt("p5") != 0);
             switch (PlayerPrefs.GetInt("lastActive"))
             {
                 case 0:
@@ -82,7 +93,20 @@ public class selectAbilityScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //save ability number for next level
+        if (stat.gameLevel > 0)
+        {
+            PlayerPrefs.SetInt("a1", (a1Off ? 1 : 0));
+            PlayerPrefs.SetInt("a2", (a2Off ? 1 : 0));
+            PlayerPrefs.SetInt("a3", (a3Off ? 1 : 0));
+            PlayerPrefs.SetInt("a4", (a4Off ? 1 : 0));
+            PlayerPrefs.SetInt("a5", (a5Off ? 1 : 0));
+            PlayerPrefs.SetInt("p1", (p1Off ? 1 : 0));
+            PlayerPrefs.SetInt("p2", (p2Off ? 1 : 0));
+            PlayerPrefs.SetInt("p3", (p3Off ? 1 : 0));
+            PlayerPrefs.SetInt("p4", (p4Off ? 1 : 0));
+            PlayerPrefs.SetInt("p5", (p5Off ? 1 : 0));
+        }
         headText.text = (active) ? "CHOOSE A ACTIVE ABlLITY" : "CHOOSE A PASSIVE ABlLITY";
         icon.sprite = abilityIcons[abilityNum];
         //Cooldown between choices
