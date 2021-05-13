@@ -10,7 +10,7 @@ public class Log : MonoBehaviour
     public Dictionary<string, int> playerAction = new Dictionary<string, int>(); //Dictionary of player actions
     public List<string> highestActions; //highest actions are put into a list
     public bool noDamage = true;
-    string highString, highString2;
+    public string highString, highString2;
     //adding enemy spawn values
     public bool add003, add004, add005, add006, add007, add008, add009, add010, add011, add012;
     //remove enemies stopping them from being spawned again
@@ -109,9 +109,9 @@ public class Log : MonoBehaviour
         foreach (KeyValuePair<string, int> pAction in playerAction)
         {
             if (pAction.Value == playerAction.Values.Max())
-                highString = pAction.Key;
+                highString2 = pAction.Key;
         }
-        highestActions.Add(highString);
-        playerAction.Remove(highString);
+        highestActions.Add(highString2);
+        playerAction.Remove(highString2);
     }
 }

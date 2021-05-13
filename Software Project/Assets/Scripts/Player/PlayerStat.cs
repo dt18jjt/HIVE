@@ -1153,7 +1153,7 @@ public class PlayerStat : MonoBehaviour
         PlayerPrefs.SetInt("lastActive", actNum);
         PlayerPrefs.SetInt("lastPassive", pasNum);
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("EndLevel", LoadSceneMode.Additive);
     }
     void shop()
     {

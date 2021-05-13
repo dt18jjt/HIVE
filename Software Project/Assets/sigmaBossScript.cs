@@ -97,7 +97,7 @@ public class sigmaBossScript : MonoBehaviour
         // Range attack after cooldown reaches 0
         if (attackCooldown <= 0 && switchCooldown > 1 && frozenCooldown <= 0)
         {
-            splitSpawn(5);
+            splitSpawn(4);
             // Reset projectile
             attackCooldown = startAtkCooldown;
         }

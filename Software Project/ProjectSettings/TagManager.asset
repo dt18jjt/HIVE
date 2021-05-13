@@ -109,6 +109,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Wall
+    uniqueID: 401311021
+    locked: 0
   - name: Map
     uniqueID: 1198513241
     locked: 0
