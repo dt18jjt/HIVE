@@ -890,7 +890,7 @@ MonoBehaviour:
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
-  normalColor: {r: 0.7075472, g: 0.7058824, b: 0.7058824, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
   coldColor: {r: 0.41442683, g: 0.5722222, b: 0.6320754, a: 1}
   hotColor: {r: 0.6132076, g: 0.43376616, b: 0.39627093, a: 1}
   shockColor: {r: 0.5754717, g: 0.5754717, b: 0.4316038, a: 1}

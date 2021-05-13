@@ -1390,8 +1390,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1589,6 +1589,7 @@ GameObject:
   - component: {fileID: 671624504}
   - component: {fileID: 671624505}
   - component: {fileID: 671624506}
+  - component: {fileID: 671624507}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -1710,6 +1711,102 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d40bbaaaad5ecc4d8d95abaf2001a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &671624507
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671624500}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ed3b89ade9fbeb44783935b8c7e8ed0e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &701834201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,7 +2286,7 @@ MonoBehaviour:
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
-  normalColor: {r: 0.47058827, g: 0.47058827, b: 0.47058827, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
   coldColor: {r: 0.41442683, g: 0.5722222, b: 0.6320754, a: 1}
   hotColor: {r: 0.6132076, g: 0.43376616, b: 0.39627093, a: 1}
   shockColor: {r: 0.5754717, g: 0.5754717, b: 0.4316038, a: 1}
@@ -2550,8 +2647,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2628,8 +2725,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -4618,7 +4715,6 @@ MonoBehaviour:
   exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
   boss: {fileID: 8236186556990811321}
   bossText: {fileID: 40862642}
-  visible: {fileID: 0}
 --- !u!1 &1535536796
 GameObject:
   m_ObjectHideFlags: 0
@@ -4865,9 +4961,9 @@ TextMesh:
   m_Alignment: 1
   m_TabSize: 4
   m_FontSize: 10
-  m_FontStyle: 1
+  m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 0}
+  m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -4889,7 +4985,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5439,15 +5535,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1884615577}
-  - component: {fileID: 1884615579}
   - component: {fileID: 1884615578}
+  - component: {fileID: 1884615579}
   m_Layer: 0
   m_Name: I.Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1884615577
 Transform:
   m_ObjectHideFlags: 0
@@ -5456,7 +5552,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884615576}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -16.12, y: -0.6799998, z: -92.00729}
+  m_LocalPosition: {x: 1, y: -0.6799998, z: -92.00729}
   m_LocalScale: {x: 3.945368, y: 3.945368, z: 59.180485}
   m_Children: []
   m_Father: {fileID: 803101060}
@@ -5502,21 +5598,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.0435739, y: 0.8260138}
-      - {x: 0.34499294, y: 0.8193475}
-      - {x: 0.2515054, y: 0.8199272}
-      - {x: -0.870413, y: 0.8420855}
-      - {x: -0.86587685, y: -1.1251599}
-      - {x: -0.14179224, y: -1.1114591}
-      - {x: -0.14564316, y: -0.8090175}
-      - {x: 0.3341175, y: -0.8069597}
-      - {x: 0.3417558, y: -1.1314563}
-      - {x: 1.0531626, y: -1.1367816}
-      - {x: 1.0483592, y: -0.40036073}
-      - {x: 1.0600038, y: -0.3099901}
-      - {x: 1.0619221, y: -0.056646354}
-      - {x: 1.0602853, y: 0.08283153}
-      - {x: 1.0602853, y: 0.08283153}
+    - - {x: -1.0342115, y: 0.71875817}
+      - {x: -1.4302795, y: -0.2227236}
+      - {x: -0.82411456, y: -1.3341928}
+      - {x: 0.76503193, y: -1.3407576}
+      - {x: 1.4113765, y: -0.22663248}
+      - {x: 0.9715409, y: 0.72524893}
 --- !u!1 &1943073348
 GameObject:
   m_ObjectHideFlags: 0
@@ -5793,8 +5880,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+    m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0

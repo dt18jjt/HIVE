@@ -28,10 +28,11 @@ public class RoomTemplates : MonoBehaviour {
 	public GameObject exit;
 	public GameObject boss;
 	public GameObject bossText;
-	public
+	AudioSource music;
 	VisibleRoom visible;
     private void Start()
     {
+		music = GameObject.Find("Global").GetComponent<AudioSource>();
 		load.SetActive(true);
 		//show the ability choice screen for normal levels
 		if (!bossFight)
@@ -57,6 +58,7 @@ public class RoomTemplates : MonoBehaviour {
 				{
 					if (i == rooms.Count - 1)
 					{
+						music.Play();
 						load.SetActive(false);
 						if (!bossFight)
                         {
@@ -65,6 +67,7 @@ public class RoomTemplates : MonoBehaviour {
 						}
 						if(bossFight)
 							bossText.gameObject.SetActive(false);
+						
 					}
 				}
 			}

@@ -180,7 +180,7 @@ public class RoomTypes : MonoBehaviour
                 Instantiate(gIcon, transform.position, Quaternion.identity);
             if (cache)
                 Instantiate(cIcon, transform.position, Quaternion.identity);
-            if (!entered && !noEnemy && !boss)
+            if (!entered && !noEnemy && !exit)
             {
                 StartCoroutine(eSpawn());
                 itemSpawn();
