@@ -251,7 +251,7 @@ public class PlayerMovement : MonoBehaviour
             }
             //laser overload
             if(stat.ammo1 <= 0 && stat.weapon1 == 4)
-                stat.laserCooldown = 4f;
+                stat.laserCooldown = 3f;
             if (stat.weapon1 == 5 && stat.meleeCooldown <= 0){
                 //Projectile
                 meleeFire(rotationZ);
@@ -465,7 +465,7 @@ public class PlayerMovement : MonoBehaviour
                 
             }
             if (stat.ammo1 <= 0 && stat.weapon1 == 4)
-                stat.laserCooldown = 4f;
+                stat.laserCooldown = 3f;
             if (stat.weapon1 == 5 && stat.meleeCooldown <= 0){
                 //Projectile 
                 meleeFire(body.rotation);

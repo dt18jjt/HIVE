@@ -2667,6 +2667,16 @@ MonoBehaviour:
   - {fileID: 7228287793672990769, guid: 6d868ef485b18a442b821028b2f1a8f6, type: 3}
   - {fileID: 7180156963077730162, guid: e24db2420bd16f9419d80db9ad876936, type: 3}
   - {fileID: 4795849580774925726, guid: def12d6b0dbd3f54490f55ab284a25b5, type: 3}
+  crateItems:
+  - {fileID: 5413053208547225118, guid: fcc5488992f17f84bbb8621014152116, type: 3}
+  - {fileID: 8080364472034562759, guid: 8d47e7f2e0e9013408923e37f22c147c, type: 3}
+  - {fileID: 7228287793672990769, guid: 97dc1f437caccbd43889ea88411bb1e1, type: 3}
+  - {fileID: 7180156963077730162, guid: c3bfce595d391f14185e38764c40bafe, type: 3}
+  - {fileID: 4795849580774925726, guid: a427e93798eaf96439fdd912a6326424, type: 3}
+  - {fileID: 9094988118585878941, guid: 8f79a4b9fd9591f48afe696bc5bfaed7, type: 3}
+  - {fileID: 3726360456443238240, guid: 1b259ef4aaf2be6408baf7ecae84ec0e, type: 3}
+  - {fileID: 3297161048572204784, guid: 8296fe9f2b245b14dab0381dd1bb77c1, type: 3}
+  - {fileID: 381866439981877458, guid: 2753ff05dd1ae234bbb14a52cabf753c, type: 3}
   wepDrop:
   - {fileID: 5413053208547225118, guid: fcc5488992f17f84bbb8621014152116, type: 3}
   - {fileID: 4795849580774925726, guid: a427e93798eaf96439fdd912a6326424, type: 3}
@@ -4276,7 +4286,7 @@ TextMesh:
   m_FontSize: 10
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+  m_Font: {fileID: 12800000, guid: 90082a670c946eb4495b2edac9220045, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -4298,7 +4308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+  - {fileID: 2100000, guid: 90082a670c946eb4495b2edac9220045, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -15,6 +15,7 @@ public class ItemCreateScript : MonoBehaviour
     }
     void itemDrop()
     {
+        //item drop chance based on threat level
         if (itemChance <= 4 && PlayerPrefs.GetInt("Threat Level") == 1)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
         else if (itemChance <= 2 && PlayerPrefs.GetInt("Threat Level") == 2)

@@ -2190,7 +2190,7 @@ MonoBehaviour:
   enemySpawnCount: 0
   enemyCount: 0
   itemCount: 0
-  normalColor: {r: 0.47058827, g: 0.47058827, b: 0.47058827, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
   coldColor: {r: 0.41442683, g: 0.5722222, b: 0.6320754, a: 1}
   hotColor: {r: 0.6132076, g: 0.43376616, b: 0.39627093, a: 1}
   shockColor: {r: 0.5754717, g: 0.5754717, b: 0.4316038, a: 1}
@@ -5170,7 +5170,7 @@ TextMesh:
   m_FontSize: 10
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+  m_Font: {fileID: 12800000, guid: 90082a670c946eb4495b2edac9220045, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -5192,7 +5192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+  - {fileID: 2100000, guid: 90082a670c946eb4495b2edac9220045, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5790,7 +5790,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

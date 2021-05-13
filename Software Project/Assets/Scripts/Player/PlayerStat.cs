@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false;
+        inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false, showEffect = false;
     int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -32,11 +32,13 @@ public class PlayerStat : MonoBehaviour
     public Color activeColor, passiveColor;
     public GameObject hitEffect; //hit particle
     public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
-    public GameObject[] glitchItems;
-    public GameObject[] cacheItems;
-    public GameObject[] wepDrop;
-    public Slider hpBar, ppBar;
+    public GameObject[] glitchItems; // items dropped from glitches
+    public GameObject[] cacheItems; // items dropped from cache
+    public GameObject[] crateItems; // items dropped from crate
+    public GameObject[] wepDrop; //weapon the player can drop
+    public Slider hpBar, ppBar; // sliders for the player HP and PP
     public List<Transform> cEmenies;
+    GameObject crate, glitchObj, cacheObj;
     Log log;
     PlayerMovement player;
     // Start is called before the first frame update
@@ -102,6 +104,15 @@ public class PlayerStat : MonoBehaviour
             wepPickupDict.Add("e3", false);
             wepPickupDict.Add("l3", false);
             wepPickupDict.Add("m3", false);
+            wepPickupDict.Add("hp", false);
+            wepPickupDict.Add("hUP", false);
+            wepPickupDict.Add("pUP", false);
+            wepPickupDict.Add("cache", false);
+            wepPickupDict.Add("glitch", false);
+            wepPickupDict.Add("bAmmo", false);
+            wepPickupDict.Add("eAmmo", false);
+            wepPickupDict.Add("shAmmo", false);
+            wepPickupDict.Add("box", false);
         }
         decoy.SetActive(false);
         //finding class values
@@ -144,6 +155,7 @@ public class PlayerStat : MonoBehaviour
             PlayerPrefs.SetFloat("Laser", ammoDict["laser"]);
         }
         setText();
+        itemPickup();
         //Player updates
         {
             //Player Health set to zero and max
@@ -477,9 +489,9 @@ public class PlayerStat : MonoBehaviour
             ammoDict["laser"] = ammoMaxDict["laserMax"];
         //Laser recharge
         if (laserCooldown >= 0)
-            laserCooldown -= Time.deltaTime * 2;
+            laserCooldown -= Time.deltaTime;
         if (ammoDict["laser"] < ammoMaxDict["laserMax"] && laserCooldown <= 0)
-            ammoDict["laser"] += Time.deltaTime;
+            ammoDict["laser"] += Time.deltaTime * 3;
     }
     //setting for the ammo color and weapon damage
     private void ammo1Color1()
@@ -568,6 +580,103 @@ public class PlayerStat : MonoBehaviour
         ammoStack2 = tempStack;
         
     }
+    private void itemPickup()
+    {
+        if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+        {
+            if (wepPickupDict["box"])
+            {
+                pickedUp = true;
+                itemDrop();
+            }
+            if (wepPickupDict["hp"])
+            {
+                if (hp < hpMax)
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    hp += 25;
+                    pickupText.GetComponent<TextMesh>().text = "HP + 25";
+                    log.healthUse++;
+                }
+            }
+            if (wepPickupDict["bAmmo"])
+            {
+                if (ammoDict["bullet"] < ammoMaxDict["bulletMax"])
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    float ammo = Random.Range(6, 13);
+                    ammoDict["bullet"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
+                    
+                }
+
+            }
+            if (wepPickupDict["shAmmo"])
+            {
+                if (ammoDict["shell"] < ammoMaxDict["shellMax"])
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    float ammo = Random.Range(4, 11);
+                    ammoDict["shell"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
+
+                }
+            }
+            if (wepPickupDict["eAmmo"])
+            {
+                if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    float ammo = Random.Range(2, 5);
+                    ammoDict["explosive"] += ammo;
+                    pickupText.GetComponent<TextMesh>().text = "Explosives + " + ammo.ToString();
+
+                }
+            }
+            if (wepPickupDict["glitch"])
+            {
+                if(bp >= 50)
+                {
+                    pickedUp = true;
+                    bp -= 50;
+                    Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], glitchObj.transform.position, Quaternion.identity);
+                    log.shopUse++;
+                    Debug.Log("shop: " + log.shopUse);
+                }
+            }
+            if (wepPickupDict["cache"])
+            {
+                pickedUp = true;
+                Instantiate(cacheItems[Random.Range(0, cacheItems.Length)], cacheObj.transform.position, Quaternion.identity);
+                log.shopUse++;
+                Debug.Log("shop: " + log.shopUse);
+            }
+            if (wepPickupDict["hUP"])
+            {
+                if (hpMax < 200)
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    hpMax += 10;
+                    pickupText.GetComponent<TextMesh>().text = "Max HP + 10";
+                }
+            }
+            if (wepPickupDict["pUP"])
+            {
+                if (ppMax < 200)
+                {
+                    showEffect = true;
+                    pickedUp = true;
+                    ppMax += 10;
+                    pickupText.GetComponent<TextMesh>().text = "Max PP + 10";
+                }
+            }
+        }
+    }
     private void wepPickup()
     {
         if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
@@ -575,7 +684,8 @@ public class PlayerStat : MonoBehaviour
             tempWep = wepDropNum;
             //LV0 Bullet Weapon Pickup
             if (wepPickupDict["b0"])
-        {
+            {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 1 && wep1Level == 0)
                 {
@@ -605,6 +715,7 @@ public class PlayerStat : MonoBehaviour
             //LV0 Shell Weapon Pickup
             if (wepPickupDict["s0"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 2 && wep1Level == 0)
                 {
@@ -634,6 +745,7 @@ public class PlayerStat : MonoBehaviour
             //LV0 Expolsive Weapon Pickup
             if (wepPickupDict["e0"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 3 && wep1Level == 0)
                 {
@@ -663,7 +775,7 @@ public class PlayerStat : MonoBehaviour
             //LV0 Laser Weapon Pickup
             if (wepPickupDict["l0"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 4 && wep1Level == 0)
                 {
@@ -683,7 +795,7 @@ public class PlayerStat : MonoBehaviour
             //LV0 Melee Weapon Pickup
             if (wepPickupDict["m0"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 5 && wep1Level == 0)
                 {
@@ -704,6 +816,7 @@ public class PlayerStat : MonoBehaviour
             //LV1 Bullet Weapon Pickup
             if (wepPickupDict["b1"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 1 && wep1Level == 1)
                 {
@@ -733,6 +846,7 @@ public class PlayerStat : MonoBehaviour
             //LV1 Shell Weapon Pickup
             if (wepPickupDict["s1"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 2 && wep1Level == 1)
                 {
@@ -762,6 +876,7 @@ public class PlayerStat : MonoBehaviour
             //LV1 Expolsive Weapon Pickup
             if (wepPickupDict["e1"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 3 && wep1Level == 1)
                 {
@@ -791,7 +906,7 @@ public class PlayerStat : MonoBehaviour
             //LV1 Laser Weapon Pickup
             if (wepPickupDict["l1"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 4 && wep1Level == 1)
                 {
@@ -811,7 +926,7 @@ public class PlayerStat : MonoBehaviour
             //LV1 Melee Weapon Pickup
             if (wepPickupDict["m1"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 5 && wep1Level == 1)
                 {
@@ -832,6 +947,7 @@ public class PlayerStat : MonoBehaviour
             //LV2 Bullet Weapon Pickup
             if (wepPickupDict["b2"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 1 && wep1Level == 2)
                 {
@@ -861,6 +977,7 @@ public class PlayerStat : MonoBehaviour
             //LV2 Shell Weapon Pickup
             if (wepPickupDict["s2"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 2 && wep1Level == 2)
                 {
@@ -890,6 +1007,7 @@ public class PlayerStat : MonoBehaviour
             //LV2 Expolsive Weapon Pickup
             if (wepPickupDict["e2"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 3 && wep1Level == 2)
                 {
@@ -919,7 +1037,7 @@ public class PlayerStat : MonoBehaviour
             //LV2 Laser Weapon Pickup
             if (wepPickupDict["l2"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 4 && wep1Level == 2)
                 {
@@ -939,7 +1057,7 @@ public class PlayerStat : MonoBehaviour
             //LV2 Melee Weapon Pickup
             if (wepPickupDict["m2"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 5 && wep1Level == 2)
                 {
@@ -960,6 +1078,7 @@ public class PlayerStat : MonoBehaviour
             //LV3 Bullet Weapon Pickup
             if (wepPickupDict["b3"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 1 && wep1Level == 3)
                 {
@@ -989,6 +1108,7 @@ public class PlayerStat : MonoBehaviour
             //LV3 Shell Weapon Pickup
             if (wepPickupDict["s3"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 2 && wep1Level == 3)
                 {
@@ -1018,6 +1138,7 @@ public class PlayerStat : MonoBehaviour
             //LV3 Expolsive Weapon Pickup
             if (wepPickupDict["e3"])
             {
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 3 && wep1Level == 3)
                 {
@@ -1047,7 +1168,7 @@ public class PlayerStat : MonoBehaviour
             //LV3 Laser Weapon Pickup
             if (wepPickupDict["l3"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 4 && wep1Level == 3)
                 {
@@ -1067,7 +1188,7 @@ public class PlayerStat : MonoBehaviour
             //LV3 Melee Weapon Pickup
             if (wepPickupDict["m3"])
             {
-
+                showEffect = true;
                 pickedUp = true;
                 if (weapon1 == 5 && wep1Level == 3)
                 {
@@ -1134,6 +1255,17 @@ public class PlayerStat : MonoBehaviour
                 Passive = "Issuion Decoy";
                 break;
         }
+    }
+    void itemDrop()
+    {
+        //item drop chance based on threat level
+        int itemChance = Random.Range(0, 6);
+        if (itemChance <= 4 && PlayerPrefs.GetInt("Threat Level") == 1)
+            Instantiate(crateItems[Random.Range(0, crateItems.Length)], crate.transform.position, Quaternion.identity);
+        else if (itemChance <= 2 && PlayerPrefs.GetInt("Threat Level") == 2)
+            Instantiate(crateItems[Random.Range(0, crateItems.Length)], crate.transform.position, Quaternion.identity);
+        else if (itemChance <= 1 && PlayerPrefs.GetInt("Threat Level") == 3)
+            Instantiate(crateItems[Random.Range(0, crateItems.Length)], crate.transform.position, Quaternion.identity);
     }
 
     IEnumerator pickedOff()
@@ -1214,76 +1346,65 @@ public class PlayerStat : MonoBehaviour
     {
         //Heatlh Pickup
         if (other.CompareTag("Health")){
-            pickupText.GetComponent<TextMesh>().text = "Medkit";
+            if(!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Medkit";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["hp"] = true;
+            if (pickedUp)
             {
-                if (hp < hpMax)
-                {
-                    hp += 25;
-                    Destroy(other.gameObject);
-                    pickupText.GetComponent<TextMesh>().text = "HP + 25";
-                    log.healthUse++;
-                }
+                showEffect = true;
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Bullet Pickup    
         if (other.CompareTag("BAmmo"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Bullet Ammo";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Bullet Ammo";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["bAmmo"] = true;
+            if (pickedUp)
             {
-                if (ammoDict["bullet"] < ammoMaxDict["bulletMax"]){
-                    float ammo = Random.Range(6, 13);
-                    ammoDict["bullet"] += ammo;
-                    pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
-                    Destroy(other.gameObject);
-                }
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Shell Pickup
         if (other.CompareTag("ShAmmo"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Shell Ammo";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Shell Ammo";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0)){
-                if (ammoDict["shell"] < ammoMaxDict["shellMax"])
-                {
-                    float ammo = Random.Range(4, 11);
-                    ammoDict["shell"] += ammo;
-                    pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
-                    Destroy(other.gameObject);
-                }
+            wepPickupDict["shAmmo"] = true;
+            if (pickedUp){
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Explosive Pickup
         if (other.CompareTag("EAmmo"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Explosive Ammo";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Explosive Ammo";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["eAmmo"] = true;
+            if (pickedUp)
             {
-                if (ammoDict["explosive"] < ammoMaxDict["explosiveMax"])
-                {
-                    float ammo = Random.Range(2, 5);
-                    ammoDict["explosive"] += ammo;
-                    pickupText.GetComponent<TextMesh>().text = "Explosives + " + ammo.ToString();
-                    Destroy(other.gameObject);
-                }
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Glitch Pickup
         if (other.CompareTag("Glitch")){
             pickupText.GetComponent<TextMesh>().text = "Random item 50BP";
             pickupText.SetActive(true);
-            if (Input.GetKeyUp(KeyCode.E) && bp >= 50|| Input.GetKeyUp(KeyCode.Joystick1Button0) && bp >= 50)
+            glitchObj = other.gameObject;
+            wepPickupDict["glitch"] = true;
+            if (pickedUp)
             {
-                bp -= 50;
-                Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], other.transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
-                log.shopUse++;
-                Debug.Log("shop: " + log.shopUse);
+                pickedUp = false;
             }
         }
         //Cache Pickup
@@ -1291,12 +1412,25 @@ public class PlayerStat : MonoBehaviour
         {
             pickupText.SetActive(true);
             pickupText.GetComponent<TextMesh>().text = "Open the Cache";
-            if (Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            cacheObj = other.gameObject;
+            wepPickupDict["cache"] = true;
+            if (pickedUp)
             {
-                Instantiate(cacheItems[Random.Range(0, cacheItems.Length)], other.transform.position, Quaternion.identity);
                 Destroy(other.gameObject);
-                log.shopUse++;
-                Debug.Log("shop: " + log.shopUse);
+                pickedUp = false;
+            }
+        }
+        //open crate
+        if (other.CompareTag("Box"))
+        {
+            pickupText.SetActive(true);
+            pickupText.GetComponent<TextMesh>().text = "Open";
+            crate = other.gameObject;
+            wepPickupDict["box"] = true;
+            if (pickedUp)
+            {
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Lab Room(Shop)
@@ -1309,37 +1443,34 @@ public class PlayerStat : MonoBehaviour
         //Heatlh Upgrade Pickup
         if (other.CompareTag("H.UP"))
         {
-            pickupText.GetComponent<TextMesh>().text = "HP Booster";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "HP Booster";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["hUP"] = true;
+            if (pickedUp)
             {
-                if (hpMax < 200)
-                {
-                    hpMax += 10;
-                    Destroy(other.gameObject);
-                    pickupText.GetComponent<TextMesh>().text = "Max HP + 10";
-                }
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //Psychic Upgrade Pickup
         if (other.CompareTag("P.Up"))
         {
-            pickupText.GetComponent<TextMesh>().text = "PP Booster";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "PP Booster";
             pickupText.SetActive(true);
-            if (Input.GetKey(KeyCode.E) || Input.GetKeyUp(KeyCode.Joystick1Button0))
+            wepPickupDict["pUP"] = true;
+            if (pickedUp)
             {
-                if (ppMax < 200)
-                {
-                    ppMax += 10;
-                    Destroy(other.gameObject);
-                    pickupText.GetComponent<TextMesh>().text = "Max PP + 10";
-                }
+                Destroy(other.gameObject);
+                pickedUp = false;
             }
         }
         //LV0 Bullet Weapon Pickup
         if (other.CompareTag("BWep0"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Pistol";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Pistol";
             pickupText.SetActive(true);
             wepPickupDict["b0"] = true;
             if (pickedUp)
@@ -1351,7 +1482,8 @@ public class PlayerStat : MonoBehaviour
         //LV0 Shell Weapon Pickup
         if (other.CompareTag("SWep0"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Sawed Off";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Sawed Off";
             pickupText.SetActive(true);
             wepPickupDict["s0"] = true;
             if (pickedUp)
@@ -1364,7 +1496,8 @@ public class PlayerStat : MonoBehaviour
         //LV0 Explosive Weapon Pickup
         if (other.CompareTag("EWep0"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Grenade Launcher";
             pickupText.SetActive(true);
             wepPickupDict["e0"] = true;
             if (pickedUp)
@@ -1377,7 +1510,8 @@ public class PlayerStat : MonoBehaviour
         //LV0 Laser Weapon Pickup
         if (other.CompareTag("LWep0"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Plasma Blaster";
             pickupText.SetActive(true);
             wepPickupDict["l0"] = true;
             if (pickedUp)
@@ -1389,7 +1523,8 @@ public class PlayerStat : MonoBehaviour
         //LV0 Melee Weapon Pickup
         if (other.CompareTag("MWep0"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Baton";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Baton";
             pickupText.SetActive(true);
             wepPickupDict["m0"] = true;
             if (pickedUp)
@@ -1401,7 +1536,8 @@ public class PlayerStat : MonoBehaviour
         //LV1 Bullet Weapon Pickup
         if (other.CompareTag("BWep1"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Revolver";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Revolver";
             pickupText.SetActive(true);
             wepPickupDict["b1"] = true;
             if (pickedUp)
@@ -1413,7 +1549,8 @@ public class PlayerStat : MonoBehaviour
         //LV1 Shell Weapon Pickup
         if (other.CompareTag("SWep1"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Pump Shotgun";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Pump Shotgun";
             pickupText.SetActive(true);
             wepPickupDict["s1"] = true;
             if (pickedUp)
@@ -1426,7 +1563,8 @@ public class PlayerStat : MonoBehaviour
         //LV1 Explosive Weapon Pickup
         if (other.CompareTag("EWep1"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Missle Launcher";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Missle Launcher";
             pickupText.SetActive(true);
             wepPickupDict["e1"] = true;
             if (pickedUp)
@@ -1439,7 +1577,8 @@ public class PlayerStat : MonoBehaviour
         //LV1 Laser Weapon Pickup
         if (other.CompareTag("LWep1"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Laser Repeater";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Laser Repeater";
             pickupText.SetActive(true);
             wepPickupDict["l1"] = true;
             if (pickedUp)
@@ -1451,7 +1590,8 @@ public class PlayerStat : MonoBehaviour
         //LV1 Melee Weapon Pickup
         if (other.CompareTag("MWep1"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Hand Axe";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Hand Axe";
             pickupText.SetActive(true);
             wepPickupDict["m1"] = true;
             if (pickedUp)
@@ -1463,7 +1603,8 @@ public class PlayerStat : MonoBehaviour
         //LV2 Bullet Weapon Pickup
         if (other.CompareTag("BWep2"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Magnum";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Magnum";
             pickupText.SetActive(true);
             wepPickupDict["b2"] = true;
             if (pickedUp)
@@ -1475,7 +1616,8 @@ public class PlayerStat : MonoBehaviour
         //LV2 Shell Weapon Pickup
         if (other.CompareTag("SWep2"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Riot Shotgun";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Riot Shotgun";
             pickupText.SetActive(true);
             wepPickupDict["s2"] = true;
             if (pickedUp)
@@ -1488,7 +1630,8 @@ public class PlayerStat : MonoBehaviour
         //LV2 Explosive Weapon Pickup
         if (other.CompareTag("EWep2"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Mine Launcher";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Mine Launcher";
             pickupText.SetActive(true);
             wepPickupDict["e2"] = true;
             if (pickedUp)
@@ -1501,7 +1644,8 @@ public class PlayerStat : MonoBehaviour
         //LV2 Laser Weapon Pickup
         if (other.CompareTag("LWep2"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Beam Rifle";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Beam Rifle";
             pickupText.SetActive(true);
             wepPickupDict["l2"] = true;
             if (pickedUp)
@@ -1513,7 +1657,8 @@ public class PlayerStat : MonoBehaviour
         //LV2 Melee Weapon Pickup
         if (other.CompareTag("MWep2"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Sledgehammer";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Sledgehammer";
             pickupText.SetActive(true);
             wepPickupDict["m2"] = true;
             if (pickedUp)
@@ -1525,7 +1670,8 @@ public class PlayerStat : MonoBehaviour
         //LV3 Bullet Weapon Pickup
         if (other.CompareTag("BWep3"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Machnie Gun";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Machnie Gun";
             pickupText.SetActive(true);
             wepPickupDict["b3"] = true;
             if (pickedUp)
@@ -1537,7 +1683,8 @@ public class PlayerStat : MonoBehaviour
         //LV3 Shell Weapon Pickup
         if (other.CompareTag("SWep3"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Quad Barrel";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Quad Barrel";
             pickupText.SetActive(true);
             wepPickupDict["s3"] = true;
             if (pickedUp)
@@ -1550,7 +1697,8 @@ public class PlayerStat : MonoBehaviour
         //LV3 Explosive Weapon Pickup
         if (other.CompareTag("EWep3"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Heat Seeker";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Heat Seeker";
             pickupText.SetActive(true);
             wepPickupDict["e3"] = true;
             if (pickedUp)
@@ -1563,7 +1711,8 @@ public class PlayerStat : MonoBehaviour
         //LV3 Laser Weapon Pickup
         if (other.CompareTag("LWep3"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Rail Gun";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Rail Gun";
             pickupText.SetActive(true);
             wepPickupDict["l3"] = true;
             if (pickedUp)
@@ -1575,7 +1724,8 @@ public class PlayerStat : MonoBehaviour
         //LV3 Melee Weapon Pickup
         if (other.CompareTag("MWep3"))
         {
-            pickupText.GetComponent<TextMesh>().text = "Katana";
+            if (!showEffect)
+                pickupText.GetComponent<TextMesh>().text = "Katana";
             pickupText.SetActive(true);
             wepPickupDict["m3"] = true;
             if (pickedUp)
@@ -1588,19 +1738,45 @@ public class PlayerStat : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
          if (other.CompareTag("Health"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["hp"] = false;
+        }
         if (other.CompareTag("BAmmo"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["bAmmo"] = false;
+        }
         if (other.CompareTag("ShAmmo"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["shAmmo"] = false;
+        }
         if (other.CompareTag("EAmmo"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["eAmmo"] = false;
+        }
         if (other.CompareTag("Glitch"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["glitch"] = false;
+        }
+        if (other.CompareTag("Box"))
+        {
+            StartCoroutine(textOff());
+            wepPickupDict["box"] = false;
+        }
         if (other.CompareTag("H.UP"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["hUP"] = false;
+        }
         if (other.CompareTag("P.Up"))
+        {
             StartCoroutine(textOff());
+            wepPickupDict["pUP"] = false;
+        }
         if (other.CompareTag("Shop"))
         {
             onLab = false;
@@ -1711,6 +1887,7 @@ public class PlayerStat : MonoBehaviour
     {
         yield return new WaitForSeconds(0.4f);
         pickupText.SetActive(false);
+        showEffect = false;
     }
    private void controlInputs()
     {
