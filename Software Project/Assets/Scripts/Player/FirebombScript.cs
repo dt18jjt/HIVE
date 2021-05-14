@@ -5,24 +5,44 @@ using UnityEngine;
 public class FirebombScript : MonoBehaviour
 {
     public GameObject Area;
-    public bool enemy, grenade, mine; // enemy = if fired from enemy
+    public bool enemy, grenade, mine, seeker; // enemy = if fired from enemy
     camShake shake;
     Rigidbody2D rb;
+    Transform enemyPos;
+    private Vector2 target;
+    float seekerSpeed = 80f;
     // Start is called before the first frame update
     void Start()
     {
+        //grenade action
         if (grenade)
             Invoke("detonate", 1f);
+        //mine action
         if (mine)
             Invoke("deploy", 0.5f);
         rb = GetComponent<Rigidbody2D>();
         shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
+        //Heat seeker
+        if (seeker)
+        {
+            enemyPos = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
+            //if a enemy is found
+            if (enemyPos != null)
+            {
+                target = (enemyPos.position - transform.position).normalized* seekerSpeed;
+                //move to enemy
+                rb.velocity = new Vector2(target.x, target.y);
+                //angle facing the enemy
+                float angle = Mathf.Atan2(target.y, target.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+            
     }
     public void detonate()
     {

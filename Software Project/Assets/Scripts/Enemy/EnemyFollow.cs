@@ -346,7 +346,6 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Room"))
         {
             room = other.gameObject.GetComponent<RoomTypes>();
-            Debug.Log("r");
         }
         //Hit by bullet object
         if (other.CompareTag("Bullet")){
@@ -459,9 +458,13 @@ public class EnemyFollow : MonoBehaviour
             Debug.Log("Hypno:" + log.playerAction["hypnoHit"]);
         }
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-  
+        //Incase of leaving room glitch
+        if (other.CompareTag("Room"))
+        {
+            hp = 0;
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

@@ -578,7 +578,7 @@ public class PlayerMovement : MonoBehaviour
                 e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
                 break;
             case 3:
-                e = Instantiate(ammoPrefabs[6]) as GameObject;
+                e = Instantiate(ammoPrefabs[11]) as GameObject;
                 e.transform.position = bulletStart.transform.position;
                 e.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
                 e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;

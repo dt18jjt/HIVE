@@ -16,16 +16,18 @@ public class EnemyProjectile : MonoBehaviour
     Rigidbody2D rb2D;
     // Start is called before the first frame update
     void Start(){
-        List<float> newModifer = new List<float> { 1f, 1.25f, .75f };
-        targetModfier = (bossAlpha) ? newModifer[Random.Range(0, 3)] : 1f;
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
         enemy = GameObject.FindWithTag("Enemy").transform;
         rb2D = GetComponent<Rigidbody2D>();
+        //modifies its postion for the Alpha boss
+        List<float> newModifer = new List<float> { 1f, 1.25f, .75f };
+        targetModfier = (bossAlpha) ? newModifer[Random.Range(0, 3)] : 1f;
         //Bullet set to target
         target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((!stat.pAbilDict["decoy"]) ?
             (player.transform.position * targetModfier - transform.position).normalized * speed : 
             (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
+        //Go to player's pos
         if(!noPath)
             rb2D.velocity = new Vector2(target.x, target.y);
         Destroy(gameObject, (bossSigma) ? 2f : 1f);
