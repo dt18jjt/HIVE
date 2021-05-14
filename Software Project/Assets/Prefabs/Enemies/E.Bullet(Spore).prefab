@@ -120,8 +120,8 @@ MonoBehaviour:
   speed: 90
   normalSpeed: 90
   targetModfier: 1
-  minDam: 10
-  maxDam: 15
+  minDam: 5
+  maxDam: 10
   minDamFinal: 0
   maxDamFinal: 0
   confused: 0

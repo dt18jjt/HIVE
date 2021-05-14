@@ -273,12 +273,13 @@ public class PlayerStat : MonoBehaviour
     }
     private void setText()
     {
-        hpText.text = hp.ToString() + "/" + hpMax.ToString();
+        //health text
+        hpText.text = hp.ToString("F0") + "/" + hpMax.ToString();
+        //psychic text
         ppText.text = pp.ToString("F0") + "/"+ ppMax.ToString();
+        //ammo text
         a1Text.text = ammo1.ToString("F0");
         a2Text.text = ammo2.ToString("F0");
-        activeText.text = Active;
-        passiveText.text = Passive;
         if (!bossFight)
         {
             bpText.text = bp.ToString();
@@ -303,7 +304,7 @@ public class PlayerStat : MonoBehaviour
         }
 
     }
-    public void Damage(int dam){
+    public void Damage(float dam){
         //Player Damage
         if(hp > 0 && damCooldown <= 0){
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
@@ -430,6 +431,7 @@ public class PlayerStat : MonoBehaviour
                 break;
             case 5:
                 a1Text.enabled = true;
+                ammo1 = 0;
                 a1Text.text = "";
                 switch (wep1Level)
                 {
@@ -471,13 +473,14 @@ public class PlayerStat : MonoBehaviour
                 ammo2Color3();
                 break;
             case 4:
-                a1Text.enabled = true;
-                ammo1 = ammoDict["laser"];
+                a2Text.enabled = true;
+                ammo2 = ammoDict["laser"];
                 ammo2Color4();
                 break;
             case 5:
-                a1Text.enabled = true;
-                a1Text.text = "";
+                a2Text.enabled = true;
+                ammo2 = 0;
+                a2Text.text = "";
                 break;
         }
         //Ammo more than Max
@@ -1895,7 +1898,7 @@ public class PlayerStat : MonoBehaviour
    private void controlInputs()
     {
         //Weapon Swapping
-        if (Input.GetKeyUp(KeyCode.Q) && ammo2 > 0 || Input.GetKeyUp(KeyCode.Joystick1Button3) && ammo2 > 0)
+        if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.Joystick1Button3))
             wepSwap();
         //Psychic pulse
         if (Input.GetKeyUp(KeyCode.F) && pulseCooldown <= 0 || Input.GetKeyUp(KeyCode.Joystick1Button9) && pulseCooldown <= 0)

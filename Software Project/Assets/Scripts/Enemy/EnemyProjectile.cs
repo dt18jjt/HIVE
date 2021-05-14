@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     public float speed, normalSpeed, targetModfier = 1f;
-    public int minDam, maxDam, minDamFinal, maxDamFinal;
-    int minBuff, maxBuff;
+    public float minDam, maxDam, minDamFinal, maxDamFinal;
+    float minBuff, maxBuff;
     public bool confused, weak, noPath, bomb, ghost, bossAlpha, bossSigma;
     private Transform player;
     private Transform enemy;

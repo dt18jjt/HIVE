@@ -673,8 +673,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b5ed3cc1ae64c444c844f6a413a7e494, type: 3}
   - {fileID: 21300000, guid: e263b1089b29048469620e6c023b4e9f, type: 3}
   - {fileID: 21300000, guid: 40a3b98a556efd04dbfa7ec38e98830a, type: 3}
-  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
-  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: a4ad5d98f678c5845a447b48e00589fd, type: 3}
+  - {fileID: 21300000, guid: e09560c5d7cb40b4f936afc4b2e4f580, type: 3}
   - {fileID: 21300000, guid: fbeaa950e8266d143b594df11e4ea761, type: 3}
   - {fileID: 21300000, guid: fc32d0b87459f4b44a77950654590585, type: 3}
   primary: 1
@@ -1436,7 +1436,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ed3b89ade9fbeb44783935b8c7e8ed0e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1762,8 +1762,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b5ed3cc1ae64c444c844f6a413a7e494, type: 3}
   - {fileID: 21300000, guid: e263b1089b29048469620e6c023b4e9f, type: 3}
   - {fileID: 21300000, guid: 40a3b98a556efd04dbfa7ec38e98830a, type: 3}
-  - {fileID: 21300000, guid: 3c102d3894876f842831f8943b219035, type: 3}
-  - {fileID: 21300000, guid: eb8b7ace51fe9654891656e09b4c4e0e, type: 3}
+  - {fileID: 21300000, guid: a4ad5d98f678c5845a447b48e00589fd, type: 3}
+  - {fileID: 21300000, guid: e09560c5d7cb40b4f936afc4b2e4f580, type: 3}
   - {fileID: 21300000, guid: fbeaa950e8266d143b594df11e4ea761, type: 3}
   - {fileID: 21300000, guid: fc32d0b87459f4b44a77950654590585, type: 3}
   primary: 0
@@ -2492,6 +2492,7 @@ MonoBehaviour:
   - {fileID: 5989302267209684424, guid: f218029e58723554383a9f5f5eda8be1, type: 3}
   - {fileID: 5989302267209684424, guid: 385f825a50ff27842b4457abe91d5af1, type: 3}
   - {fileID: 5989302267209684424, guid: 26306b282c20fe5489e9e6a898a5358f, type: 3}
+  - {fileID: 1486764652276081942, guid: 71a83b1388f6e0643a4fe7327f45a07f, type: 3}
   bulletSpeed: 100
   explosiveSpeed: 80
   laserSpeed: 60
