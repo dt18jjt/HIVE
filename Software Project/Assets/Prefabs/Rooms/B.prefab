@@ -360,12 +360,12 @@ MonoBehaviour:
   enemyCount: 0
   itemCount: 0
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  coldColor: {r: 0.41442683, g: 0.5722222, b: 0.6320754, a: 1}
-  hotColor: {r: 0.6132076, g: 0.43376616, b: 0.39627093, a: 1}
-  shockColor: {r: 0.5754717, g: 0.5754717, b: 0.4316038, a: 1}
-  shockDamColor: {r: 0.9742948, g: 0.990566, b: 0.4719206, a: 1}
-  earthColor: {r: 0.4034401, g: 0.5283019, b: 0.4012104, a: 1}
-  decoyColor: {r: 0.5849056, g: 0.40557137, b: 0.5741991, a: 1}
+  coldColor: {r: 0, g: 0.7272725, b: 1, a: 1}
+  hotColor: {r: 1, g: 0.18181816, b: 0, a: 1}
+  shockColor: {r: 0.8018868, g: 0.8018868, b: 0.2988163, a: 1}
+  shockDamColor: {r: 0.9624059, g: 1, b: 0, a: 1}
+  earthColor: {r: 0.030303001, g: 1, b: 0, a: 1}
+  decoyColor: {r: 1, g: 0, b: 0.934783, a: 1}
   enemies:
   - {fileID: 8236186557077567600, guid: 53be14a927527e84f9589fc29c3cbbd4, type: 3}
   - {fileID: 4865663397156743026, guid: 21a8cc33bfa960e4e88f870144114a44, type: 3}

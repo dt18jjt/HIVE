@@ -147,9 +147,9 @@ MonoBehaviour:
   bombProjectile: {fileID: 0}
   ghostProjectile: {fileID: 0}
   cEnemy: {fileID: 0}
-  normalColor: {r: 0.007843138, g: 0.9725491, b: 1, a: 1}
-  frozenColor: {r: 0.6581524, g: 0.95385003, b: 0.9622642, a: 1}
-  confuseColor: {r: 0.021626905, g: 0.49593735, b: 0.509434, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  frozenColor: {r: 1, g: 1, b: 1, a: 0.6313726}
+  confuseColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
 --- !u!50 &8121488632247780733
 Rigidbody2D:
   serializedVersion: 4

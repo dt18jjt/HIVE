@@ -692,9 +692,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDash)
         {
+            //creates afterImage
             var aImage = Instantiate(afterImage, transform.position, Quaternion.identity);
             Destroy(aImage, 1f);
+            //damage area
             StartCoroutine(boltArea());
+            //Invincibilty
+            stat.damCooldown = 1f;
+            //change postion
             Vector3 dashPos = transform.position + moveDir * dashSpeed;
             RaycastHit2D raycast2D = Physics2D.Raycast(transform.position, moveDir, dashSpeed, dashLayerMask);
             if(raycast2D.collider != null){

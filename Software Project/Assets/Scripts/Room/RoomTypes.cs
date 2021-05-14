@@ -222,8 +222,8 @@ public class RoomTypes : MonoBehaviour
             player.powBlock = false;
         }
         //Lower enemy count when a enemy dies
-        if (other.CompareTag("Enemy"))
-            enemyCount--;
+        //if (other.CompareTag("Enemy"))
+        //    enemyCount--;
         //Lower item count when a item is taken
         if (other.CompareTag("Box"))
             itemCount--;

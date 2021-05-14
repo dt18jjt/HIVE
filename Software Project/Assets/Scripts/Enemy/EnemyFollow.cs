@@ -16,13 +16,14 @@ public class EnemyFollow : MonoBehaviour
         bombProjectile, ghostProjectile;
     public Transform cEnemy;
     private Transform target;
+    SpriteRenderer sprite;
     public Color normalColor, frozenColor, confuseColor;
     Vector2 randDirection, randMovement;
     PlayerStat player;
     PlayerMovement playerMove;
     Rigidbody2D rb;
     Log log;
-    
+    RoomTypes room;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class EnemyFollow : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
+        sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         if (Hypno)
             player.buffNum++;
     }
@@ -50,10 +52,13 @@ public class EnemyFollow : MonoBehaviour
         tremorKnockback();
         //Death
         if (hp <= 0){
+            //spawn corpse
             Instantiate(Corpse, transform.position, Quaternion.identity);
+            //spawn bio-point
             Instantiate(BP, transform.position * 1.02f, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
+            room.enemyCount--;
             if (Hypno)
                 player.buffNum--;
             if (player.killCoolDown > 0)
@@ -70,12 +75,12 @@ public class EnemyFollow : MonoBehaviour
             moveCooldown -= Time.deltaTime;
         if (frozenCooldown <= 0 && confuseCooldown <= 0)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = normalColor;
+            sprite.color = normalColor;
         }
         else if (frozenCooldown > 0)
         {
             frozenCooldown -= Time.deltaTime;
-            gameObject.GetComponent<SpriteRenderer>().color = frozenColor;
+            sprite.color = frozenColor;
         }
         //target change
         if (confuseCooldown <= 0)
@@ -87,7 +92,7 @@ public class EnemyFollow : MonoBehaviour
                 cEnemy = GameObject.FindWithTag("Enemy").GetComponent<Transform>();
             transform.gameObject.tag = (player.cEmenies.Count <= 1) ? "Enemy" : "Player";
             confuseCooldown -= Time.deltaTime;
-            gameObject.GetComponent<SpriteRenderer>().color = confuseColor;
+            sprite.color = confuseColor;
             target = (player.cEmenies.Count <= 1) ? gameObject.transform : cEnemy;
         }
         //Laser Behaviour change
@@ -337,8 +342,14 @@ public class EnemyFollow : MonoBehaviour
         adsorbCooldown = 1.0f;
     }
     private void OnTriggerEnter2D(Collider2D other){
+        //Get room script
+        if (other.CompareTag("Room"))
+        {
+            room = other.gameObject.GetComponent<RoomTypes>();
+            Debug.Log("r");
+        }
         //Hit by bullet object
-        if(other.CompareTag("Bullet")){
+        if (other.CompareTag("Bullet")){
             Damage(player.damDict["bulletDam"]);
             if(player.wep1Level != 2)
                 Destroy(other.gameObject);
@@ -447,6 +458,10 @@ public class EnemyFollow : MonoBehaviour
                 log.playerAction["hypnoHit"]++;
             Debug.Log("Hypno:" + log.playerAction["hypnoHit"]);
         }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+  
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

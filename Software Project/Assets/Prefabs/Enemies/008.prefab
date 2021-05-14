@@ -148,9 +148,9 @@ MonoBehaviour:
   ghostProjectile: {fileID: 5623935904502013361, guid: 97677f1206a87804084b99977ccfafa3,
     type: 3}
   cEnemy: {fileID: 0}
-  normalColor: {r: 0.43137258, g: 0.90196085, b: 0.9176471, a: 1}
-  frozenColor: {r: 0.8066038, g: 0.9937614, b: 1, a: 1}
-  confuseColor: {r: 0.0521983, g: 0.62650484, b: 0.6509434, a: 1}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  frozenColor: {r: 1, g: 1, b: 1, a: 0.6313726}
+  confuseColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
 --- !u!50 &2387062786007409174
 Rigidbody2D:
   serializedVersion: 4

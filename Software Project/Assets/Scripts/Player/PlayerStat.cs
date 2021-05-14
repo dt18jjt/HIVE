@@ -54,7 +54,7 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("explosiveDam", 20);
             damDict.Add("fireDam", 10);
             damDict.Add("freezeDam", 5);
-            damDict.Add("boltDam", 5);
+            damDict.Add("boltDam", 15);
             damDict.Add("confuseDam", 5);
             damDict.Add("tremorDam", 5);
             damDict.Add("laserDam", 5);
@@ -342,7 +342,7 @@ public class PlayerStat : MonoBehaviour
                         wepDropNum = 0; //Weapon drop value
                         break;
                     case 1:
-                        damDict["bullet"] = 5;
+                        damDict["bullet"] = 15;
                         wepDropNum = 5;
                         break;
                     case 2:
@@ -350,7 +350,7 @@ public class PlayerStat : MonoBehaviour
                         wepDropNum = 10;
                         break;
                     case 3:
-                        damDict["bullet"] = 15;
+                        damDict["bullet"] = 10;
                         wepDropNum = 15;
                         break;
                 }
@@ -429,7 +429,8 @@ public class PlayerStat : MonoBehaviour
                 }
                 break;
             case 5:
-                a1Text.enabled = false;
+                a1Text.enabled = true;
+                a1Text.text = "";
                 switch (wep1Level)
                 {
                     case 0:
@@ -475,7 +476,8 @@ public class PlayerStat : MonoBehaviour
                 ammo2Color4();
                 break;
             case 5:
-                a1Text.enabled = false;
+                a1Text.enabled = true;
+                a1Text.text = "";
                 break;
         }
         //Ammo more than Max

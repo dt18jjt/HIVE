@@ -1436,7 +1436,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ed3b89ade9fbeb44783935b8c7e8ed0e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2474,7 +2474,7 @@ MonoBehaviour:
   confusePrefab: {fileID: 8324915180591741301, guid: 703ac8ee5de58584ebb87515505d5ecc,
     type: 3}
   bulletStart: {fileID: 701834201}
-  afterImage: {fileID: 7286482255024022170, guid: f4ad9c25214feae4e942dbe2d5ae12e8,
+  afterImage: {fileID: 4610249143137853502, guid: b97d73713575fc8458b2c6a42d15445c,
     type: 3}
   BoltArea: {fileID: 3876976275591655128}
   tremorArea: {fileID: 4832254895289672536, guid: 7f6a2199ecb4a7a4ca839411065f3a06,
@@ -2579,7 +2579,7 @@ MonoBehaviour:
   ppMax: 100
   bp: 0
   buffNum: 0
-  threatLV: 2
+  threatLV: 1
   actNum: 1
   pasNum: 1
   gameLevel: 0
@@ -4035,11 +4035,14 @@ MonoBehaviour:
   load: {fileID: 119227885}
   rooms: []
   waitTime: 2
+  bossCountdown: 5
   selection: 0
   bossFight: 0
+  bossDeath: 0
   exit: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
   boss: {fileID: 0}
   bossText: {fileID: 0}
+  alpha: {fileID: 0}
 --- !u!1 &1535536796
 GameObject:
   m_ObjectHideFlags: 0

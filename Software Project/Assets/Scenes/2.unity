@@ -2474,7 +2474,7 @@ MonoBehaviour:
   confusePrefab: {fileID: 8324915180591741301, guid: 703ac8ee5de58584ebb87515505d5ecc,
     type: 3}
   bulletStart: {fileID: 701834201}
-  afterImage: {fileID: 7286482255024022170, guid: f4ad9c25214feae4e942dbe2d5ae12e8,
+  afterImage: {fileID: 4610249143137853502, guid: b97d73713575fc8458b2c6a42d15445c,
     type: 3}
   BoltArea: {fileID: 3876976275591655128}
   tremorArea: {fileID: 4832254895289672536, guid: 7f6a2199ecb4a7a4ca839411065f3a06,
@@ -2619,6 +2619,7 @@ MonoBehaviour:
   onLab: 0
   bossFight: 0
   storeFound: 0
+  showEffect: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}
@@ -4034,11 +4035,14 @@ MonoBehaviour:
   load: {fileID: 119227885}
   rooms: []
   waitTime: 2
+  bossCountdown: 5
   selection: 0
   bossFight: 0
+  bossDeath: 0
   exit: {fileID: 1898445321837384, guid: 09e14c596e782a742829f1166838514d, type: 3}
   boss: {fileID: 0}
   bossText: {fileID: 0}
+  alpha: {fileID: 0}
 --- !u!1 &1535536796
 GameObject:
   m_ObjectHideFlags: 0
