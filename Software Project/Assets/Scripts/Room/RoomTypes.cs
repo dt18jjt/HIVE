@@ -488,7 +488,10 @@ public class RoomTypes : MonoBehaviour
     }
     public void itemSpawn()
     {
-        itemCount = Random.Range(2, 7);
+        if(!boss)
+            itemCount = Random.Range(2, 7);
+        if (boss)
+            itemCount = Random.Range(7, 11);
         int postionNum = 0;
         Vector3 position = iSpawnPoints[postionNum].position;
         while (itemCount > 0)

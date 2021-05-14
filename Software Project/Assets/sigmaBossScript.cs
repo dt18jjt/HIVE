@@ -17,6 +17,7 @@ public class sigmaBossScript : MonoBehaviour
     PlayerMovement playerMove;
     Rigidbody2D rb;
     Log log;
+    RoomTemplates templates;
     public Transform[] points;
     List<int> newPoint;
     public GameObject[] deathDrop;
@@ -31,6 +32,7 @@ public class sigmaBossScript : MonoBehaviour
         target = GameObject.FindWithTag("Player").GetComponent<Transform>();
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
         playerMove = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         rb = GetComponent<Rigidbody2D>();
         log = GameObject.Find("Global").GetComponent<Log>();
         player.cEmenies.Add(gameObject.transform);
@@ -54,6 +56,8 @@ public class sigmaBossScript : MonoBehaviour
         //Death
         if (hp <= 0)
         {
+            templates.bossDeath = true;
+            Instantiate(deathDrop[Random.Range(0, deathDrop.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
         }

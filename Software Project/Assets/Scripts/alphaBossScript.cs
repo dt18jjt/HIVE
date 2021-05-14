@@ -11,7 +11,7 @@ public class alphaBossScript : MonoBehaviour
     public bool ranged, frozen = false;
     bool blastSpawned = false;
     //Enemy Types
-    public GameObject hitEffect, bombProjectile, warningArea, blastArea;
+    public GameObject hitEffect, bombProjectile, warningArea, blastArea, bossText;
     public Transform cEnemy;
     private Transform target;
     public Color normalColor, frozenColor, confuseColor;
@@ -51,9 +51,11 @@ public class alphaBossScript : MonoBehaviour
         //Death
         if (hp <= 0)
         {
+            templates.bossDeath = true;
             Instantiate(deathDrop[Random.Range(0, deathDrop.Length)], transform.position, Quaternion.identity);
             Destroy(gameObject);
             player.cEmenies.Remove(gameObject.transform);
+            
         }
         if (confuseCooldown <= 0)
             gameObject.tag = "Enemy";

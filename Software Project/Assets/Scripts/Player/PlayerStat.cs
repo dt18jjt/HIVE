@@ -1287,6 +1287,7 @@ public class PlayerStat : MonoBehaviour
         yield return new WaitForSeconds(2f);
         SceneManager.LoadScene("EndLevel", LoadSceneMode.Additive);
     }
+  
     void shop()
     {
         if (onLab && !inStore)

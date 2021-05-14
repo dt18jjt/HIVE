@@ -124,14 +124,21 @@ public class endLevelScript : MonoBehaviour
         {
             switch (player.gameLevel)
             {
+                //go to second level
                 case 0:
                     SceneManager.LoadScene("2");
                     break;
+                //go to random boss fight
                 case 1:
-                    SceneManager.LoadScene("Boss(Alpha)");
+                    int rnd = Random.Range(0, 2);
+                    if(rnd == 0)
+                        SceneManager.LoadScene("Boss(Alpha)");
+                    if (rnd == 1)
+                        SceneManager.LoadScene("Boss(Sigma)");
                     break;
+                //go to main menu after final level
                 case 2:
-                    SceneManager.LoadScene("Boss(Alpha)");
+                    SceneManager.LoadScene("Main");
                     break;
             }
         }

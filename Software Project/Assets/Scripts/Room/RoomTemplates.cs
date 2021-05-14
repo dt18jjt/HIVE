@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class RoomTemplates : MonoBehaviour {
@@ -22,21 +23,22 @@ public class RoomTemplates : MonoBehaviour {
 	public GameObject load;
 	public List<GameObject> rooms;
 
-	public float waitTime;
+	public float waitTime, bossCountdown = 5f;
 	private bool spawnedExit;
-	public bool selection, bossFight;
+	public bool selection, bossFight, bossDeath;
 	public GameObject exit;
 	public GameObject boss;
 	public GameObject bossText;
 	AudioSource music;
 	VisibleRoom visible;
+	public alphaBossScript alpha;
     private void Start()
     {
-		music = GameObject.Find("Global").GetComponent<AudioSource>();
 		load.SetActive(true);
 		//show the ability choice screen for normal levels
 		if (!bossFight)
         {
+			music = GameObject.Find("Global").GetComponent<AudioSource>();
 			selection = true;
 			SceneManager.LoadScene("Ability", LoadSceneMode.Additive);
 		}
@@ -58,12 +60,13 @@ public class RoomTemplates : MonoBehaviour {
 				{
 					if (i == rooms.Count - 1)
 					{
-						music.Play();
+						
 						load.SetActive(false);
 						if (!bossFight)
                         {
 							Instantiate(exit, rooms[i].transform.position, Quaternion.identity);
 							spawnedExit = true;
+							music.Play();
 						}
 						if(bossFight)
 							bossText.gameObject.SetActive(false);
@@ -79,11 +82,27 @@ public class RoomTemplates : MonoBehaviour {
 		//set boss active in boss fight after wait time
 		if (bossFight && waitTime <= 0)
 			StartCoroutine(bossOn());
+		if (bossDeath)
+        {
+			StartCoroutine(bossEnd());
+			Text bText = GameObject.Find("bossText").GetComponent<Text>();
+			bText.text = "Boss Defeated..." + bossCountdown.ToString("F0");
+			bossCountdown -= Time.deltaTime;
+			Debug.Log(bossCountdown);
+		}
+			
 		
 	}
 	IEnumerator bossOn()
     {
 		yield return new WaitForSeconds(1f);
-		boss.SetActive(true);
+		if(!bossDeath)
+			boss.SetActive(true);
+	}
+	public IEnumerator bossEnd()
+	{
+		bossText.SetActive(true);
+		yield return new WaitForSeconds(5f);
+		SceneManager.LoadScene("3");
 	}
 }

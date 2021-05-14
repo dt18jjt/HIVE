@@ -1034,7 +1034,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 50d2cba99a5e12246b28d07c9088eb79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2619,6 +2619,7 @@ MonoBehaviour:
   onLab: 0
   bossFight: 0
   storeFound: 0
+  showEffect: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}
