@@ -2688,7 +2688,7 @@ MonoBehaviour:
   ammo2: 0
   weapon1: 1
   weapon2: 2
-  wep1Level: 1
+  wep1Level: 0
   wep2Level: 0
   ammoStack1: 0
   ammoStack2: 0

@@ -110,6 +110,7 @@ public class PlayerStat : MonoBehaviour
             wepPickupDict.Add("shAmmo", false);
             wepPickupDict.Add("box", false);
         }
+        //set default ammo at the start of the game
         if (gameLevel == 0)
         {
             //Setting Ammo Values
@@ -120,6 +121,7 @@ public class PlayerStat : MonoBehaviour
                 ammoDict.Add("laser", 24);
             }
         }
+        //Carry over ammo to next level
         else if (gameLevel > 0)
         {
             ammoDict.Add("bullet", PlayerPrefs.GetFloat("Bullet"));
@@ -347,7 +349,7 @@ public class PlayerStat : MonoBehaviour
                 }
                 //cooldown after being hit
                 damCooldown = 1.5f;
-                //threatGauge -= dam;
+                threatGauge -= 10;
             }
             if (log.noDamage)
                 log.noDamage = false;
