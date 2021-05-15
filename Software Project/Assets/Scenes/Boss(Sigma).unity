@@ -1878,7 +1878,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 74e93f717845e1e4dad5ffde888d91ed, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3054,7 +3054,7 @@ MonoBehaviour:
   threatLV: 2
   actNum: 1
   pasNum: 1
-  gameLevel: 0
+  gameLevel: 1
   hp: 100
   pp: 100
   threatGauge: 50
@@ -3084,14 +3084,11 @@ MonoBehaviour:
   wepJam: 0
   powBlock: 0
   shockDam: 0
-  pickedUp: 0
-  stackWep: 0
   inStore: 0
   enemyBuff: 0
   onLab: 0
   bossFight: 1
   storeFound: 0
-  showEffect: 0
   activeText: {fileID: 928615782}
   passiveText: {fileID: 1786751073}
   activeColor: {r: 1, g: 0.6392157, b: 0, a: 1}
@@ -4727,9 +4724,11 @@ MonoBehaviour:
   rooms: []
   waitTime: 3
   bossCountdown: 5
+  pauseCooldown: 0
   selection: 0
   bossFight: 1
   bossDeath: 0
+  paused: 0
   exit: {fileID: 8572181130099311095, guid: b6a4bbd756250ba40974b7c95d57a041, type: 3}
   boss: {fileID: 8236186556990811321}
   bossText: {fileID: 40862642}

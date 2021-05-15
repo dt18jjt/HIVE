@@ -63,13 +63,6 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("laserDam", 5);
             damDict.Add("meleeDam", 10);
         }
-        //Setting Ammo Values
-        {
-            ammoDict.Add("bullet", 24);
-            ammoDict.Add("shell", 10);
-            ammoDict.Add("explosive", 4);
-            ammoDict.Add("laser", 24);
-        }
         //Setting Max Ammo Values
         {
             ammoMaxDict.Add("bulletMax", 32);
@@ -116,6 +109,23 @@ public class PlayerStat : MonoBehaviour
             wepPickupDict.Add("eAmmo", false);
             wepPickupDict.Add("shAmmo", false);
             wepPickupDict.Add("box", false);
+        }
+        if (gameLevel == 0)
+        {
+            //Setting Ammo Values
+            {
+                ammoDict.Add("bullet", 24);
+                ammoDict.Add("shell", 10);
+                ammoDict.Add("explosive", 4);
+                ammoDict.Add("laser", 24);
+            }
+        }
+        else if (gameLevel > 0)
+        {
+            ammoDict.Add("bullet", PlayerPrefs.GetFloat("Bullet"));
+            ammoDict.Add("shell", PlayerPrefs.GetFloat("Shell"));
+            ammoDict.Add("explosive", PlayerPrefs.GetFloat("Explosive"));
+            ammoDict.Add("laser", 24);
         }
         decoy.SetActive(false);
         //finding class values
