@@ -1863,7 +1863,7 @@ MonoBehaviour:
   m_Text: "Movement: 'WASD' / 'Left stick'\nAim: 'mouse axis' / 'Right stick'\nInteract:
     'E' / 'A'\nWeapon Switch: 'Q' / 'Y'\nWeapon Shoot: 'left click' / 'right trigger'
     \nActive Ability: 'right stick' / 'left trigger'\nPassive Ability: 'C' / 'RS
-    (press)'"
+    (press)'\nPause: 'ESC' / 'Start'"
 --- !u!222 &1350008989
 CanvasRenderer:
   m_ObjectHideFlags: 0

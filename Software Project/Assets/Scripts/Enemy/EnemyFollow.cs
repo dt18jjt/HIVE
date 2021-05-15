@@ -125,18 +125,24 @@ public class EnemyFollow : MonoBehaviour
         //Close Range 
         if (!ranged && frozenCooldown <= 0 && tremorCooldown <= 0)
         {
-            if (Vector2.Distance(transform.position, target.position) > stoppingDistance && moveCooldown <= 0)
+            if (Vector2.Distance(transform.position, target.position) > stoppingDistance && moveCooldown <= 0 && player.damCooldown <= 0f)
             {
                 transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
                 attackCooldown = startAtkCooldown;
                 //StartCoroutine(stopTimer());
             }
-            else if (Vector2.Distance(transform.position, target.position) <= stoppingDistance)
+            else if (Vector2.Distance(transform.position, target.position) <= stoppingDistance && player.damCooldown <= 0f)
             {
                 attackCooldown -= Time.deltaTime;
                 moveCooldown = startMvCooldown;
                 if (attackCooldown <= 0 && player.hp > 0 && Vector2.Distance(transform.position, target.position) <= stoppingDistance)
                     enemyCloseAtk();
+            }
+            //back away after player hit
+            else if (player.damCooldown > 0f)
+            {
+                transform.position = Vector2.MoveTowards(transform.position, target.position, -speed * (Time.deltaTime/2));
+                attackCooldown = startAtkCooldown;
             }
         }
         //Long Range
@@ -281,11 +287,13 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            Vector2 kbPos;
-            kbPos = (Geo) ? (target.position - transform.position).normalized * (50 * Time.deltaTime) : (target.position - transform.position).normalized * (100 * Time.deltaTime);
-            //kbPos = (Geo) ? (transform.position, - target.position). //) :
-            //(transform.position, -target.position, 100 * Time.deltaTime);
-            rb.velocity = new Vector2(kbPos.x, kbPos.y);
+            //Vector2 kbPos;
+            //kbPos = (Geo) ? (target.position - transform.position).normalized * (50 * Time.deltaTime) : (target.position - transform.position).normalized * (100 * Time.deltaTime);
+            ////kbPos = (Geo) ? (transform.position, - target.position). //) :
+            ////(transform.position, -target.position, 100 * Time.deltaTime);
+            //rb.velocity = new Vector2(kbPos.x, kbPos.y);
+            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, target.position, 25 * Time.deltaTime) : 
+                Vector2.MoveTowards(transform.position, target.position, 50 * Time.deltaTime / 2);
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
             attackCooldown = startAtkCooldown;
@@ -431,7 +439,7 @@ public class EnemyFollow : MonoBehaviour
         if (other.CompareTag("Tremor"))
         {
             Damage(player.damDict["tremorDam"]);
-            tremorCooldown = 0.5f;
+            tremorCooldown = 0.1f;
             if (!log.del006)
                 log.playerAction["geoHit"]++;
             //log.geoHit++;

@@ -13,10 +13,8 @@ public class shopScript : MonoBehaviour
     Dictionary<string, int> effectDict = new Dictionary<string, int>(); //effects dictionary
     PlayerStat stat;
     public Sprite[] shopImages;
-    public Text buyText1, buyText2, buyText3, buyText4, buyText5, buyText6;
-    public Text priceText1, priceText2, priceText3, priceText4, priceText5, priceText6;
-    public int price1, price2, price3, price4, price5, price6;
-    public int effect1, effect2, effect3, effect4, effect5, effect6;
+    public Text buyText, priceText;
+    public int price, effect;
     // Start is called before the first frame update
     void Start()
     {
@@ -124,7 +122,7 @@ public class shopScript : MonoBehaviour
     {
         SceneManager.UnloadSceneAsync("shop");
         stat.inStore = false;
-        stat.storeCoolDown = 0.1f;
+        stat.storeCoolDown = 0.2f;
         Cursor.visible = false;
     }
 }

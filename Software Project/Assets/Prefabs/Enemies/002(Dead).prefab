@@ -217,6 +217,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   itemChance: 0
-  BP: {fileID: 0}
-  hitEffect: {fileID: 3298746938982423841, guid: b9a1acb56a0a8594e89917c1e640e355,
+  BP: {fileID: 8105134095915801548, guid: 84e8b038645f70e47a79a869927adddd, type: 3}
+  hitEffect: {fileID: 6980437702165934377, guid: 44129b675a510f848a4ed12e01d3f981,
     type: 3}

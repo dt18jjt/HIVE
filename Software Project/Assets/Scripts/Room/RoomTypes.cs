@@ -56,7 +56,6 @@ public class RoomTypes : MonoBehaviour
             //Adding new enemies
             StartCoroutine(addEnemy());
         }
-        
     }
 
     // Update is called once per frame
@@ -136,18 +135,33 @@ public class RoomTypes : MonoBehaviour
         }
         enemyOn = (enemyCount > 0) ? true : false;
         //Passive ability floor effect
-        if (player.pAbilDict["heat"])
-            floor.GetComponent<SpriteRenderer>().color = hotColor;
-        else if (player.pAbilDict["cold"])
-            floor.GetComponent<SpriteRenderer>().color = coldColor;
-        else if (player.pAbilDict["shock"] && !player.shockDam)
-            floor.GetComponent<SpriteRenderer>().color = shockColor;
-        else if (player.shockDam)
-            floor.GetComponent<SpriteRenderer>().color = shockDamColor;
-        else if (player.pAbilDict["earth"])
-            floor.GetComponent<SpriteRenderer>().color = earthColor;
-        else if (player.pAbilDict["decoy"])
-            floor.GetComponent<SpriteRenderer>().color = decoyColor;
+        if(PlayerPrefs.GetInt("hOff") == 1)
+        {
+            if (player.pAbilDict["heat"])
+                floor.GetComponent<SpriteRenderer>().color = hotColor;
+        }
+        else if(PlayerPrefs.GetInt("cOff") == 1)
+        {
+            if (player.pAbilDict["cold"])
+                floor.GetComponent<SpriteRenderer>().color = coldColor;
+        }
+        else if(PlayerPrefs.GetInt("sOff") == 1)
+        {
+            if (player.pAbilDict["shock"] && !player.shockDam)
+                floor.GetComponent<SpriteRenderer>().color = shockColor;
+            else if (player.shockDam)
+                floor.GetComponent<SpriteRenderer>().color = shockDamColor;
+        }
+        else if(PlayerPrefs.GetInt("eOff") == 1)
+        {
+            if (player.pAbilDict["earth"])
+                floor.GetComponent<SpriteRenderer>().color = earthColor;
+        }
+        else if (PlayerPrefs.GetInt("dOff") == 1)
+        {
+             if (player.pAbilDict["decoy"])
+                floor.GetComponent<SpriteRenderer>().color = decoyColor;
+        }
         else
             floor.GetComponent<SpriteRenderer>().color = normalColor;
         //room clear cheat

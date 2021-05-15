@@ -15,7 +15,7 @@ public class selectAbilityScript : MonoBehaviour
     public Image icon;
     public Sprite[] abilityIcons;
     public Image B1, B2, B3, B4, B5;
-    float cooldown;
+    public float cooldown = 1f;
     PlayerStat stat;
     PlayerMovement player;
     RoomTemplates templates;
@@ -26,8 +26,8 @@ public class selectAbilityScript : MonoBehaviour
        player = GameObject.Find("Player").GetComponent<PlayerMovement>();
        templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
        Cursor.visible = true;
-       cooldown = 1f;
-        if(stat.gameLevel <= 0)
+        contText.text = "";
+        if (stat.gameLevel <= 0)
         {
             PlayerPrefs.SetInt("a1", 0);
             PlayerPrefs.SetInt("a2", 0);
@@ -39,6 +39,12 @@ public class selectAbilityScript : MonoBehaviour
             PlayerPrefs.SetInt("p3", 0);
             PlayerPrefs.SetInt("p4", 0);
             PlayerPrefs.SetInt("p5", 0);
+            //effect on rooms
+            PlayerPrefs.SetInt("hOff", 0);
+            PlayerPrefs.SetInt("cOff", 0);
+            PlayerPrefs.SetInt("sOff", 0);
+            PlayerPrefs.SetInt("eOff", 0);
+            PlayerPrefs.SetInt("dOff", 0);
         }
        if (stat.gameLevel > 0)
         {
@@ -53,6 +59,12 @@ public class selectAbilityScript : MonoBehaviour
             p3Off = (PlayerPrefs.GetInt("p3") != 0);
             p4Off = (PlayerPrefs.GetInt("p4") != 0);
             p5Off = (PlayerPrefs.GetInt("p5") != 0);
+            //effect on rooms
+            PlayerPrefs.SetInt("hOff", (p1Off ? 1 : 0));
+            PlayerPrefs.SetInt("cOff", (p2Off ? 1 : 0));
+            PlayerPrefs.SetInt("sOff", (p3Off ? 1 : 0));
+            PlayerPrefs.SetInt("eOff", (p4Off ? 1 : 0));
+            PlayerPrefs.SetInt("dOff", (p5Off ? 1 : 0));
             switch (PlayerPrefs.GetInt("lastActive"))
             {
                 case 0:

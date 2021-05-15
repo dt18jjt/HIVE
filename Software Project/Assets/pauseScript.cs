@@ -26,5 +26,6 @@ public class pauseScript : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
         PlayerPrefs.DeleteAll();
+        room.paused = false;
     }
 }

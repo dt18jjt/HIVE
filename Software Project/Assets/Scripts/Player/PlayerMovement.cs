@@ -667,7 +667,7 @@ public class PlayerMovement : MonoBehaviour
     void Firebomb()
     {
         GameObject b = Instantiate(firePrefab, transform.position, Quaternion.identity) as GameObject;
-        Destroy(b, 0.5f);
+        Destroy(b, .5f);
     }
     //Freeze Blast (Ability)
     void freezeBlast(Vector2 direction, float rotationZ)

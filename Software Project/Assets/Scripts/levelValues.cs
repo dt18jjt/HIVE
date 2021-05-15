@@ -27,7 +27,6 @@ public class levelValues : MonoBehaviour
         //player.ammoDict["bullet"] = PlayerPrefs.GetFloat("Bullet");
         //player.ammoDict["shell"] = PlayerPrefs.GetFloat("Shell");
         //player.ammoDict["explosive"] = PlayerPrefs.GetFloat("Explosive");
-        //player.ammoDict["laser"] = PlayerPrefs.GetFloat("Laser");
         //added enemies values
         log.add003 = (PlayerPrefs.GetInt("003") != 0);
         log.add004 = (PlayerPrefs.GetInt("004") != 0);
