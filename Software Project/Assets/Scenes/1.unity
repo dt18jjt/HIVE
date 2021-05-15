@@ -2589,7 +2589,7 @@ MonoBehaviour:
   threatGauge: 50
   ammo1: 0
   ammo2: 0
-  weapon1: 5
+  weapon1: 1
   weapon2: 2
   wep1Level: 0
   wep2Level: 0

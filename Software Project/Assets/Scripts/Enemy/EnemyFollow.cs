@@ -252,7 +252,7 @@ public class EnemyFollow : MonoBehaviour
     void staticShock()
     {
         if (player.pAbilDict["shock"] && player.shockDam && player.shockCoolDown <= 0){
-            player.shockCoolDown = .2f;
+           // player.shockCoolDown = .2f;
         }
         
        
@@ -281,8 +281,11 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, -target.position, 50 * Time.deltaTime) :
-                Vector2.MoveTowards(transform.position, -target.position, 100 * Time.deltaTime);
+            Vector2 kbPos;
+            kbPos = (Geo) ? (target.position - transform.position).normalized * (50 * Time.deltaTime) : (target.position - transform.position).normalized * (100 * Time.deltaTime);
+            //kbPos = (Geo) ? (transform.position, - target.position). //) :
+            //(transform.position, -target.position, 100 * Time.deltaTime);
+            rb.velocity = new Vector2(kbPos.x, kbPos.y);
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
             attackCooldown = startAtkCooldown;

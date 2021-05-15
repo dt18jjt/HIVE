@@ -23,9 +23,9 @@ public class RoomTemplates : MonoBehaviour {
 	public GameObject load;
 	public List<GameObject> rooms;
 
-	public float waitTime, bossCountdown = 5f;
+	public float waitTime, bossCountdown = 5f, pauseCooldown;
 	private bool spawnedExit;
-	public bool selection, bossFight, bossDeath;
+	public bool selection, bossFight, bossDeath, paused;
 	public GameObject exit;
 	public GameObject boss;
 	public GameObject bossText;
@@ -71,6 +71,7 @@ public class RoomTemplates : MonoBehaviour {
 						if(bossFight)
 							bossText.gameObject.SetActive(false);
 						
+
 					}
 				}
 			}
@@ -78,6 +79,28 @@ public class RoomTemplates : MonoBehaviour {
 			{
 				waitTime -= Time.deltaTime;
 			}
+			if(waitTime <= 0)
+            {
+				//Pausing
+				Time.timeScale = (paused) ? 0f : 1f;
+				if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
+					if (!paused){
+						Cursor.visible = true;
+						paused = true;
+						SceneManager.LoadScene("Pause", LoadSceneMode.Additive);
+						pauseCooldown = 0.1f;
+					}
+					else{
+						Cursor.visible = false;
+						paused = false;
+						SceneManager.UnloadSceneAsync("Pause");
+						
+					}
+				}
+			}
+			if (pauseCooldown > 0 && !paused)
+				pauseCooldown -= Time.deltaTime;
+			
 		}
 		//set boss active in boss fight after wait time
 		if (bossFight && waitTime <= 0)

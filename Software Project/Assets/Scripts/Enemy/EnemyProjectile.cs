@@ -27,10 +27,12 @@ public class EnemyProjectile : MonoBehaviour
         target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((!stat.pAbilDict["decoy"]) ?
             (player.transform.position * targetModfier - transform.position).normalized * speed : 
             (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
-        //Go to player's pos
+        //Go to target pos
         if(!noPath)
             rb2D.velocity = new Vector2(target.x, target.y);
+        // destroy after a few seconds
         Destroy(gameObject, (bossSigma) ? 2f : 1f);
+        //set buff damage
         minBuff = minDam + (minDam/2);
         maxBuff = maxDam + (maxDam / 2);
     }

@@ -17,8 +17,8 @@ public class PlayerStat : MonoBehaviour
         shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f, killCoolDown = 0f;
     public string Active, Passive;
     //Room conditions
-    public bool wepJam = false, powBlock = false, shockDam = false, pickedUp = false, stackWep = false,
-        inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false, showEffect = false;
+    public bool wepJam = false, powBlock = false, shockDam = false, inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false;
+    bool pickedUp = false, showEffect = false, stackWep = false;
     int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -271,6 +271,7 @@ public class PlayerStat : MonoBehaviour
         shop();
         setBarSize();
         setAbility();
+        
     }
     private void setText()
     {
@@ -315,6 +316,7 @@ public class PlayerStat : MonoBehaviour
             {
                 //lose hp
                 hp -= dam;
+                //static shock damaging all enemies
                 if (pAbilDict["shock"] && !shockDam)
                 {
                     shockDam = true;

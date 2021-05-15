@@ -110,8 +110,11 @@ public class PlayerMovement : MonoBehaviour
     //Aim with mouse
     void mouseAim(){
         //Setting the crosshair to the mouse
-        target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-        crosshair.transform.position = new Vector3(target.x, target.y, 10);
+        if (!templates.paused)
+        {
+            target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+            crosshair.transform.position = new Vector3(target.x, target.y, 10);
+        }
         //distance between the crosshair and player
         difference = target - gameObject.transform.position;
         Vector3 shDifference = crosshair2.transform.position - gameObject.transform.position;
@@ -120,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
         gameObject.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && templates.pauseCooldown <= 0)
         {
             if(!stat.wepJam){
                 distance = difference.magnitude;
@@ -273,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButtonUp(1) && stat.activeCooldown <= 0 && stat.passiveCooldown <= 0)
+        if (Input.GetMouseButtonUp(1) && stat.activeCooldown <= 0 && stat.passiveCooldown <= 0 && templates.pauseCooldown <= 0)
         {
             if(stat.pp >= 30 && !stat.powBlock)
             {
@@ -317,19 +320,22 @@ public class PlayerMovement : MonoBehaviour
     //Aim with joystick
     void stickAim()
     {
-        rStickInput = new Vector2(Input.GetAxisRaw("RightStickX"), Input.GetAxisRaw("RightStickY"));
-        if (rStickInput.magnitude > 0f)
+        if (!templates.paused)
         {
-            difference = Vector3.down * rStickInput.x + Vector3.left * rStickInput.y;
-            Quaternion rotationZ = Quaternion.LookRotation(difference, Vector3.forward);
-            body.SetRotation(rotationZ);
-            crosshair2.SetActive(true);
+            rStickInput = new Vector2(Input.GetAxisRaw("RightStickX"), Input.GetAxisRaw("RightStickY"));
+            if (rStickInput.magnitude > 0f)
+            {
+                difference = Vector3.down * rStickInput.x + Vector3.left * rStickInput.y;
+                Quaternion rotationZ = Quaternion.LookRotation(difference, Vector3.forward);
+                body.SetRotation(rotationZ);
+                crosshair2.SetActive(true);
+            }
+            else
+                crosshair2.SetActive(false);
+            target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(rStickInput.x, rStickInput.y, 10));
         }
-        else
-            crosshair2.SetActive(false);
-        target = cam.transform.GetComponent<Camera>().ScreenToWorldPoint(new Vector3(rStickInput.x, rStickInput.y, 10));
         //Right trigger (Weapon)
-        if (Input.GetAxis("Fire1") == 1 && !pressed )
+        if (Input.GetAxis("Fire1") == 1 && !pressed && templates.pauseCooldown <= 0)
         {
             pressed = true;
             if (!stat.wepJam)
@@ -487,7 +493,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         //Left trigger (Ability)
-        else if (Input.GetAxis("Fire1") == -1 && !pressed && stat.activeCooldown <= 0 && stat.passiveCooldown <= 0)
+        else if (Input.GetAxis("Fire1") == -1 && !pressed && stat.activeCooldown <= 0 && stat.passiveCooldown <= 0 && templates.pauseCooldown <= 0)
         {
             pressed = true;
             if (stat.pp >= 30 && !stat.powBlock)
