@@ -6284,7 +6284,7 @@ MonoBehaviour:
   frozen: 0
   splitProjectile: {fileID: 6829712295772919731, guid: f0681279f3033de439e674decb0422b0,
     type: 3}
-  hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
+  hitEffect: {fileID: 3298746938982423841, guid: b9a1acb56a0a8594e89917c1e640e355,
     type: 3}
   spriteObj: {fileID: 2023185841}
   cEnemy: {fileID: 0}

@@ -41,6 +41,7 @@ public class PlayerStat : MonoBehaviour
     GameObject crate, glitchObj, cacheObj;
     Log log;
     PlayerMovement player;
+    EnemyProjectile eBullet;
     // Start is called before the first frame update
     void Start(){
         player = GetComponent<PlayerMovement>();
@@ -310,11 +311,24 @@ public class PlayerStat : MonoBehaviour
             GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
             hit.GetComponent<ParticleSystem>().Play();
             Destroy(hit, 1f);
-            if (pAbilDict["shock"] && !shockDam)
-                shockDam = true;
             if (!pAbilDict["earth"])
             {
+                //lose hp
                 hp -= dam;
+                if (pAbilDict["shock"] && !shockDam)
+                {
+                    shockDam = true;
+                    hp += (dam / 2);
+                    foreach (GameObject e in GameObject.FindGameObjectsWithTag("Enemy"))
+                    {
+                        EnemyFollow enemy = e.GetComponent<EnemyFollow>();
+                        GameObject h = Instantiate(hitEffect, e.transform.position, Quaternion.identity) as GameObject;
+                        h.GetComponent<ParticleSystem>().Play();
+                        enemy.hp -= (enemy.Electro) ? 5 : 10;
+                        shockCoolDown = .2f;
+                    }
+                }
+                //cooldown after being hit
                 damCooldown = 1.5f;
                 //threatGauge -= dam;
             }
@@ -1324,22 +1338,41 @@ public class PlayerStat : MonoBehaviour
             StartCoroutine(exitLevel());
             
         }
+        // Hit by enemy projectile
+        if (other.CompareTag("E.Bullet"))
+        {
+            eBullet = other.gameObject.GetComponent<EnemyProjectile>();
+            if (damCooldown <= 0)
+                Damage(Random.Range(eBullet.minDamFinal, eBullet.maxDamFinal));
+            Destroy(other.gameObject);
+        }
         //Hit by burning projectile
         if (other.CompareTag("Burn"))
-            burnCoolDown = Random.Range(1f, 1.6f);
+        {
+            eBullet = other.gameObject.GetComponent<EnemyProjectile>();
+            if(damCooldown <= 0)
+                Damage(Random.Range(eBullet.minDamFinal, eBullet.maxDamFinal));
+            //burn damage
+            int chance = Random.Range(0, 4);
+            if (chance >= 3)
+                burnCoolDown = Random.Range(1f, 1.6f);
+            Destroy(other.gameObject);
+        }
         //Hit by tangle projectile
         if (other.CompareTag("Spore"))
         {
+            eBullet = other.gameObject.GetComponent<EnemyProjectile>();
+            if (damCooldown <= 0)
+                Damage(Random.Range(eBullet.minDamFinal, eBullet.maxDamFinal));
+            //tangle player
             int chance = Random.Range(0, 4);
             if (chance >= 3)
-            {
                 tangleCooldown = 1f;
-                Debug.Log("tangled");
-            }
+            Destroy(other.gameObject);
         }
         //Hit by bomb projectile
         if (other.CompareTag("E.Bomb"))
-            Damage(Random.Range(20, 25));
+            Damage(Random.Range(10, 15));
     }
     private IEnumerator pulseAction()
     {

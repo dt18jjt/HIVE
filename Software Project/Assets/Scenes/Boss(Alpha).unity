@@ -3459,7 +3459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 388210b21f7bca844a958259345d7666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  hp: 150
   moveAngle: 0
   speed: 30
   normalSpeed: 30
@@ -3478,7 +3478,7 @@ MonoBehaviour:
   startSWCooldown: 1
   ranged: 1
   frozen: 0
-  hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
+  hitEffect: {fileID: 3298746938982423841, guid: b9a1acb56a0a8594e89917c1e640e355,
     type: 3}
   bombProjectile: {fileID: 3892344440764932375, guid: 55ec952c6c64f7a4b8d7ba92a15e20ce,
     type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
-    public int hp = 20, moveAngle = 0;
+    public int hp = 20;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
         moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f,
         ghostCooldown = 0.5f;
@@ -252,10 +252,7 @@ public class EnemyFollow : MonoBehaviour
     void staticShock()
     {
         if (player.pAbilDict["shock"] && player.shockDam && player.shockCoolDown <= 0){
-            player.shockCoolDown = 0.2f;
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            hp -= (Electro) ? 5 : 10;
+            player.shockCoolDown = .2f;
         }
         
        

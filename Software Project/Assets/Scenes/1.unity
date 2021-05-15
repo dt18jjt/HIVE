@@ -2589,7 +2589,7 @@ MonoBehaviour:
   threatGauge: 50
   ammo1: 0
   ammo2: 0
-  weapon1: 1
+  weapon1: 5
   weapon2: 2
   wep1Level: 0
   wep2Level: 0
@@ -3820,8 +3820,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -969132451
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0ff3a1fdf15c374408e254f345200a97, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

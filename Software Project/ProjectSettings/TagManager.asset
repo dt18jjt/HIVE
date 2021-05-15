@@ -66,6 +66,7 @@ TagManager:
   - Cache
   - H.UP
   - P.Up
+  - E.Bullet
   layers:
   - Default
   - TransparentFX
