@@ -2624,6 +2624,8 @@ MonoBehaviour:
   passiveColor: {r: 0.058823533, g: 0.9921569, b: 0.14901961, a: 1}
   hitEffect: {fileID: 6980437702165934377, guid: aea156649bbe1844ebc7891e7611870b,
     type: 3}
+  deadEffect: {fileID: 3298746938982423841, guid: b9a1acb56a0a8594e89917c1e640e355,
+    type: 3}
   pulse: {fileID: 1200439515}
   jamImage: {fileID: 865206566}
   blockImage: {fileID: 463213302}

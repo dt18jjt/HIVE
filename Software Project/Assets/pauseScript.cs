@@ -28,4 +28,9 @@ public class pauseScript : MonoBehaviour
         PlayerPrefs.DeleteAll();
         room.paused = false;
     }
+    public void retry()
+    {
+        SceneManager.LoadScene("1");
+        PlayerPrefs.DeleteAll();
+    }
 }

@@ -725,12 +725,13 @@ public class PlayerMovement : MonoBehaviour
     }
     void controllerDetection()
     {
-        if (!controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement){
+        if (!controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement && stat.hp > 0){
             mouseAim();
             crosshair.SetActive(true);
             crosshair2.GetComponent<SpriteRenderer>().enabled = false;
         }
-        if (controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement){
+        if (controller && !stat.inStore && stat.storeCoolDown <= 0 && !stopMovement && stat.hp > 0)
+        {
             stickAim();
             crosshair.SetActive(false);
             crosshair2.GetComponent<SpriteRenderer>().enabled = true;

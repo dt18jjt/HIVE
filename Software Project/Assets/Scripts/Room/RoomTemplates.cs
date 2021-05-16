@@ -32,8 +32,11 @@ public class RoomTemplates : MonoBehaviour {
 	AudioSource music;
 	VisibleRoom visible;
 	public alphaBossScript alpha;
-    private void Start()
+	PlayerStat player;
+	private void Start()
     {
+		Time.timeScale = 1f;
+		player = GameObject.Find("Player").GetComponent<PlayerStat>();
 		load.SetActive(true);
 		//show the ability choice screen for normal levels
 		if (!bossFight)
@@ -82,7 +85,11 @@ public class RoomTemplates : MonoBehaviour {
 			if(waitTime <= 0)
             {
 				//Pausing
-				Time.timeScale = (paused) ? 0f : 1f;
+				if (player.hp > 0)
+                {
+					Time.timeScale = (paused) ? 0f : 1f;
+				}
+			
 				if (Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.Joystick1Button7)){
 					if (!paused){
 						Cursor.visible = true;

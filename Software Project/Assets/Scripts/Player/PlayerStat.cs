@@ -18,7 +18,7 @@ public class PlayerStat : MonoBehaviour
     public string Active, Passive;
     //Room conditions
     public bool wepJam = false, powBlock = false, shockDam = false, inStore = false, enemyBuff = false, onLab = false, bossFight, storeFound = false;
-    bool pickedUp = false, showEffect = false, stackWep = false;
+    bool pickedUp = false, showEffect = false, stackWep = false, dead;
     int tempWep;
     public Dictionary<string, bool> pAbilDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
     public Dictionary<string, bool> wepPickupDict = new Dictionary<string, bool>(); // Passive abilities Dictionary
@@ -30,7 +30,7 @@ public class PlayerStat : MonoBehaviour
     Text hpText, ppText, a1Text, a2Text, threatText, bpText;
     private Image threatImg;
     public Color activeColor, passiveColor;
-    public GameObject hitEffect; //hit particle
+    public GameObject hitEffect, deadEffect; //hit particle
     public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
     public GameObject[] glitchItems; // items dropped from glitches
     public GameObject[] cacheItems; // items dropped from cache
@@ -180,7 +180,11 @@ public class PlayerStat : MonoBehaviour
             if (hp <= 0)
             {
                 hp = 0;
-                //Destroy(gameObject, 1.5f);
+                if (!dead)
+                {
+                    StartCoroutine(death());
+                    dead = true;
+                }
             }
             if (hp > hpMax)
                 hp = 100;
@@ -289,6 +293,16 @@ public class PlayerStat : MonoBehaviour
         setBarSize();
         setAbility();
         
+    }
+    IEnumerator death()
+    {
+        GameObject dFx = Instantiate(deadEffect, transform.position, Quaternion.identity) as GameObject;
+        dFx.GetComponent<ParticleSystem>().Play();
+        Destroy(dFx, 1f);
+        yield return new WaitForSeconds(1f);
+        Cursor.visible = true;
+        SceneManager.LoadScene("Death", LoadSceneMode.Additive);
+        Time.timeScale = 0f;
     }
     private void setText()
     {
