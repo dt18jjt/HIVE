@@ -98,30 +98,20 @@ public class Log : MonoBehaviour
     }
     public IEnumerator addEnemy()
     {
-        slots = 2;
-        if(slots == 2)
+        foreach (KeyValuePair<string, int> pAction in playerAction)
         {
-            foreach (KeyValuePair<string, int> pAction in playerAction)
-            {
-                if (pAction.Value == playerAction.Values.Max())
-                    highString = pAction.Key;
-            }
-            highestActions.Add(highString);
-            playerAction.Remove(highString);
-            slots--;
+            if (pAction.Value == playerAction.Values.Max())
+                highString = pAction.Key;
         }
+        highestActions.Add(highString);
+        playerAction.Remove(highString);
         yield return new WaitForSeconds(.2f);
-        if(slots == 1)
+        foreach (KeyValuePair<string, int> pAction in playerAction)
         {
-            foreach (KeyValuePair<string, int> pAction in playerAction)
-            {
-                if (pAction.Value == playerAction.Values.Max())
-                    highString2 = pAction.Key;
-            }
-            highestActions.Add(highString2);
-            playerAction.Remove(highString2);
-            slots--;
+            if (pAction.Value == playerAction.Values.Max())
+                highString2 = pAction.Key;
         }
-     
+        highestActions.Add(highString2);
+        playerAction.Remove(highString2);
     }
 }

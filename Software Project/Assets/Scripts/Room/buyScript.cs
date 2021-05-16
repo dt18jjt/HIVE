@@ -139,31 +139,31 @@ public class buyScript : MonoBehaviour
     }
     void Lv1B()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 1;
         stat.wep1Level = 1;
     }
     void Lv1S()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 2;
         stat.wep1Level = 1;
     }
     void Lv1E()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 3;
         stat.wep1Level = 1;
     }
     void Lv1L()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 4;
         stat.wep1Level = 1;
     }
     void Lv1M()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 5;
         stat.wep1Level = 1;
     }
@@ -174,55 +174,55 @@ public class buyScript : MonoBehaviour
     }
     void Lv2S()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 2;
         stat.wep1Level = 2;
     }
     void Lv2E()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 3;
         stat.wep1Level = 2;
     }
     void Lv2L()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 4;
         stat.wep1Level = 2;
     }
     void Lv2M()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 5;
         stat.wep1Level = 2;
     }
     void Lv3B()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 1;
         stat.wep1Level = 3;
     }
     void Lv3S()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 2;
         stat.wep1Level = 3;
     }
     void Lv3E()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 3;
         stat.wep1Level = 3;
     }
     void Lv3L()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 4;
         stat.wep1Level = 3;
     }
     void Lv3M()
     {
-        stat.dropWeapon();
+        //stat.dropWeapon();
         stat.weapon1 = 5;
         stat.wep1Level = 3;
     }

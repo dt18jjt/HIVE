@@ -7,7 +7,7 @@ public class EnemyFollow : MonoBehaviour
     public int hp = 20;
     public float speed, normalSpeed, coldSpeed, stoppingDistance, retreatDistance, attackCooldown, startAtkCooldown, 
         moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f,
-        ghostCooldown = 0.5f;
+        ghostCooldown = 0.5f, splitCooldown = 0f;
     float heatTimer = 1f, coldTimer = 1f;
     public bool ranged, frozen = false, bpSpawn = false, Avoid;
     //Enemy Types
@@ -83,6 +83,8 @@ public class EnemyFollow : MonoBehaviour
             frozenCooldown -= Time.deltaTime;
             sprite.color = frozenColor;
         }
+        if (splitCooldown > 0)
+            splitCooldown -= Time.deltaTime;
         //target change
         if (confuseCooldown <= 0)
             target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
@@ -277,7 +279,7 @@ public class EnemyFollow : MonoBehaviour
             normalSpeed += 10;
             coldSpeed += 10;
         }
-        if (Shell)
+        if (Shell && splitCooldown <= 0)
             splitSpawn(4);
         if (adsorbCooldown > 0)
         {
@@ -322,6 +324,7 @@ public class EnemyFollow : MonoBehaviour
 
             angle += angleStep;
         }
+        splitCooldown = 1f;
     }
     //pause in close range enemy movement
     public IEnumerator stopTimer()

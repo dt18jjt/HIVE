@@ -27,7 +27,20 @@ public class RoomTypes : MonoBehaviour
         if (!boss)
         {
             if (start)
+            {
+                shop = false;
+                time = false;
+                wJam = false;
+                pBlocked = false;
+                glitch = false;
+                hazard = false;
+                cache = false;
+                Destroy(eBox);
+                Destroy(IBox);
+                enemySpawnCount = 0;
+                enemyCount = 0;
                 noEnemy = true;
+            }
             count = GameObject.Find("Global").GetComponent<RoomCount>();
             timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
             templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
@@ -36,19 +49,19 @@ public class RoomTypes : MonoBehaviour
             //always spawn a lab room in level
             shopSpawn();
             //spawn room when threat level is 1
-            if (PlayerPrefs.GetInt("Threat Level") >= 1)
+            if (player.threatLV >= 1)
             {
                 timeSpawn();
                 glitchSpawn();
             }
             //spawn room when threat level is 2
-            if (PlayerPrefs.GetInt("Threat Level") >= 2)
+            if (player.threatLV >= 2)
             {
                 wepJamSpawn();
                 powBlockSpawn();
             }
             //spawn room when threat level is 2
-            if (PlayerPrefs.GetInt("Threat Level") >= 3)
+            if (player.threatLV == 3)
             {
                 hazardSpawn();
                 cacheSpawn();

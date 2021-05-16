@@ -11,7 +11,7 @@ public class PlayerStat : MonoBehaviour
     //Ammo display
     public float ammo1 , ammo2;
     //Weapon values
-    public int weapon1, weapon2, wep1Level = 0, wep2Level = 0 , ammoStack1 = 0, ammoStack2 = 0, wepDropNum;
+    public int weapon1, weapon2, wep1Level = 0, wep2Level = 0 , ammoStack1 = 0, ammoStack2 = 0, wepDropNum, wepDropNum2;
     //cooldowns
     public float damCooldown, pulseCooldown, meleeCooldown, laserCooldown = 0f, activeCooldown = 0f, passiveCooldown = 0f,
         shockCoolDown = 0f, passiveTimer = 1f, burnCoolDown, tangleCooldown, storeCoolDown = 0f, killCoolDown = 0f;
@@ -56,11 +56,11 @@ public class PlayerStat : MonoBehaviour
             damDict.Add("bulletDam", 10);
             damDict.Add("shellDam", 10);
             damDict.Add("explosiveDam", 20);
-            damDict.Add("fireDam", 10);
-            damDict.Add("freezeDam", 5);
+            damDict.Add("fireDam", 20);
+            damDict.Add("freezeDam", 10);
             damDict.Add("boltDam", 15);
             damDict.Add("confuseDam", 5);
-            damDict.Add("tremorDam", 5);
+            damDict.Add("tremorDam", 10);
             damDict.Add("laserDam", 5);
             damDict.Add("meleeDam", 10);
         }
@@ -283,7 +283,7 @@ public class PlayerStat : MonoBehaviour
             threatGauge = (threatLV <= 2) ? 0 : 100;
             Debug.Log("Threat level up!");
         }
-        if (threatGauge <= 0 && threatLV > 1)
+        if (threatGauge < 0 && threatLV > 1)
         {
             threatGauge = (threatLV > 1) ? 50 : 0;
             threatLV -= (threatLV > 1) ? 1 : 0;
@@ -511,26 +511,102 @@ public class PlayerStat : MonoBehaviour
                 a2Text.enabled = true;
                 ammo2 = ammoDict["bullet"];
                 ammo2Color1();
+                switch (wep2Level)
+                {
+                    case 0:
+                        wepDropNum2 = 0; //Weapon drop value
+                        break;
+                    case 1:
+                        wepDropNum2 = 5;
+                        break;
+                    case 2:
+                        wepDropNum2 = 10;
+                        break;
+                    case 3:
+                        wepDropNum2 = 15;
+                        break;
+                }
                 break;
+                
             case 2:
                 a2Text.enabled = true;
                 ammo2 = ammoDict["shell"];
                 ammo2Color2();
+                switch (wep2Level)
+                {
+                    case 0:
+                        wepDropNum2 = 1;
+                        break;
+                    case 1:
+                        wepDropNum2 = 6;
+                        break;
+                    case 2:
+                        wepDropNum2 = 11;
+                        break;
+                    case 3:
+                        wepDropNum2 = 16;
+                        break;
+                }
                 break;
             case 3:
                 a2Text.enabled = true;
                 ammo2 = ammoDict["explosive"];
                 ammo2Color3();
+                switch (wep2Level)
+                {
+                    case 0:
+                        wepDropNum2 = 2;
+                        break;
+                    case 1:
+                        wepDropNum2 = 7;
+                        break;
+                    case 2:
+                        wepDropNum2 = 12;
+                        break;
+                    case 3:
+                        wepDropNum2 = 17;
+                        break;
+                }
                 break;
             case 4:
                 a2Text.enabled = true;
                 ammo2 = ammoDict["laser"];
                 ammo2Color4();
+                switch (wep2Level)
+                {
+                    case 0:
+                        wepDropNum2 = 3;
+                        break;
+                    case 1:
+                        wepDropNum2 = 8;
+                        break;
+                    case 2:
+                        wepDropNum2 = 13;
+                        break;
+                    case 3:
+                        wepDropNum2 = 18;
+                        break;
+                }
                 break;
             case 5:
                 a2Text.enabled = true;
                 ammo2 = 0;
                 a2Text.text = "";
+                switch (wep2Level)
+                {
+                    case 0:
+                        wepDropNum2 = 4;
+                        break;
+                    case 1:
+                        wepDropNum2 = 9;
+                        break;
+                    case 2:
+                        wepDropNum2 = 14;
+                        break;
+                    case 3:
+                        wepDropNum2 = 19;
+                        break;
+                }
                 break;
         }
         //Ammo more than Max
@@ -744,7 +820,7 @@ public class PlayerStat : MonoBehaviour
         {
             tempWep = wepDropNum;
             //LV0 Bullet Weapon Pickup
-            if (wepPickupDict["b0"] && storeCoolDown <= 0)
+            if (wepPickupDict["b0"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -775,7 +851,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV0 Shell Weapon Pickup
-            if (wepPickupDict["s0"] && storeCoolDown <= 0)
+            if (wepPickupDict["s0"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -806,7 +882,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV0 Expolsive Weapon Pickup
-            if (wepPickupDict["e0"] && storeCoolDown <= 0)
+            if (wepPickupDict["e0"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -837,7 +913,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV0 Laser Weapon Pickup
-            if (wepPickupDict["l0"] && storeCoolDown <= 0)
+            if (wepPickupDict["l0"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -858,7 +934,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV0 Melee Weapon Pickup
-            if (wepPickupDict["m0"] && storeCoolDown <= 0)
+            if (wepPickupDict["m0"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -880,7 +956,7 @@ public class PlayerStat : MonoBehaviour
 
             }
             //LV1 Bullet Weapon Pickup
-            if (wepPickupDict["b1"] && storeCoolDown <= 0)
+            if (wepPickupDict["b1"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -911,7 +987,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV1 Shell Weapon Pickup
-            if (wepPickupDict["s1"] && storeCoolDown <= 0)
+            if (wepPickupDict["s1"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -942,7 +1018,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV1 Expolsive Weapon Pickup
-            if (wepPickupDict["e1"] && storeCoolDown <= 0)
+            if (wepPickupDict["e1"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -973,7 +1049,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV1 Laser Weapon Pickup
-            if (wepPickupDict["l1"] && storeCoolDown <= 0)
+            if (wepPickupDict["l1"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -994,7 +1070,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV1 Melee Weapon Pickup
-            if (wepPickupDict["m1"] && storeCoolDown <= 0)
+            if (wepPickupDict["m1"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1016,7 +1092,7 @@ public class PlayerStat : MonoBehaviour
 
             }
             //LV2 Bullet Weapon Pickup
-            if (wepPickupDict["b2"] && storeCoolDown <= 0)
+            if (wepPickupDict["b2"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1047,7 +1123,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV2 Shell Weapon Pickup
-            if (wepPickupDict["s2"] && storeCoolDown <= 0)
+            if (wepPickupDict["s2"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1078,7 +1154,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV2 Expolsive Weapon Pickup
-            if (wepPickupDict["e2"] && storeCoolDown <= 0)
+            if (wepPickupDict["e2"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1109,7 +1185,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV2 Laser Weapon Pickup
-            if (wepPickupDict["l2"] && storeCoolDown <= 0)
+            if (wepPickupDict["l2"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1130,7 +1206,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV2 Melee Weapon Pickup
-            if (wepPickupDict["m2"] && storeCoolDown <= 0)
+            if (wepPickupDict["m2"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1152,7 +1228,7 @@ public class PlayerStat : MonoBehaviour
 
             }
             //LV3 Bullet Weapon Pickup
-            if (wepPickupDict["b3"] && storeCoolDown <= 0)
+            if (wepPickupDict["b3"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1183,7 +1259,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV3 Shell Weapon Pickup
-            if (wepPickupDict["s3"] && storeCoolDown <= 0)
+            if (wepPickupDict["s3"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1214,7 +1290,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV3 Expolsive Weapon Pickup
-            if (wepPickupDict["e3"] && storeCoolDown <= 0)
+            if (wepPickupDict["e3"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1245,7 +1321,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV3 Laser Weapon Pickup
-            if (wepPickupDict["l3"] && storeCoolDown <= 0)
+            if (wepPickupDict["l3"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1266,7 +1342,7 @@ public class PlayerStat : MonoBehaviour
                 }
             }
             //LV3 Melee Weapon Pickup
-            if (wepPickupDict["m3"] && storeCoolDown <= 0)
+            if (wepPickupDict["m3"] && storeCoolDown <= 0 && !onLab)
             {
                 showEffect = true;
                 pickedUp = true;
@@ -1400,7 +1476,7 @@ public class PlayerStat : MonoBehaviour
         {
             StartCoroutine(exitLevel());
             GetComponent<AudioSource>().PlayOneShot(exitSound);
-
+            player.stopMovement = true;
         }
         // Hit by enemy projectile
         if (other.CompareTag("E.Bullet"))
@@ -1997,9 +2073,6 @@ public class PlayerStat : MonoBehaviour
         //Weapon Swapping
         if (Input.GetKeyUp(KeyCode.Q) || Input.GetKeyUp(KeyCode.Joystick1Button3))
             wepSwap();
-        //Psychic pulse
-        if (Input.GetKeyUp(KeyCode.F) && pulseCooldown <= 0 || Input.GetKeyUp(KeyCode.Joystick1Button9) && pulseCooldown <= 0)
-            StartCoroutine(pulseAction());
         //Set passive on
         if (Input.GetKeyUp(KeyCode.C) || Input.GetKeyUp(KeyCode.Joystick1Button8)){
             //Passive heat

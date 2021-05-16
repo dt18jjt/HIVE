@@ -8,13 +8,13 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D body;
     public float runSpeed = 100.0f;
     private float dashSpeed = 30f, rotationZ, distance;
-    public bool isDash, controller = false;
-    bool mapOn = false, pressed = false, stopMovement;
+    public bool isDash, controller = false, stopMovement;
+    bool mapOn = false, pressed = false;
     public GameObject miniMap, Map, crosshair, crosshair2, shCrosshair, shCrosshair2, cam, firePrefab, freezePrefab, 
         confusePrefab, bulletStart, afterImage, BoltArea, tremorArea;
     public GameObject spriteObj;
     public GameObject[] ammoPrefabs;
-    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 60.0f, slowCoolDown;
+    public float bulletSpeed = 100.0f, explosiveSpeed = 80.0f, laserSpeed = 80.0f, slowCoolDown;
     private Vector3 target, moveDir, velocity, difference;
     private Vector2 lStickInput, rStickInput, direction;
     PlayerStat stat;

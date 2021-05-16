@@ -2462,6 +2462,7 @@ MonoBehaviour:
   runSpeed: 50
   isDash: 0
   controller: 0
+  stopMovement: 0
   miniMap: {fileID: 1324596070}
   Map: {fileID: 15493613}
   crosshair: {fileID: 1450093299}
@@ -2594,7 +2595,7 @@ MonoBehaviour:
   gameLevel: 0
   hp: 100
   pp: 100
-  threatGauge: 50
+  threatGauge: 0
   ammo1: 0
   ammo2: 0
   weapon1: 1
@@ -2604,6 +2605,7 @@ MonoBehaviour:
   ammoStack1: 0
   ammoStack2: 0
   wepDropNum: 0
+  wepDropNum2: 0
   damCooldown: 0
   pulseCooldown: 0
   meleeCooldown: 0

@@ -31,7 +31,7 @@ public class WeaponImgScript : MonoBehaviour
         //sets image for secondary weapon
         else
         {
-            Image.sprite = weapons[player.weapon2 - 1];
+            Image.sprite = weapons[player.wepDropNum2];
             if (player.ammo2 <= 0 && !primary)
                 Image.color = Color.red;
         }

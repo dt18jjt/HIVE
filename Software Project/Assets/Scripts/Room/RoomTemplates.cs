@@ -134,6 +134,6 @@ public class RoomTemplates : MonoBehaviour {
 	{
 		bossText.SetActive(true);
 		yield return new WaitForSeconds(5f);
-		SceneManager.LoadScene("3");
+		SceneManager.LoadScene("Main");
 	}
 }
