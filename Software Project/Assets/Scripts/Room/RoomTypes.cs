@@ -139,11 +139,15 @@ public class RoomTypes : MonoBehaviour
         {
             if (player.pAbilDict["heat"])
                 floor.GetComponent<SpriteRenderer>().color = hotColor;
+            else
+                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
         else if(PlayerPrefs.GetInt("cOff") == 1)
         {
             if (player.pAbilDict["cold"])
                 floor.GetComponent<SpriteRenderer>().color = coldColor;
+            else
+                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
         else if(PlayerPrefs.GetInt("sOff") == 1)
         {
@@ -151,19 +155,24 @@ public class RoomTypes : MonoBehaviour
                 floor.GetComponent<SpriteRenderer>().color = shockColor;
             else if (player.shockDam)
                 floor.GetComponent<SpriteRenderer>().color = shockDamColor;
+            else
+                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
         else if(PlayerPrefs.GetInt("eOff") == 1)
         {
             if (player.pAbilDict["earth"])
                 floor.GetComponent<SpriteRenderer>().color = earthColor;
+            else
+                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
         else if (PlayerPrefs.GetInt("dOff") == 1)
         {
              if (player.pAbilDict["decoy"])
                 floor.GetComponent<SpriteRenderer>().color = decoyColor;
+            else
+                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
-        else
-            floor.GetComponent<SpriteRenderer>().color = normalColor;
+        
         //room clear cheat
         if (Input.GetKey(KeyCode.F1))
         {

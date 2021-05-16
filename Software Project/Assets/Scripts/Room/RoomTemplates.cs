@@ -128,6 +128,7 @@ public class RoomTemplates : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 		if(!bossDeath)
 			boss.SetActive(true);
+		GetComponent<AudioSource>().enabled = true;
 	}
 	public IEnumerator bossEnd()
 	{

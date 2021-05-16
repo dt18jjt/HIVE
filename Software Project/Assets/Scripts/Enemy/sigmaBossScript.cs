@@ -22,6 +22,7 @@ public class sigmaBossScript : MonoBehaviour
     List<int> newPoint;
     public GameObject[] deathDrop;
     public Sprite[] Sprites;
+    public AudioClip damSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -157,6 +158,7 @@ public class sigmaBossScript : MonoBehaviour
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
         hp -= dam;
+        GetComponent<AudioSource>().PlayOneShot(damSound);
     }
     void splitSpawn(int numberOfProjectiles)
     {

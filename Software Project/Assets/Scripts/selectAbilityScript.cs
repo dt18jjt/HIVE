@@ -40,11 +40,11 @@ public class selectAbilityScript : MonoBehaviour
             PlayerPrefs.SetInt("p4", 0);
             PlayerPrefs.SetInt("p5", 0);
             //effect on rooms
-            PlayerPrefs.SetInt("hOff", 0);
-            PlayerPrefs.SetInt("cOff", 0);
-            PlayerPrefs.SetInt("sOff", 0);
-            PlayerPrefs.SetInt("eOff", 0);
-            PlayerPrefs.SetInt("dOff", 0);
+            PlayerPrefs.SetInt("hOff", 1);
+            PlayerPrefs.SetInt("cOff", 1);
+            PlayerPrefs.SetInt("sOff", 1);
+            PlayerPrefs.SetInt("eOff", 1);
+            PlayerPrefs.SetInt("dOff", 1);
         }
        if (stat.gameLevel > 0)
         {

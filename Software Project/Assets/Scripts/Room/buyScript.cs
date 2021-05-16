@@ -12,12 +12,14 @@ public class buyScript : MonoBehaviour
     Log log;
     public Image item;
     shopScript shop;
+    GameObject shopObj;
     // Start is called before the first frame update
     void Start()
     {
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         log = GameObject.Find("Global").GetComponent<Log>();
         shop = GameObject.Find("shopSystem").GetComponent<shopScript>();
+        shopObj = GameObject.Find("shopSystem");
 
     }
 
@@ -40,6 +42,7 @@ public class buyScript : MonoBehaviour
             priceText.color = Color.red;
             log.shopUse++;
             Debug.Log("shop: " + log.shopUse);
+            shopObj.GetComponent<AudioSource>().PlayOneShot(shop.buySound);
         }
         else if (stat.bp < price)
             StartCoroutine(invaild());
@@ -47,6 +50,7 @@ public class buyScript : MonoBehaviour
     IEnumerator invaild()
     {
         //int temp = price;
+        shopObj.GetComponent<AudioSource>().PlayOneShot(shop.invaildSound);
         priceText.text = "INVAILD";
         yield return new WaitForSeconds(0.5f);
         priceText.text = price.ToString();
@@ -112,12 +116,12 @@ public class buyScript : MonoBehaviour
     }
     void eAmmoS()
     {
-        stat.ammoDict["expolsive"] += 2;
+        stat.ammoDict["explosive"] += 2;
 
     }
     void eAmmoL()
     {
-        stat.ammoDict["expolsive"] += 4;
+        stat.ammoDict["explosive"] += 4;
     }
     void HPMax()
     {

@@ -11,13 +11,14 @@ public class DoorScript : MonoBehaviour
     RoomTypes room;
     Countdown timeCountdown;
     public Sprite open, closed;
+    PlayerStat player;
     // Start is called before the first frame update
     void Start()
     {
         door = GetComponentInChildren<SpriteRenderer>();
         room = GetComponentInParent<RoomTypes>();
         timeCountdown = GameObject.Find("Global").GetComponent<Countdown>();
-        
+        player = GameObject.Find("Player").GetComponent<PlayerStat>();
 
     }
 
@@ -40,7 +41,10 @@ public class DoorScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(other.name == "Player" && !locked)
+        {
             other.transform.position = newPos.transform.position;
+            player.GetComponent<AudioSource>().PlayOneShot(player.doorSound);
+        }
         if (other.tag == "Blocked")
             blocked = true;
     }

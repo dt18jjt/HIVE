@@ -43,6 +43,7 @@ public class PlayerStat : MonoBehaviour
     PlayerMovement player;
     EnemyProjectile eBullet;
     RoomTemplates templates;
+    public AudioClip hitSound, doorSound, bpSound, pickupSound, boxSound, exitSound, bombSound;
     // Start is called before the first frame update
     void Start(){
         player = GetComponent<PlayerMovement>();
@@ -340,13 +341,15 @@ public class PlayerStat : MonoBehaviour
     public void Damage(float dam){
         //Player Damage
         if(hp > 0 && damCooldown <= 0){
-            GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
-            hit.GetComponent<ParticleSystem>().Play();
-            Destroy(hit, 1f);
             if (!pAbilDict["earth"])
             {
                 //lose hp
                 hp -= dam;
+                GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
+                hit.GetComponent<ParticleSystem>().Play();
+                Destroy(hit, 1f);
+                //sound effect
+                GetComponent<AudioSource>().PlayOneShot(hitSound);
                 //static shock damaging all enemies
                 if (pAbilDict["shock"] && !shockDam)
                 {
@@ -640,6 +643,7 @@ public class PlayerStat : MonoBehaviour
             {
                 pickedUp = true;
                 itemDrop();
+                GetComponent<AudioSource>().PlayOneShot(boxSound);
             }
             if (wepPickupDict["hp"])
             {
@@ -650,6 +654,7 @@ public class PlayerStat : MonoBehaviour
                     hp += 25;
                     pickupText.GetComponent<TextMesh>().text = "HP + 25";
                     log.healthUse++;
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
             if (wepPickupDict["bAmmo"])
@@ -661,7 +666,7 @@ public class PlayerStat : MonoBehaviour
                     float ammo = Random.Range(6, 13);
                     ammoDict["bullet"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
-                    
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
 
             }
@@ -674,7 +679,7 @@ public class PlayerStat : MonoBehaviour
                     float ammo = Random.Range(4, 11);
                     ammoDict["shell"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
-
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
             if (wepPickupDict["eAmmo"])
@@ -686,7 +691,7 @@ public class PlayerStat : MonoBehaviour
                     float ammo = Random.Range(2, 5);
                     ammoDict["explosive"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Explosives + " + ammo.ToString();
-
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
             if (wepPickupDict["glitch"])
@@ -698,6 +703,7 @@ public class PlayerStat : MonoBehaviour
                     Instantiate(glitchItems[Random.Range(0, glitchItems.Length)], glitchObj.transform.position, Quaternion.identity);
                     log.shopUse++;
                     Debug.Log("shop: " + log.shopUse);
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
             if (wepPickupDict["cache"])
@@ -706,6 +712,7 @@ public class PlayerStat : MonoBehaviour
                 Instantiate(cacheItems[Random.Range(0, cacheItems.Length)], cacheObj.transform.position, Quaternion.identity);
                 log.shopUse++;
                 Debug.Log("shop: " + log.shopUse);
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
             }
             if (wepPickupDict["hUP"])
             {
@@ -715,6 +722,7 @@ public class PlayerStat : MonoBehaviour
                     pickedUp = true;
                     hpMax += 10;
                     pickupText.GetComponent<TextMesh>().text = "Max HP + 10";
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
             if (wepPickupDict["pUP"])
@@ -725,6 +733,7 @@ public class PlayerStat : MonoBehaviour
                     pickedUp = true;
                     ppMax += 10;
                     pickupText.GetComponent<TextMesh>().text = "Max PP + 10";
+                    GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 }
             }
         }
@@ -739,6 +748,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 1 && wep1Level == 0)
                 {
                     stackWep = true;
@@ -769,6 +779,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 2 && wep1Level == 0)
                 {
                     stackWep = true;
@@ -799,6 +810,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 3 && wep1Level == 0)
                 {
                     stackWep = true;
@@ -829,6 +841,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 4 && wep1Level == 0)
                 {
                     stackWep = true;
@@ -849,6 +862,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 5 && wep1Level == 0)
                 {
                     stackWep = true;
@@ -870,6 +884,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 1 && wep1Level == 1)
                 {
                     stackWep = true;
@@ -900,6 +915,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 2 && wep1Level == 1)
                 {
                     stackWep = true;
@@ -930,6 +946,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 3 && wep1Level == 1)
                 {
                     stackWep = true;
@@ -960,6 +977,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 4 && wep1Level == 1)
                 {
                     stackWep = true;
@@ -980,6 +998,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 5 && wep1Level == 1)
                 {
                     stackWep = true;
@@ -1001,6 +1020,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 1 && wep1Level == 2)
                 {
                     stackWep = true;
@@ -1031,6 +1051,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 2 && wep1Level == 2)
                 {
                     stackWep = true;
@@ -1061,6 +1082,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 3 && wep1Level == 2)
                 {
                     stackWep = true;
@@ -1091,6 +1113,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 4 && wep1Level == 2)
                 {
                     stackWep = true;
@@ -1111,6 +1134,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 5 && wep1Level == 2)
                 {
                     stackWep = true;
@@ -1132,6 +1156,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 1 && wep1Level == 3)
                 {
                     stackWep = true;
@@ -1162,6 +1187,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 2 && wep1Level == 3)
                 {
                     stackWep = true;
@@ -1192,6 +1218,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 3 && wep1Level == 3)
                 {
                     stackWep = true;
@@ -1222,6 +1249,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 4 && wep1Level == 3)
                 {
                     stackWep = true;
@@ -1242,6 +1270,7 @@ public class PlayerStat : MonoBehaviour
             {
                 showEffect = true;
                 pickedUp = true;
+                GetComponent<AudioSource>().PlayOneShot(pickupSound);
                 if (weapon1 == 5 && wep1Level == 3)
                 {
                     stackWep = true;
@@ -1364,12 +1393,14 @@ public class PlayerStat : MonoBehaviour
             if (!pAbilDict["heat"] || !pAbilDict["cold"] || pAbilDict["shock"] || pAbilDict["earth"] || pAbilDict["decoy"])
                 pp += 10;
             Destroy(other.gameObject);
+            GetComponent<AudioSource>().PlayOneShot(bpSound);
         }
         //Exiting level
         if (other.CompareTag("Exit"))
         {
             StartCoroutine(exitLevel());
-            
+            GetComponent<AudioSource>().PlayOneShot(exitSound);
+
         }
         // Hit by enemy projectile
         if (other.CompareTag("E.Bullet"))
@@ -1404,7 +1435,7 @@ public class PlayerStat : MonoBehaviour
             Destroy(other.gameObject);
         }
         //Hit by bomb projectile
-        if (other.CompareTag("E.Bomb"))
+        if (other.CompareTag("E.Bomb") || other.CompareTag("Bomb"))
             Damage(Random.Range(10, 15));
     }
     private IEnumerator pulseAction()

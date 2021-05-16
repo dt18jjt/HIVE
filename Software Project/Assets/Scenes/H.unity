@@ -407,7 +407,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: 109}
+  m_AnchoredPosition: {x: 72.99999, y: 54.100006}
   m_SizeDelta: {x: 629.4713, y: 90.22092}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &337548903
@@ -452,88 +452,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337548901}
-  m_CullTransparentMesh: 0
---- !u!1 &360666715
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 360666716}
-  - component: {fileID: 360666718}
-  - component: {fileID: 360666717}
-  m_Layer: 5
-  m_Name: Text (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &360666716
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360666715}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1678881771}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 85}
-  m_SizeDelta: {x: 1901.2281, y: 196.09467}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &360666717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360666715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 70
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 100
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1.3
-  m_Text: 'At the start of each level the player must choose 1 active ability and
-    passive ability
-
-
-'
---- !u!222 &360666718
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 360666715}
   m_CullTransparentMesh: 0
 --- !u!1 &371324001
 GameObject:
@@ -707,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &453675276
 RectTransform:
   m_ObjectHideFlags: 0
@@ -898,8 +816,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.6, y: -185.9}
-  m_SizeDelta: {x: 1876.4952, y: 135.59302}
+  m_AnchoredPosition: {x: 2.6, y: -218.9}
+  m_SizeDelta: {x: 1876.4952, y: 207.90076}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &579451315
 MonoBehaviour:
@@ -922,7 +840,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 50
+    m_FontSize: 60
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -1185,7 +1103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 687.4, y: 85.899994}
+  m_AnchoredPosition: {x: 690.4, y: 31}
   m_SizeDelta: {x: 502.1974, y: 136.57812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1027153519
@@ -1393,7 +1311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -645.1, y: 85.882996}
+  m_AnchoredPosition: {x: -642.1, y: 30.983002}
   m_SizeDelta: {x: 629.4713, y: 136.54358}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1136959781
@@ -1849,10 +1767,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 90
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 100
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -1862,8 +1780,8 @@ MonoBehaviour:
     m_LineSpacing: 1.3
   m_Text: "Movement: 'WASD' / 'Left stick'\nAim: 'mouse axis' / 'Right stick'\nInteract:
     'E' / 'A'\nWeapon Switch: 'Q' / 'Y'\nWeapon Shoot: 'left click' / 'right trigger'
-    \nActive Ability: 'right stick' / 'left trigger'\nPassive Ability: 'C' / 'RS
-    (press)'\nPause: 'ESC' / 'Start'"
+    \nActive Ability: 'right stick' / 'left trigger'\nPassive Ability: 'C' / 'LS
+    (press)'\nPause: 'ESC' / 'Start'\nMap: 'M' / 'back'"
 --- !u!222 &1350008989
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1902,12 +1820,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1678881771}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: -282}
-  m_SizeDelta: {x: 1901.2281, y: 395.3872}
+  m_AnchoredPosition: {x: 15, y: 29.1}
+  m_SizeDelta: {x: 1901.2281, y: 249.25806}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380411612
 MonoBehaviour:
@@ -2051,7 +1969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1569153245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2692,7 +2610,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 360666716}
   - {fileID: 1380411611}
   - {fileID: 1870344604}
   m_Father: {fileID: 206883627}
@@ -3015,8 +2932,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -215}
-  m_SizeDelta: {x: 1901.2281, y: 347.96692}
+  m_AnchoredPosition: {x: 0, y: -291.2}
+  m_SizeDelta: {x: 1901.2281, y: 401.61597}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1791864711
 MonoBehaviour:
@@ -3039,27 +2956,19 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 50
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.2
-  m_Text: 'Time room : The player is locked in a room for a amount of time and enemies
-    spawn in waves.
-
-    Store Room: Buy items and weapons
-
-    glitch room: spend
-    50 BP for a chance of getting a random higher-level weapon or upgrade
-
-    Cache
-    room: Be rewarded with a higher-level weapon or upgrade
+    m_LineSpacing: 1.5
+  m_Text: 'There are also other rooms that  can aid or hinding  the player  during
+    playtime
 
 '
 --- !u!222 &1791864712
@@ -3069,6 +2978,84 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791864709}
+  m_CullTransparentMesh: 0
+--- !u!1 &1792527977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792527978}
+  - component: {fileID: 1792527980}
+  - component: {fileID: 1792527979}
+  m_Layer: 5
+  m_Name: Text (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1792527978
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792527977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2084402968}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 79.599976, y: -328.76}
+  m_SizeDelta: {x: 1578.4568, y: 117.76492}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1792527979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792527977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Tip: Destroy enemy corpses for extra BP'
+--- !u!222 &1792527980
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792527977}
   m_CullTransparentMesh: 0
 --- !u!1 &1809754801
 GameObject:
@@ -3104,8 +3091,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.6, y: 34}
-  m_SizeDelta: {x: 1882.5963, y: 133.55936}
+  m_AnchoredPosition: {x: -2.4748, y: 85.4}
+  m_SizeDelta: {x: 1866.3458, y: 236.45892}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809754803
 MonoBehaviour:
@@ -3128,7 +3115,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 60
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -3215,7 +3202,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1678881771}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3505,7 +3492,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -613, y: 249.9}
+  m_AnchoredPosition: {x: -610, y: 195}
   m_SizeDelta: {x: 1019.80176, y: 1019.80176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1969697415
@@ -3657,7 +3644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70, y: 249.9}
+  m_AnchoredPosition: {x: 72.99999, y: 195}
   m_SizeDelta: {x: 324.37347, y: 191.49072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1976070933
@@ -3858,6 +3845,7 @@ RectTransform:
   - {fileID: 1302387431}
   - {fileID: 1185091520}
   - {fileID: 101552973}
+  - {fileID: 1792527978}
   m_Father: {fileID: 206883627}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3900,7 +3888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 671, y: 249.9}
+  m_AnchoredPosition: {x: 674, y: 195}
   m_SizeDelta: {x: 915.92175, y: 915.92175}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097601684
@@ -4052,8 +4040,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 433}
-  m_SizeDelta: {x: 1901.2281, y: 194.06104}
+  m_AnchoredPosition: {x: 15, y: 444}
+  m_SizeDelta: {x: 1901.2281, y: 172.09369}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122554585
 MonoBehaviour:
@@ -4076,10 +4064,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 90
+    m_FontSize: 80
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 1
+    m_MinSize: 0
     m_MaxSize: 100
     m_Alignment: 1
     m_AlignByGeometry: 0
@@ -4087,8 +4075,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: 'There are different types of rooms which appear depending on the threat
-    level
+  m_Text: 'different types of rooms appear depending on the threat level
 
 '
 --- !u!222 &2122554586
@@ -4133,8 +4120,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17, y: 316.33}
-  m_SizeDelta: {x: 1905.2953, y: 369.8286}
+  m_AnchoredPosition: {x: 17, y: 387.2}
+  m_SizeDelta: {x: 1905.2953, y: 227.99396}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2136507229
 MonoBehaviour:
@@ -4157,7 +4144,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 61e15d3a54b4dcf40926e5d5d1a176ce, type: 3}
-    m_FontSize: 70
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -4172,11 +4159,6 @@ MonoBehaviour:
 
     Bullet, shell, explosive, laser, melee.
 
-    Bullet,
-    shell & explosive weapons require ammo
-
-    laser weapon will recharge after
-    being fired
 
 '
 --- !u!222 &2136507230

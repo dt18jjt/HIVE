@@ -11,9 +11,13 @@ public class FirebombScript : MonoBehaviour
     Transform enemyPos;
     private Vector2 target;
     float seekerSpeed = 80f;
+    PlayerStat player;
+    GameObject pObj;
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<PlayerStat>();
+        pObj = GameObject.Find("Player");
         //grenade action
         if (grenade)
             Invoke("detonate", 1f);
@@ -50,6 +54,7 @@ public class FirebombScript : MonoBehaviour
         Destroy(a, 0.3f);
         Destroy(gameObject);
         shake.shakeDuration = 0.5f;
+        pObj.GetComponent<AudioSource>().PlayOneShot(player.bombSound);
 
     }
     void deploy()

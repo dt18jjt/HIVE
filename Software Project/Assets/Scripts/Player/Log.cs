@@ -6,7 +6,7 @@ using System.Linq;
 public class Log : MonoBehaviour
 {
     //Player behaviours
-    public int quickKill = 0, shopUse = 0, stackUse = 0, healthUse = 0;
+    public int quickKill = 0, shopUse = 0, stackUse = 0, healthUse = 0, slots;
     public Dictionary<string, int> playerAction = new Dictionary<string, int>(); //Dictionary of player actions
     public List<string> highestActions; //highest actions are put into a list
     public bool noDamage = true;
@@ -98,20 +98,30 @@ public class Log : MonoBehaviour
     }
     public IEnumerator addEnemy()
     {
-        foreach(KeyValuePair<string, int> pAction in playerAction)
+        slots = 2;
+        if(slots == 2)
         {
-            if(pAction.Value == playerAction.Values.Max())
-                highString = pAction.Key;
+            foreach (KeyValuePair<string, int> pAction in playerAction)
+            {
+                if (pAction.Value == playerAction.Values.Max())
+                    highString = pAction.Key;
+            }
+            highestActions.Add(highString);
+            playerAction.Remove(highString);
+            slots--;
         }
-        highestActions.Add(highString);
-        playerAction.Remove(highString);
-        yield return new WaitForSeconds(1f);
-        foreach (KeyValuePair<string, int> pAction in playerAction)
+        yield return new WaitForSeconds(.2f);
+        if(slots == 1)
         {
-            if (pAction.Value == playerAction.Values.Max())
-                highString2 = pAction.Key;
+            foreach (KeyValuePair<string, int> pAction in playerAction)
+            {
+                if (pAction.Value == playerAction.Values.Max())
+                    highString2 = pAction.Key;
+            }
+            highestActions.Add(highString2);
+            playerAction.Remove(highString2);
+            slots--;
         }
-        highestActions.Add(highString2);
-        playerAction.Remove(highString2);
+     
     }
 }

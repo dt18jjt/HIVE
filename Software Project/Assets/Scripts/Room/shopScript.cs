@@ -15,7 +15,7 @@ public class shopScript : MonoBehaviour
     public Sprite[] shopImages;
     public Text buyText, priceText;
     public int price, effect, i;
-    string random;
+    public AudioClip buySound, invaildSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +28,8 @@ public class shopScript : MonoBehaviour
             priceDict.Add("Bullet Ammo L", 30);
             priceDict.Add("Shell Ammo S", 15);
             priceDict.Add("Shell Ammo L", 30);
-            priceDict.Add("Expolsive Ammo S", 15);
-            priceDict.Add("Expolsive Ammo L", 30);
+            priceDict.Add("Explosive Ammo S", 15);
+            priceDict.Add("Explosive Ammo L", 30);
             priceDict.Add("Health Booster", 50);
             priceDict.Add("Psychic Booster", 50);
             priceDict.Add("Ammo Stack + 1", 40);
@@ -57,12 +57,12 @@ public class shopScript : MonoBehaviour
             effectDict.Add("Bullet Ammo L", 3);
             effectDict.Add("Shell Ammo S", 4);
             effectDict.Add("Shell Ammo L", 5);
-            effectDict.Add("Expolsive Ammo S", 6);
-            effectDict.Add("Expolsive Ammo L", 7);
+            effectDict.Add("Explosive Ammo S", 6);
+            effectDict.Add("Explosive Ammo L", 7);
             effectDict.Add("Health Booster", 8);
             effectDict.Add("Psychic Booster", 9);
             effectDict.Add("Ammo Stack + 1", 10);
-            effectDict.Add("Twin Revolvers LV.1", 11);
+            effectDict.Add("Revolver LV.1", 11);
             effectDict.Add("Pump Shotgun LV.1", 12);
             effectDict.Add("Missile Launcher LV.1", 13);
             effectDict.Add("Laser Repeater LV.1", 14);
@@ -73,7 +73,7 @@ public class shopScript : MonoBehaviour
             effectDict.Add("Beam Rifle LV.2", 19);
             effectDict.Add("Sledgehammer LV.2", 20);
             effectDict.Add("Machine gun LV.3", 21);
-            effectDict.Add("Quad barrel LV.3", 22);
+            effectDict.Add("Super barrel LV.3", 22);
             effectDict.Add("Heat Seeker LV.3", 23);
             effectDict.Add("Rail Gun LV.3", 24);
             effectDict.Add("Katana LV.3", 25);
@@ -81,9 +81,9 @@ public class shopScript : MonoBehaviour
         if (!stat.storeFound)
         {
             //setting each buy item for the first time
-            for (i = 0; i < buttons.Count;)
+            for (i = 0; i < buttons.Count; i++)
             {
-                random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count));
+                var random = priceDict.Keys.ElementAt((int)Random.Range(0, priceDict.Count));
                 buttons[i].gameObject.GetComponent<buyScript>().price = priceDict[random];
                 buttons[i].gameObject.GetComponent<buyScript>().buyText.text = random;
                 buttons[i].gameObject.GetComponent<buyScript>().priceText.text =
@@ -91,7 +91,7 @@ public class shopScript : MonoBehaviour
                 buttons[i].gameObject.GetComponent<buyScript>().effect = effectDict[random];
                 PlayerPrefs.SetString("Value" + i.ToString(), random);
                 priceDict.Remove(random);
-                i++;
+                
             }
 
         }

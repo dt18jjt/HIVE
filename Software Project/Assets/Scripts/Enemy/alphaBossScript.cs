@@ -23,6 +23,7 @@ public class alphaBossScript : MonoBehaviour
     Log log;
     camShake shake;
     public GameObject[] deathDrop;
+    public AudioClip damSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -91,11 +92,6 @@ public class alphaBossScript : MonoBehaviour
         }
             
         warningArea.SetActive(((Vector2.Distance(transform.position, target.position) < retreatDistance) && !blastSpawned) ? true : false);
-    }
-    private void FixedUpdate()
-    {
-        //if(knockedBack)
-        //    StartCoroutine(tremorKnockback(0.5f, 50f));
     }
     void movement()
     {
@@ -222,6 +218,7 @@ public class alphaBossScript : MonoBehaviour
         hit.GetComponent<ParticleSystem>().Play();
         Destroy(hit, 1f);
         hp -= dam;
+        GetComponent<AudioSource>().PlayOneShot(damSound);
         //player.threatGauge += 5;
     }
     void tremorKnockback()

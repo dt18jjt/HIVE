@@ -24,6 +24,7 @@ public class EnemyFollow : MonoBehaviour
     Rigidbody2D rb;
     Log log;
     RoomTypes room;
+    public AudioClip damSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -267,6 +268,7 @@ public class EnemyFollow : MonoBehaviour
     {
         GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
         hit.GetComponent<ParticleSystem>().Play();
+        GetComponent<AudioSource>().PlayOneShot(damSound);
         Destroy(hit, 1f);
         if(adsorbCooldown <= 0)
             hp -= dam;
@@ -287,13 +289,9 @@ public class EnemyFollow : MonoBehaviour
     {
         if(tremorCooldown > 0)
         {
-            //Vector2 kbPos;
-            //kbPos = (Geo) ? (target.position - transform.position).normalized * (50 * Time.deltaTime) : (target.position - transform.position).normalized * (100 * Time.deltaTime);
-            ////kbPos = (Geo) ? (transform.position, - target.position). //) :
-            ////(transform.position, -target.position, 100 * Time.deltaTime);
-            //rb.velocity = new Vector2(kbPos.x, kbPos.y);
-            transform.position = (Geo) ? Vector2.MoveTowards(transform.position, target.position, 25 * Time.deltaTime) : 
-                Vector2.MoveTowards(transform.position, target.position, 50 * Time.deltaTime / 2);
+            randDirection = new Vector2(Random.Range(-10, 10), Random.Range(-10, 10)).normalized;
+            randMovement = randDirection * speed;
+            transform.position = new Vector2(transform.position.x + (randMovement.x * Time.deltaTime), transform.position.y + (randMovement.y * Time.deltaTime));
             tremorCooldown -= Time.deltaTime;
             moveCooldown = startMvCooldown;
             attackCooldown = startAtkCooldown;
@@ -301,7 +299,7 @@ public class EnemyFollow : MonoBehaviour
     }
     void splitSpawn(int numberOfProjectiles)
     {
-        float radius, splitSpeed = 80f;
+        float radius, splitSpeed = 40f;
         radius = GetComponent<CircleCollider2D>().radius;
         //starting point for projectiles
         Vector2 startPoint = gameObject.transform.position;
@@ -386,7 +384,7 @@ public class EnemyFollow : MonoBehaviour
             Debug.Log("Laser:" + log.playerAction["laserHit"]);
         }
         //Hit by explosive object
-        if (other.CompareTag("Bomb"))
+        if (other.CompareTag("Bomb") || other.CompareTag("E.Bomb"))
         {
             if (!Explosive)
             {

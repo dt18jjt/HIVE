@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     RoomTemplates templates;
     camShake shake;
     public Sprite[] playerSprite;
+    public AudioClip bfire, sFire, eFire, lFire, mFire, abilSound;
     [SerializeField] LayerMask dashLayerMask;
     // Start is called before the first frame update
     void Start()
@@ -433,8 +434,6 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
                 if (stat.weapon1 == 4){
-                    //Projectile 
-                    laserFire(direction, body.rotation);
                     //Ammo taken
                     switch (stat.wep1Level)
                     {
@@ -550,6 +549,8 @@ public class PlayerMovement : MonoBehaviour
         b.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(b, 0.7f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(bfire);
     }
     //Shells spawn
     void shellFire(Vector2 direction, float rotationZ){
@@ -558,6 +559,8 @@ public class PlayerMovement : MonoBehaviour
         s.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         s.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(s, 0.5f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(sFire);
     }
     //Explosive spawn
     void explosiveFire(Vector2 direction, float rotationZ)
@@ -591,6 +594,8 @@ public class PlayerMovement : MonoBehaviour
                 e.GetComponent<Rigidbody2D>().velocity = direction * explosiveSpeed;
                 break;
         }
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(eFire);
     }
     //laser spawn
     void laserFire(Vector2 direction, float rotationZ)
@@ -628,6 +633,8 @@ public class PlayerMovement : MonoBehaviour
                 Destroy(l, 0.8f);
                 break;
         }
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(lFire);
     }
     //melee spawn
     void meleeFire(float rotationZ)
@@ -636,6 +643,8 @@ public class PlayerMovement : MonoBehaviour
         m.transform.position = bulletStart.transform.position;
         m.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         Destroy(m, 0.5f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(mFire);
     }
     //Level 3 bullet weapon burst fire
     IEnumerator burstFire()
@@ -669,6 +678,8 @@ public class PlayerMovement : MonoBehaviour
     {
         GameObject b = Instantiate(firePrefab, transform.position, Quaternion.identity) as GameObject;
         Destroy(b, .5f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(abilSound);
     }
     //Freeze Blast (Ability)
     void freezeBlast(Vector2 direction, float rotationZ)
@@ -678,6 +689,8 @@ public class PlayerMovement : MonoBehaviour
         b.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         b.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(b, 0.7f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(abilSound);
     }
     //Confusion (Ability)
     void confusion(Vector2 direction, float rotationZ)
@@ -687,6 +700,8 @@ public class PlayerMovement : MonoBehaviour
         c.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
         c.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
         Destroy(c, 0.7f);
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(abilSound);
     }
     //Tremor (Ability)
     void tremor()
@@ -694,11 +709,15 @@ public class PlayerMovement : MonoBehaviour
         GameObject t = Instantiate(tremorArea, transform.position, Quaternion.identity) as GameObject;
         Destroy(t, 0.4f);
         shake.shakeDuration = 0.6f;
+        //sound effect
+        GetComponent<AudioSource>().PlayOneShot(abilSound);
     }
     void boltDash()
     {
         if (isDash)
         {
+            //sound effect
+            GetComponent<AudioSource>().PlayOneShot(abilSound);
             //creates afterImage
             var aImage = Instantiate(afterImage, transform.position, Quaternion.identity);
             Destroy(aImage, 1f);
