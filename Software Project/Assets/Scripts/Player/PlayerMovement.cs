@@ -169,43 +169,29 @@ public class PlayerMovement : MonoBehaviour
                             break;
                     }
                 }
-                if (stat.weapon1 == 2){
+                if (stat.weapon1 == 2 && stat.ammo1 >= 2)
+                {
+                    stat.ammoDict["shell"] -= 2;
                     //Ammo taken and Projectiles
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            if(stat.ammo1 >= 2)
-                            {
-                                stat.ammoDict["shell"] -= 2;
-                                shellFire(shDirection2, body.rotation);
-                                shellFire(shDirection3, body.rotation);
-                            }
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
                             break;
                         case 1:
-                            if (stat.ammo1 >= 2)
-                            {
-                                stat.ammoDict["shell"] -= 2;
-                                shellFire(shDirection2, body.rotation);
-                                shellFire(shDirection3, body.rotation);
-                            }
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
                             break;
                         case 2:
-                            if (stat.ammo1 >= 3)
-                            {
-                                stat.ammoDict["shell"] -= 3;
-                                shellFire(direction, body.rotation);
-                                shellFire(shDirection2, body.rotation);
-                                shellFire(shDirection3, body.rotation);
-                            }
+                            shellFire(direction, body.rotation);
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
                             break;
                         case 3:
-                            if (stat.ammo1 >= 3)
-                            {
-                                stat.ammoDict["shell"] -= 3;
-                                shellFire(direction, body.rotation);
-                                shellFire(shDirection2, body.rotation);
-                                shellFire(shDirection3, body.rotation);
-                            }
+                            shellFire(direction, body.rotation);
+                            shellFire(shDirection2, body.rotation);
+                            shellFire(shDirection3, body.rotation);
                             break;
                     }
                 }
@@ -240,14 +226,14 @@ public class PlayerMovement : MonoBehaviour
                             if (stat.ammo1 >= 6)
                             {
                                 laserFire(direction, rotationZ);
-                                stat.ammoDict["laser"] -= 6;
+                                stat.ammoDict["laser"] -= 4;
                             }
                             break;
                         case 3:
                             if (stat.ammo1 >= 12)
                             {
                                 laserFire(direction, rotationZ);
-                                stat.ammoDict["laser"] -= 12;
+                                stat.ammoDict["laser"] -= 8;
                             }
                             break;
                     }
@@ -385,43 +371,29 @@ public class PlayerMovement : MonoBehaviour
                             break;
                     }
                 }
-                if (stat.weapon1 == 2){
+                if (stat.weapon1 == 2 && stat.ammo1 >= 2)
+                {
+                    stat.ammoDict["shell"] -= 2;
                     //Ammo taken and Projectiles
                     switch (stat.wep1Level)
                     {
                         case 0:
-                            if (stat.ammo1 >= 2)
-                            {
-                                stat.ammoDict["shell"] -= 2;
-                                shellFire(direction2, body.rotation);
-                                shellFire(direction3, body.rotation);
-                            }
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
                             break;
                         case 1:
-                            if (stat.ammo1 >= 2)
-                            {
-                                stat.ammoDict["shell"] -= 2;
-                                shellFire(direction2, body.rotation);
-                                shellFire(direction3, body.rotation);
-                            }
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
                             break;
                         case 2:
-                            if (stat.ammo1 >= 3)
-                            {
-                                stat.ammoDict["shell"] -= 3;
-                                shellFire(direction, body.rotation);
-                                shellFire(direction2, body.rotation);
-                                shellFire(direction3, body.rotation);
-                            }
+                            shellFire(direction, body.rotation);
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
                             break;
                         case 3:
-                            if (stat.ammo1 >= 3)
-                            {
-                                stat.ammoDict["shell"] -= 3;
-                                shellFire(direction, body.rotation);
-                                shellFire(direction2, body.rotation);
-                                shellFire(direction3, body.rotation);
-                            }
+                            shellFire(direction, body.rotation);
+                            shellFire(direction2, body.rotation);
+                            shellFire(direction3, body.rotation);
                             break;
                     }
                 }
@@ -455,14 +427,14 @@ public class PlayerMovement : MonoBehaviour
                             if (stat.ammo1 >= 6)
                             {
                                 laserFire(direction, body.rotation);
-                                stat.ammoDict["laser"] -= 6;
+                                stat.ammoDict["laser"] -= 4;
                             }
                             break;
                         case 3:
                             if (stat.ammo1 >= 12)
                             {
                                 laserFire(direction, body.rotation);
-                                stat.ammoDict["laser"] -= 12;
+                                stat.ammoDict["laser"] -= 8;
                             }
                             break;
                     }

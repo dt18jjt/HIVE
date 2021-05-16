@@ -389,19 +389,19 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["bullet"] = 10; //Damage
+                        damDict["bulletDam"] = 10; //Damage
                         wepDropNum = 0; //Weapon drop value
                         break;
                     case 1:
-                        damDict["bullet"] = 15;
+                        damDict["bulletDam"] = 15;
                         wepDropNum = 5;
                         break;
                     case 2:
-                        damDict["bullet"] = 10;
+                        damDict["bulletDam"] = 10;
                         wepDropNum = 10;
                         break;
                     case 3:
-                        damDict["bullet"] = 10;
+                        damDict["bulletDam"] = 10;
                         wepDropNum = 15;
                         break;
                 }
@@ -414,19 +414,19 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["shell"] = 5;
+                        damDict["shellDam"] = 5;
                         wepDropNum = 1;
                         break;
                     case 1:
-                        damDict["shell"] = 10;
+                        damDict["shellDam"] = 10;
                         wepDropNum = 6;
                         break;
                     case 2:
-                        damDict["shell"] = 10;
+                        damDict["shellDam"] = 10;
                         wepDropNum = 11;
                         break;
                     case 3:
-                        damDict["shell"] = 15;
+                        damDict["shellDam"] = 15;
                         wepDropNum = 16;
                         break;
                 }
@@ -438,19 +438,19 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["explosive"] = 20;
+                        damDict["explosiveDam"] = 20;
                         wepDropNum = 2;
                         break;
                     case 1:
-                        damDict["explosive"] = 20;
+                        damDict["explosiveDam"] = 20;
                         wepDropNum = 7;
                         break;
                     case 2:
-                        damDict["explosive"] = 20;
+                        damDict["explosiveDam"] = 20;
                         wepDropNum = 12;
                         break;
                     case 3:
-                        damDict["explosive"] = 20;
+                        damDict["explosiveDam"] = 20;
                         wepDropNum = 17;
                         break;
                 }
@@ -462,19 +462,19 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["laser"] = 5;
+                        damDict["laserDam"] = 5;
                         wepDropNum = 3;
                         break;
                     case 1:
-                        damDict["laser"] = 10;
+                        damDict["laserDam"] = 10;
                         wepDropNum = 8;
                         break;
                     case 2:
-                        damDict["laser"] = 20;
+                        damDict["laserDam"] = 20;
                         wepDropNum = 13;
                         break;
                     case 3:
-                        damDict["laser"] = 40;
+                        damDict["laserDam"] = 40;
                         wepDropNum = 18;
                         break;
                 }
@@ -486,19 +486,19 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["melee"] = 10;
+                        damDict["meleeDam"] = 10;
                         wepDropNum = 4;
                         break;
                     case 1:
-                        damDict["melee"] = 5;
+                        damDict["meleeDam"] = 10;
                         wepDropNum = 9;
                         break;
                     case 2:
-                        damDict["melee"] = 20;
+                        damDict["meleeDam"] = 20;
                         wepDropNum = 14;
                         break;
                     case 3:
-                        damDict["melee"] = 15;
+                        damDict["meleeDam"] = 15;
                         wepDropNum = 19;
                         break;
                 }
