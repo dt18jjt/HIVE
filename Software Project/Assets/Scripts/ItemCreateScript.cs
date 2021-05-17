@@ -7,21 +7,25 @@ public class ItemCreateScript : MonoBehaviour
     public GameObject[] Items;
     public int itemChance;
     PlayerStat player;
+    GameObject pObj;
     // Start is called before the first frame update
     void Start()
     {
         itemChance = Random.Range(0, 6);
         player = GameObject.Find("Player").GetComponent<PlayerStat>();
+        pObj = GameObject.Find("Player");
     }
     void itemDrop()
     {
         //item drop chance based on threat level
-        if (itemChance <= 4 && PlayerPrefs.GetInt("Threat Level") == 1)
+        if (itemChance <= 4 && player.threatLV == 1)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
-        else if (itemChance <= 2 && PlayerPrefs.GetInt("Threat Level") == 2)
+        else if (itemChance <= 2 && player.threatLV == 2)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
-        else if (itemChance <= 1 && PlayerPrefs.GetInt("Threat Level") == 3)
+        else if (itemChance <= 1 && player.threatLV == 3)
             Instantiate(Items[Random.Range(0, Items.Length)], transform.position, Quaternion.identity);
+        pObj.GetComponent<AudioSource>().PlayOneShot(player.boxSound);
+
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

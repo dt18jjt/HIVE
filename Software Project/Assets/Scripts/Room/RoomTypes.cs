@@ -6,7 +6,7 @@ public class RoomTypes : MonoBehaviour
 {
     int roomChance;
     public bool enemyOn = false, start = false, exit = false, shop = false, time = false, wJam = false, pBlocked = false,
-        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false, boss;
+        glitch = false, hazard = false, cache = false, entered = false, noEnemy = false, enemyBuff = false, boss, timeEnemies = false;
     private RoomCount count;
     private Countdown timeCountdown;
     private RoomTemplates templates;
@@ -148,44 +148,32 @@ public class RoomTypes : MonoBehaviour
         }
         enemyOn = (enemyCount > 0) ? true : false;
         //Passive ability floor effect
-        if(PlayerPrefs.GetInt("hOff") == 1)
+        if(PlayerPrefs.GetInt("hOff") == 1 && player.pAbilDict["heat"])
         {
-            if (player.pAbilDict["heat"])
                 floor.GetComponent<SpriteRenderer>().color = hotColor;
-            else
-                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
-        else if(PlayerPrefs.GetInt("cOff") == 1)
+        else if(PlayerPrefs.GetInt("cOff") == 1 && player.pAbilDict["cold"])
         {
-            if (player.pAbilDict["cold"])
-                floor.GetComponent<SpriteRenderer>().color = coldColor;
-            else
-                floor.GetComponent<SpriteRenderer>().color = normalColor;
+            floor.GetComponent<SpriteRenderer>().color = coldColor;
         }
-        else if(PlayerPrefs.GetInt("sOff") == 1)
+        else if(PlayerPrefs.GetInt("sOff") == 1 && player.pAbilDict["shock"])
         {
-            if (player.pAbilDict["shock"] && !player.shockDam)
+            if (!player.shockDam)
                 floor.GetComponent<SpriteRenderer>().color = shockColor;
             else if (player.shockDam)
                 floor.GetComponent<SpriteRenderer>().color = shockDamColor;
-            else
-                floor.GetComponent<SpriteRenderer>().color = normalColor;
         }
-        else if(PlayerPrefs.GetInt("eOff") == 1)
+        else if(PlayerPrefs.GetInt("eOff") == 1 && player.pAbilDict["earth"])
         {
-            if (player.pAbilDict["earth"])
-                floor.GetComponent<SpriteRenderer>().color = earthColor;
-            else
-                floor.GetComponent<SpriteRenderer>().color = normalColor;
+            floor.GetComponent<SpriteRenderer>().color = earthColor;
         }
-        else if (PlayerPrefs.GetInt("dOff") == 1)
+        else if (PlayerPrefs.GetInt("dOff") == 1 && player.pAbilDict["decoy"])
         {
-             if (player.pAbilDict["decoy"])
-                floor.GetComponent<SpriteRenderer>().color = decoyColor;
-            else
-                floor.GetComponent<SpriteRenderer>().color = normalColor;
+            floor.GetComponent<SpriteRenderer>().color = decoyColor;
         }
-        
+        else
+            floor.GetComponent<SpriteRenderer>().color = normalColor;
+
         //room clear cheat
         if (Input.GetKey(KeyCode.F1))
         {
@@ -256,6 +244,7 @@ public class RoomTypes : MonoBehaviour
         {
             player.wepJam = false;
             player.powBlock = false;
+            timeEnemies = false;
         }
         //Lower enemy count when a enemy dies
         //if (other.CompareTag("Enemy"))
@@ -433,7 +422,7 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator eSpawn()
     {
-        enemySpawnCount = Random.Range(3, 7);
+        enemySpawnCount = (timeEnemies) ? Random.Range(2, 4) : Random.Range(3, 6);
         enemyCount = enemySpawnCount;
         int postionNum = 0;
         Vector3 position = eSpawnPoints[postionNum].position;
@@ -451,15 +440,16 @@ public class RoomTypes : MonoBehaviour
     }
     IEnumerator waveSpawn()
     {
+        timeEnemies = true;
         float spawnTime = 12.0f;
-        while (timeCountdown.timeRemaining > 0 && enemyCount < 7)
+        while (timeCountdown.timeRemaining > 0)
         {
             yield return new WaitForSeconds(spawnTime);
             if (timeCountdown.timerIsRunning)
                 StartCoroutine(eSpawn());
             eSpawnShuffle();
             iSpawnShuffle();
-            if (itemCount <= 1)
+            if (itemCount <= 2)
                 itemSpawn();
 
         }

@@ -87,7 +87,7 @@ public class EnemyFollow : MonoBehaviour
             splitCooldown -= Time.deltaTime;
         //target change
         if (confuseCooldown <= 0)
-            target = (player.pAbilDict["decoy"]) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
+            target = (player.pAbilDict["decoy"] && !Hypno) ? GameObject.FindGameObjectWithTag("Decoy").GetComponent<Transform>():
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         else if(confuseCooldown > 0)
         {
@@ -189,7 +189,7 @@ public class EnemyFollow : MonoBehaviour
     void enemyCloseAtk(){
         if (!player.pAbilDict["decoy"] && confuseCooldown <= 0)
         {
-            player.Damage((player.enemyBuff) ?Random.Range(15, 30) : Random.Range(10, 20));
+            player.Damage((player.enemyBuff) ?Random.Range(15, 20) : Random.Range(10, 15));
         }
         else if (confuseCooldown > 0)
             target.GetComponent<EnemyFollow>().Damage(10);
@@ -428,12 +428,11 @@ public class EnemyFollow : MonoBehaviour
             Debug.Log("Cryo:" + log.playerAction["cryoHit"]);
         }
         //Hit by active electro
-        if (other.CompareTag("Bolt") )
+        if (other.CompareTag("Bolt"))
         {
             Damage((Electro) ? player.damDict["boltDam"]/2 : player.damDict["boltDam"]);
             if (!log.del005)
                 log.playerAction["electroHit"]++;
-            //log.electroHit++;
             Debug.Log("Electro:" + log.playerAction["electroHit"]);
         }
         //Hit by active geo

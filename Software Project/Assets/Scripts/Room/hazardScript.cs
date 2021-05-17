@@ -8,11 +8,13 @@ public class hazardScript : MonoBehaviour
     public Color inactiveColor, activeColor;
     public GameObject hArea;
     PlayerStat stat;
+    GameObject pObj;
     camShake shake;
     // Start is called before the first frame update
     void Start()
     {
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
+        pObj = GameObject.Find("Player");
         gameObject.GetComponent<SpriteRenderer>().color = inactiveColor;
         StartCoroutine(activeOn());
         shake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<camShake>();
@@ -25,6 +27,7 @@ public class hazardScript : MonoBehaviour
         GameObject h = Instantiate(hArea, transform.position, Quaternion.identity);
         shake.shakeDuration = 0.2f;
         Destroy(h, 0.2f);
+        pObj.GetComponent<AudioSource>().PlayOneShot(stat.bombSound);
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);
     }

@@ -17,14 +17,6 @@ public class Cheats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        enemy = new EnemyFollow[enemies.Length];
-        for (int i = 0; i < enemies.Length; ++i)
-            enemy[i] = enemies[i].GetComponent<EnemyFollow>();
-        if (Input.GetKey(KeyCode.F1))
-        {
-            
-        }
         //Active switch cheat
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {

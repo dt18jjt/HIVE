@@ -138,7 +138,7 @@ public class selectAbilityScript : MonoBehaviour
         if (cooldown > 0)
             cooldown -= Time.deltaTime;
         //countine text
-        contText.text = (cooldown <= 0) ? "PRESS START/SPACE": ""; 
+        contText.text = (cooldown <= 0) ? "PRESS START/SPACE TO Continue": ""; 
         //select ability
         if (active)
         {
@@ -219,15 +219,15 @@ public class selectAbilityScript : MonoBehaviour
                     break;
                 case 2:
                     abilityText.text = "STATIC SHOCK";
-                    explainText.text = "The player raises a shield of rocks to protect themselves.";
+                    explainText.text = "When hit all enemies take damage ";
                     break;
                 case 3:
                     abilityText.text = "EARTH BARRIER";
-                    explainText.text = "When hit by an enemy they also take damage";
+                    explainText.text = "raises a shield of rocks stopping enemy attacks";
                     break;
                 case 4:
                     abilityText.text = "ILLUSION DECOY";
-                    explainText.text = "Spawn a decoy that enemies will attack for a period.";
+                    explainText.text = "Spawn a decoy that enemies will attack for a period";
                     break;
             }
         }

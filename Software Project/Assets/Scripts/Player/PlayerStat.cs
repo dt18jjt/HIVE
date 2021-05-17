@@ -31,7 +31,7 @@ public class PlayerStat : MonoBehaviour
     private Image threatImg;
     public Color activeColor, passiveColor;
     public GameObject hitEffect, deadEffect; //hit particle
-    public GameObject pulse, jamImage, blockImage, hazardImage, pickupText, decoy;
+    public GameObject jamImage, blockImage, hazardImage, pickupText, decoy;
     public GameObject[] glitchItems; // items dropped from glitches
     public GameObject[] cacheItems; // items dropped from cache
     public GameObject[] crateItems; // items dropped from crate
@@ -52,7 +52,6 @@ public class PlayerStat : MonoBehaviour
         pickupText.SetActive(false);
         //Setting Damage Values
         {
-            damDict.Add("pulseDam", 5);
             damDict.Add("bulletDam", 10);
             damDict.Add("shellDam", 10);
             damDict.Add("explosiveDam", 20);
@@ -446,11 +445,11 @@ public class PlayerStat : MonoBehaviour
                         wepDropNum = 7;
                         break;
                     case 2:
-                        damDict["explosiveDam"] = 20;
+                        damDict["explosiveDam"] = 30;
                         wepDropNum = 12;
                         break;
                     case 3:
-                        damDict["explosiveDam"] = 20;
+                        damDict["explosiveDam"] = 30;
                         wepDropNum = 17;
                         break;
                 }
@@ -1476,6 +1475,7 @@ public class PlayerStat : MonoBehaviour
         {
             StartCoroutine(exitLevel());
             GetComponent<AudioSource>().PlayOneShot(exitSound);
+            hp += 20;
             player.stopMovement = true;
         }
         // Hit by enemy projectile
@@ -1513,13 +1513,6 @@ public class PlayerStat : MonoBehaviour
         //Hit by bomb projectile
         if (other.CompareTag("E.Bomb") || other.CompareTag("Bomb"))
             Damage(Random.Range(10, 15));
-    }
-    private IEnumerator pulseAction()
-    {
-        pulse.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
-        pulse.SetActive(false);
-        pulseCooldown = 1f;
     }
     private void OnTriggerStay2D(Collider2D other)
     {
@@ -1955,6 +1948,11 @@ public class PlayerStat : MonoBehaviour
         {
             StartCoroutine(textOff());
             wepPickupDict["pUP"] = false;
+        }
+        if (other.CompareTag("Cache"))
+        {
+            StartCoroutine(textOff());
+            wepPickupDict["cache"] = false;
         }
         if (other.CompareTag("Shop"))
         {

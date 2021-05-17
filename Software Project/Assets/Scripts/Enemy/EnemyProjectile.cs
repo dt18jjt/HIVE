@@ -24,9 +24,9 @@ public class EnemyProjectile : MonoBehaviour
         List<float> newModifer = new List<float> { 1f, 1.25f, .75f };
         targetModfier = (bossAlpha) ? newModifer[Random.Range(0, 3)] : 1f;
         //Bullet set to target
-        target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((!stat.pAbilDict["decoy"]) ?
-            (player.transform.position * targetModfier - transform.position).normalized * speed : 
-            (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed);
+        target = (confused) ? (enemy.transform.position - transform.position).normalized * speed : ((stat.pAbilDict["decoy"] && !weak) ?
+            (GameObject.FindWithTag("Decoy").transform.position - transform.position).normalized * speed : 
+            (player.transform.position * targetModfier - transform.position).normalized * speed);
         //Go to target pos
         if(!noPath)
             rb2D.velocity = new Vector2(target.x, target.y);

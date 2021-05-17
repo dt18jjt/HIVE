@@ -694,7 +694,7 @@ public class PlayerMovement : MonoBehaviour
             var aImage = Instantiate(afterImage, transform.position, Quaternion.identity);
             Destroy(aImage, 1f);
             //damage area
-            StartCoroutine(boltArea());
+            StartCoroutine(boltSpawn());
             //Invincibilty
             stat.damCooldown = 1f;
             //change postion
@@ -708,11 +708,12 @@ public class PlayerMovement : MonoBehaviour
         }
        
     }
-    IEnumerator boltArea()
+    IEnumerator boltSpawn()
     {
-        BoltArea.SetActive(true);
-        yield return new WaitForSeconds(0.4f);
-        BoltArea.SetActive(false);
+        yield return new WaitForSeconds(0.01f);
+        GameObject b = Instantiate(BoltArea, transform.position, Quaternion.identity);
+        b.transform.position = transform.position;
+        Destroy(b, .4f);
     }
     void controllerDetection()
     {
