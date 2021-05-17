@@ -96,32 +96,32 @@ public class buyScript : MonoBehaviour
     }
     void lMedkit()
     {
-        stat.hp += 40;
+        stat.hp += 50;
     }
     void bAmmoS()
     {
-        stat.ammoDict["bullet"] += 8;
+        stat.ammoDict["bullet"] += 12;
     }
     void bAmmoL()
     {
-        stat.ammoDict["bullet"] += 8;
+        stat.ammoDict["bullet"] += 24;
     }
     void sAmmoS()
     {
-        stat.ammoDict["shell"] += 4;
+        stat.ammoDict["shell"] += 6;
     }
     void sAmmoL()
     {
-        stat.ammoDict["shell"] += 8;
+        stat.ammoDict["shell"] += 12;
     }
     void eAmmoS()
     {
-        stat.ammoDict["explosive"] += 2;
+        stat.ammoDict["explosive"] += 3;
 
     }
     void eAmmoL()
     {
-        stat.ammoDict["explosive"] += 4;
+        stat.ammoDict["explosive"] += 5;
     }
     void HPMax()
     {

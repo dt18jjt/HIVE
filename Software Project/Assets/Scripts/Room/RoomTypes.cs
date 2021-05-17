@@ -148,26 +148,26 @@ public class RoomTypes : MonoBehaviour
         }
         enemyOn = (enemyCount > 0) ? true : false;
         //Passive ability floor effect
-        if(PlayerPrefs.GetInt("hOff") == 1 && player.pAbilDict["heat"])
+        if(player.pAbilDict["heat"])
         {
                 floor.GetComponent<SpriteRenderer>().color = hotColor;
         }
-        else if(PlayerPrefs.GetInt("cOff") == 1 && player.pAbilDict["cold"])
+        else if(player.pAbilDict["cold"])
         {
             floor.GetComponent<SpriteRenderer>().color = coldColor;
         }
-        else if(PlayerPrefs.GetInt("sOff") == 1 && player.pAbilDict["shock"])
+        else if(player.pAbilDict["shock"])
         {
             if (!player.shockDam)
                 floor.GetComponent<SpriteRenderer>().color = shockColor;
             else if (player.shockDam)
                 floor.GetComponent<SpriteRenderer>().color = shockDamColor;
         }
-        else if(PlayerPrefs.GetInt("eOff") == 1 && player.pAbilDict["earth"])
+        else if(player.pAbilDict["earth"])
         {
             floor.GetComponent<SpriteRenderer>().color = earthColor;
         }
-        else if (PlayerPrefs.GetInt("dOff") == 1 && player.pAbilDict["decoy"])
+        else if (player.pAbilDict["decoy"])
         {
             floor.GetComponent<SpriteRenderer>().color = decoyColor;
         }
@@ -190,20 +190,23 @@ public class RoomTypes : MonoBehaviour
         //when the player enters a special room 
         if (other.name == "Player")
         {
-            if (time && !entered)
-                timeRoom();
-            if (wJam && !entered)
-                StartCoroutine(wJamRoom());
-            if (pBlocked && !entered)
-                StartCoroutine(powBlockRoom());
-            if (hazard && !entered)
-                StartCoroutine(hazardRoom());
-            if (exit)
-                Instantiate(exitPortal, transform.position, Quaternion.identity);
-            if (glitch)
-                Instantiate(gIcon, transform.position, Quaternion.identity);
-            if (cache)
-                Instantiate(cIcon, transform.position, Quaternion.identity);
+            if (!start)
+            {
+                if (time && !entered)
+                    timeRoom();
+                if (wJam && !entered)
+                    StartCoroutine(wJamRoom());
+                if (pBlocked && !entered)
+                    StartCoroutine(powBlockRoom());
+                if (hazard && !entered)
+                    StartCoroutine(hazardRoom());
+                if (exit)
+                    Instantiate(exitPortal, transform.position, Quaternion.identity);
+                if (glitch)
+                    Instantiate(gIcon, transform.position, Quaternion.identity);
+                if (cache)
+                    Instantiate(cIcon, transform.position, Quaternion.identity);
+            }
             if (!entered && !noEnemy && !start)
             {
                 StartCoroutine(eSpawn());
@@ -228,6 +231,13 @@ public class RoomTypes : MonoBehaviour
         if (other.CompareTag("Shop") && exit)
         {
             Destroy(other.gameObject);
+        }
+        if (start)
+        {
+            if (other.CompareTag("Shop") || other.CompareTag("Cache") || other.CompareTag("Glitch"))
+            {
+                Destroy(other.gameObject);
+            }
         }
         //turn items into children of the room
         if (other.CompareTag("BAmmo") || other.CompareTag("ShAmmo") || other.CompareTag("Health") || other.CompareTag("Glitch") || other.CompareTag("BWep0") ||

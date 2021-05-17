@@ -188,6 +188,8 @@ MonoBehaviour:
   - {fileID: 7228287793672990769, guid: 97dc1f437caccbd43889ea88411bb1e1, type: 3}
   - {fileID: 7180156963077730162, guid: c3bfce595d391f14185e38764c40bafe, type: 3}
   - {fileID: 4795849580774925726, guid: a427e93798eaf96439fdd912a6326424, type: 3}
+  - {fileID: 9094988118585878941, guid: 8f79a4b9fd9591f48afe696bc5bfaed7, type: 3}
+  - {fileID: 9094988118585878941, guid: 8f79a4b9fd9591f48afe696bc5bfaed7, type: 3}
   itemChance: 0
 --- !u!61 &8815912783505368126
 BoxCollider2D:

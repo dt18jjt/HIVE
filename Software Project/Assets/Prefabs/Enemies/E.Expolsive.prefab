@@ -138,6 +138,7 @@ MonoBehaviour:
   enemy: 1
   grenade: 1
   mine: 0
+  seeker: 0
 --- !u!114 &8086394451181377368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759bd478538f82c429abdd1d0ea464fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
-  normalSpeed: 60
+  speed: 50
+  normalSpeed: 50
   targetModfier: 1
   minDam: 10
   maxDam: 15

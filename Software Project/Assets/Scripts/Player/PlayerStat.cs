@@ -43,7 +43,7 @@ public class PlayerStat : MonoBehaviour
     PlayerMovement player;
     EnemyProjectile eBullet;
     RoomTemplates templates;
-    public AudioClip hitSound, doorSound, bpSound, pickupSound, boxSound, exitSound, bombSound;
+    public AudioClip hitSound, doorSound, bpSound, pickupSound, boxSound, exitSound, bombSound, upSound, downSound;
     // Start is called before the first frame update
     void Start(){
         player = GetComponent<PlayerMovement>();
@@ -280,14 +280,22 @@ public class PlayerStat : MonoBehaviour
         {
             threatLV += (threatLV <= 2) ? 1 : 0;
             threatGauge = (threatLV <= 2) ? 0 : 100;
+            GetComponent<AudioSource>().PlayOneShot(upSound);
             Debug.Log("Threat level up!");
+        }
+        if (threatGauge >= 100 && threatLV == 3)
+        {
+            threatGauge = 100;
+
         }
         if (threatGauge < 0 && threatLV > 1)
         {
             threatGauge = (threatLV > 1) ? 50 : 0;
             threatLV -= (threatLV > 1) ? 1 : 0;
+            GetComponent<AudioSource>().PlayOneShot(upSound);
             Debug.Log("Threat level down!");
         }
+
         //When player is colliding with lab pod
         shop();
         setBarSize();
@@ -365,7 +373,20 @@ public class PlayerStat : MonoBehaviour
                 }
                 //cooldown after being hit
                 damCooldown = 1.5f;
-                threatGauge -= 10;
+                //decrease threat gauge
+                switch (threatLV)
+                {
+                    case 1:
+                        threatGauge -= 10;
+                        break;
+                    case 2:
+                        threatGauge -= 20;
+                        break;
+                    case 3:
+                        threatGauge -= 40;
+                        break;
+                }
+                    
             }
             if (log.noDamage)
                 log.noDamage = false;
@@ -413,11 +434,11 @@ public class PlayerStat : MonoBehaviour
                 switch (wep1Level)
                 {
                     case 0:
-                        damDict["shellDam"] = 5;
+                        damDict["shellDam"] = 10;
                         wepDropNum = 1;
                         break;
                     case 1:
-                        damDict["shellDam"] = 10;
+                        damDict["shellDam"] = 15;
                         wepDropNum = 6;
                         break;
                     case 2:
@@ -738,7 +759,7 @@ public class PlayerStat : MonoBehaviour
                 {
                     showEffect = true;
                     pickedUp = true;
-                    float ammo = Random.Range(6, 13);
+                    float ammo = Random.Range(8, 18);
                     ammoDict["bullet"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Bullets + " + ammo.ToString();
                     GetComponent<AudioSource>().PlayOneShot(pickupSound);
@@ -751,7 +772,8 @@ public class PlayerStat : MonoBehaviour
                 {
                     showEffect = true;
                     pickedUp = true;
-                    float ammo = Random.Range(4, 11);
+                    List<int> ammoList = new List<int> { 4, 6, 8, 10};
+                    float ammo = ammoList[Random.Range(0, 4)];
                     ammoDict["shell"] += ammo;
                     pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     GetComponent<AudioSource>().PlayOneShot(pickupSound);
@@ -867,7 +889,8 @@ public class PlayerStat : MonoBehaviour
                     else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
                     {
                         StartCoroutine(pickedOff());
-                        float ammo = Random.Range(4, 11);
+                        List<int> ammoList = new List<int> { 4, 6, 8, 10 };
+                        float ammo = ammoList[Random.Range(0, 4)];
                         ammoDict["shell"] += ammo;
                         pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     }
@@ -1003,7 +1026,8 @@ public class PlayerStat : MonoBehaviour
                     else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
                     {
                         StartCoroutine(pickedOff());
-                        float ammo = Random.Range(4, 11);
+                        List<int> ammoList = new List<int> { 4, 6, 8, 10 };
+                        float ammo = ammoList[Random.Range(0, 4)];
                         ammoDict["shell"] += ammo;
                         pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     }
@@ -1139,7 +1163,8 @@ public class PlayerStat : MonoBehaviour
                     else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
                     {
                         StartCoroutine(pickedOff());
-                        float ammo = Random.Range(4, 11);
+                        List<int> ammoList = new List<int> { 4, 6, 8, 10 };
+                        float ammo = ammoList[Random.Range(0, 4)];
                         ammoDict["shell"] += ammo;
                         pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     }
@@ -1275,7 +1300,8 @@ public class PlayerStat : MonoBehaviour
                     else if (ammoDict["shell"] < ammoMaxDict["shellMax"])
                     {
                         StartCoroutine(pickedOff());
-                        float ammo = Random.Range(4, 11);
+                        List<int> ammoList = new List<int> { 4, 6, 8, 10 };
+                        float ammo = ammoList[Random.Range(0, 4)];
                         ammoDict["shell"] += ammo;
                         pickupText.GetComponent<TextMesh>().text = "Shells + " + ammo.ToString();
                     }

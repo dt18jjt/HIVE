@@ -1388,6 +1388,7 @@ MonoBehaviour:
   shopUse: 0
   stackUse: 0
   healthUse: 0
+  slots: 0
   highestActions: []
   noDamage: 1
   highString: 
@@ -2442,7 +2443,6 @@ Transform:
   - {fileID: 308084458}
   - {fileID: 1188110058}
   - {fileID: 1200439518}
-  - {fileID: 3876976275591655129}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2461,6 +2461,7 @@ MonoBehaviour:
   runSpeed: 50
   isDash: 0
   controller: 0
+  stopMovement: 0
   miniMap: {fileID: 1324596070}
   Map: {fileID: 15493613}
   crosshair: {fileID: 1450093299}
@@ -2477,7 +2478,8 @@ MonoBehaviour:
   bulletStart: {fileID: 701834201}
   afterImage: {fileID: 4610249143137853502, guid: b97d73713575fc8458b2c6a42d15445c,
     type: 3}
-  BoltArea: {fileID: 3876976275591655128}
+  BoltArea: {fileID: 3876976275957387666, guid: a2691c9b17830f943a142030a3bd7d4d,
+    type: 3}
   tremorArea: {fileID: 4832254895289672536, guid: 7f6a2199ecb4a7a4ca839411065f3a06,
     type: 3}
   spriteObj: {fileID: 0}
@@ -2603,6 +2605,7 @@ MonoBehaviour:
   ammoStack1: 0
   ammoStack2: 0
   wepDropNum: 0
+  wepDropNum2: 0
   damCooldown: 0
   pulseCooldown: 0
   meleeCooldown: 0
@@ -2633,7 +2636,6 @@ MonoBehaviour:
     type: 3}
   deadEffect: {fileID: 3298746938982423841, guid: b9a1acb56a0a8594e89917c1e640e355,
     type: 3}
-  pulse: {fileID: 1200439515}
   jamImage: {fileID: 865206566}
   blockImage: {fileID: 463213302}
   hazardImage: {fileID: 1705150375}
@@ -2716,6 +2718,8 @@ MonoBehaviour:
   boxSound: {fileID: 8300000, guid: 9d22f4bcb1e793b4e896251e16033920, type: 3}
   exitSound: {fileID: 8300000, guid: 51271cdee5cf12940af3169c1dffc296, type: 3}
   bombSound: {fileID: 8300000, guid: 89d05f9e6654ae34f95a701a7ebec986, type: 3}
+  upSound: {fileID: 8300000, guid: 7e2d114ceb38d9442bf9951b1374e130, type: 3}
+  downSound: {fileID: 8300000, guid: 219bf553b6d169b458d54179da238f3b, type: 3}
 --- !u!82 &931535236
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4889,104 +4893,6 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0107e223eb5b33647a1785244588ea45, type: 3}
   m_Color: {r: 1, g: 0, b: 0.93995, a: 0.72156864}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.2, y: 0.2}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!1 &3876976275591655128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3876976275591655129}
-  - component: {fileID: 3876976275591655135}
-  - component: {fileID: 3876976275591655134}
-  m_Layer: 0
-  m_Name: Bolt
-  m_TagString: Bolt
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &3876976275591655129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876976275591655128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.012769067, y: 0.0016029, z: -0.5713247}
-  m_LocalScale: {x: 3.3486762, y: 3.3486762, z: 3.9260933}
-  m_Children: []
-  m_Father: {fileID: 931535230}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &3876976275591655134
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876976275591655128}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0004794294, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.09089117
---- !u!212 &3876976275591655135
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3876976275591655128}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.95357776, g: 0.98039216, b: 0, a: 0.12156863}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

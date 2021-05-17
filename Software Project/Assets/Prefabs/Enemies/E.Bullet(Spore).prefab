@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759bd478538f82c429abdd1d0ea464fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 90
-  normalSpeed: 90
+  speed: 60
+  normalSpeed: 60
   targetModfier: 1
   minDam: 5
   maxDam: 10

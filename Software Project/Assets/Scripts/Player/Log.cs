@@ -60,9 +60,9 @@ public class Log : MonoBehaviour
         if (!add004)
             add004 = (highestActions.Contains("cryoHit")) ? true : false;
         if (!add005)
-            add005 = (highestActions.Contains("electroHit")) ? true : false;
+            add005 = (highestActions.Contains("geoHit")) ? true : false;
         if (!add006)
-            add006 = (highestActions.Contains("geoHit")) ? true : false;
+            add006 = (highestActions.Contains("electroHit")) ? true : false;
         if (!add007)
             add007 = (highestActions.Contains("hypnoHit")) ? true : false;
         if (!add008)

@@ -625,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &453675276
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3099,8 +3099,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 79.599976, y: -328.76}
-  m_SizeDelta: {x: 1578.4568, y: 117.76492}
+  m_AnchoredPosition: {x: 39.794, y: -324.8}
+  m_SizeDelta: {x: 1698.4827, y: 49.39566}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792527979
 MonoBehaviour:
@@ -3134,7 +3134,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Tip: Destroy enemy corpses for extra BP'
+  m_Text: 'Tips: Destroy enemy corpses for extra BP. Use PSychic abilities more when
+    low on ammo'
 --- !u!222 &1792527980
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3914,7 +3915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2084402968
 RectTransform:
   m_ObjectHideFlags: 0

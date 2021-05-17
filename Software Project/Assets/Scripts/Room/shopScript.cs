@@ -22,14 +22,14 @@ public class shopScript : MonoBehaviour
         stat = GameObject.Find("Player").GetComponent<PlayerStat>();
         //Adding prices
         {
-            priceDict.Add("Health Pack S", 25);
-            priceDict.Add("Health Pack L", 40);
-            priceDict.Add("Bullet Ammo S", 15);
-            priceDict.Add("Bullet Ammo L", 30);
-            priceDict.Add("Shell Ammo S", 15);
-            priceDict.Add("Shell Ammo L", 30);
-            priceDict.Add("Explosive Ammo S", 15);
-            priceDict.Add("Explosive Ammo L", 30);
+            priceDict.Add("Health Pack + 20", 25);
+            priceDict.Add("Health Pack + 50", 40);
+            priceDict.Add("Bullet Ammo + 12", 15);
+            priceDict.Add("Bullet Ammo + 24", 30);
+            priceDict.Add("Shell Ammo + 6", 15);
+            priceDict.Add("Shell Ammo + 12", 30);
+            priceDict.Add("Explosive Ammo + 3", 15);
+            priceDict.Add("Explosive Ammo + 5", 30);
             priceDict.Add("Health Booster", 50);
             priceDict.Add("Psychic Booster", 50);
             priceDict.Add("Ammo Stack + 1", 40);
@@ -51,14 +51,14 @@ public class shopScript : MonoBehaviour
         }
         //Adding effects
         {
-            effectDict.Add("Health Pack S", 0);
-            effectDict.Add("Health Pack L", 1);
-            effectDict.Add("Bullet Ammo S", 2);
-            effectDict.Add("Bullet Ammo L", 3);
-            effectDict.Add("Shell Ammo S", 4);
-            effectDict.Add("Shell Ammo L", 5);
-            effectDict.Add("Explosive Ammo S", 6);
-            effectDict.Add("Explosive Ammo L", 7);
+            effectDict.Add("Health Pack + 20", 0);
+            effectDict.Add("Health Pack + 50", 1);
+            effectDict.Add("Bullet Ammo + 12", 2);
+            effectDict.Add("Bullet Ammo + 24", 3);
+            effectDict.Add("Shell Ammo + 6", 4);
+            effectDict.Add("Shell Ammo + 12", 5);
+            effectDict.Add("Explosive Ammo + 3", 6);
+            effectDict.Add("Explosive Ammo + 5", 7);
             effectDict.Add("Health Booster", 8);
             effectDict.Add("Psychic Booster", 9);
             effectDict.Add("Ammo Stack + 1", 10);
