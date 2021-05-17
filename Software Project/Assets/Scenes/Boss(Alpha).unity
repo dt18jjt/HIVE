@@ -2990,6 +2990,7 @@ MonoBehaviour:
   bombSound: {fileID: 8300000, guid: 89d05f9e6654ae34f95a701a7ebec986, type: 3}
   upSound: {fileID: 8300000, guid: 7e2d114ceb38d9442bf9951b1374e130, type: 3}
   downSound: {fileID: 8300000, guid: 219bf553b6d169b458d54179da238f3b, type: 3}
+  pSound: {fileID: 8300000, guid: fc758b3bff646e14586e15c5caedd617, type: 3}
 --- !u!82 &931535236
 AudioSource:
   m_ObjectHideFlags: 0

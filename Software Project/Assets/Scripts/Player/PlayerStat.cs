@@ -43,7 +43,7 @@ public class PlayerStat : MonoBehaviour
     PlayerMovement player;
     EnemyProjectile eBullet;
     RoomTemplates templates;
-    public AudioClip hitSound, doorSound, bpSound, pickupSound, boxSound, exitSound, bombSound, upSound, downSound;
+    public AudioClip hitSound, doorSound, bpSound, pickupSound, boxSound, exitSound, bombSound, upSound, downSound, pSound;
     // Start is called before the first frame update
     void Start(){
         player = GetComponent<PlayerMovement>();
@@ -1501,8 +1501,8 @@ public class PlayerStat : MonoBehaviour
         {
             StartCoroutine(exitLevel());
             GetComponent<AudioSource>().PlayOneShot(exitSound);
-            hp += 20;
-            player.stopMovement = true;
+            hp += 10;
+            player.runSpeed = 20f;
         }
         // Hit by enemy projectile
         if (other.CompareTag("E.Bullet"))
@@ -2105,6 +2105,7 @@ public class PlayerStat : MonoBehaviour
                     if (!pAbilDict["heat"]){
                         pp -= 20;
                         pAbilDict["heat"] = true;
+                        GetComponent<AudioSource>().PlayOneShot(pSound);
                     }
                 }
                 else if (pAbilDict["heat"])
@@ -2116,6 +2117,7 @@ public class PlayerStat : MonoBehaviour
                     if (!pAbilDict["cold"]){
                         pp -= 20;
                         pAbilDict["cold"] = true;
+                        GetComponent<AudioSource>().PlayOneShot(pSound);
                     }
                 }
                 else if (pAbilDict["cold"])
@@ -2128,10 +2130,12 @@ public class PlayerStat : MonoBehaviour
                     if (!pAbilDict["shock"]){
                         pp -= 20;
                         pAbilDict["shock"] = true;
+                        GetComponent<AudioSource>().PlayOneShot(pSound);
                     }
                 }
                 else if (pAbilDict["shock"])
                     pAbilDict["shock"] = false;
+
             }
             //Passive earth
             if (Passive == "Earth Barrier"){
@@ -2141,6 +2145,7 @@ public class PlayerStat : MonoBehaviour
                     {
                         pp -= 20;
                         pAbilDict["earth"] = true;
+                        GetComponent<AudioSource>().PlayOneShot(pSound);
                     }
                 }
                 else if (pAbilDict["earth"])
@@ -2156,6 +2161,7 @@ public class PlayerStat : MonoBehaviour
                         decoy.SetActive(true);
                         decoy.transform.position = transform.position;
                         pAbilDict["decoy"] = true;
+                        GetComponent<AudioSource>().PlayOneShot(pSound);
                     }
                 }
                 else if (pAbilDict["decoy"])

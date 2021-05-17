@@ -9,7 +9,7 @@ public class EnemyFollow : MonoBehaviour
         moveCooldown, startMvCooldown, frozenCooldown, tremorCooldown = 0f, confuseCooldown = 0f, avoidCooldown, disappearCooldown = 0f, adsorbCooldown = 0f,
         ghostCooldown = 0.5f, splitCooldown = 0f;
     float heatTimer = 1f, coldTimer = 1f;
-    public bool ranged, frozen = false, bpSpawn = false, Avoid;
+    public bool ranged, frozen = false, bpSpawn = false, Avoid, bomb = false;
     //Enemy Types
     public bool Pyro, Cryo, Geo, Electro, Hypno, Explosive, Laser, Bullet, Shell, Melee;
     public GameObject projectile, confusionProjectile, burnProjectile, sporeProjectile, weakProjectile, splitProjectile, BP, Corpse, hitEffect, adsorbEffect,
@@ -236,7 +236,7 @@ public class EnemyFollow : MonoBehaviour
                 GameObject hit = Instantiate(hitEffect, transform.position, Quaternion.identity) as GameObject;
                 hit.GetComponent<ParticleSystem>().Play();
                 heatTimer = 1f;
-                hp -= 3;
+                hp -= 5;
             }
         }
         if (!player.pAbilDict["heat"])
@@ -283,7 +283,11 @@ public class EnemyFollow : MonoBehaviour
             splitSpawn(4);
         if (adsorbCooldown > 0)
         {
-            Instantiate(bombProjectile, transform.position, Quaternion.identity);
+            if (!bomb)
+            {
+                Instantiate(bombProjectile, transform.position, Quaternion.identity);
+                StartCoroutine(aBomb());
+            }
         }
 
     }
@@ -344,6 +348,12 @@ public class EnemyFollow : MonoBehaviour
         GetComponent<SpriteRenderer>().color = tmp;
         //reset ghost cooldown
         ghostCooldown = 0.5f;
+    }
+    public IEnumerator aBomb()
+    {
+        bomb = true;
+        yield return new WaitForSeconds(.1f);
+        bomb = false;
     }
     public IEnumerator adsorb()
     {

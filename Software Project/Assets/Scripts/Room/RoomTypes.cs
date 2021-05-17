@@ -255,6 +255,8 @@ public class RoomTypes : MonoBehaviour
             player.wepJam = false;
             player.powBlock = false;
             timeEnemies = false;
+            cache = false;
+            glitch = false;
         }
         //Lower enemy count when a enemy dies
         //if (other.CompareTag("Enemy"))
